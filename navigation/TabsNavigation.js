@@ -5,14 +5,14 @@ import DiaryboxScreen from "../screens/DiaryboxScreen";
 import SearchScreen from "../screens/SearchScreen";
 import CalenderScreen from "../screens/CalenderScreen";
 import NotificationScreen from "../screens/NotificationScreen";
-import WritingDiaryScreen from "../screens/WritingDiaryScreen";
+import MyDiaryListScreen from "../screens/MyDiaryListScreen";
 import { Ionicons } from "@expo/vector-icons";
 
 const TabsNavigation = createBottomTabNavigator(
   {
     Diarybox: {
-      //screen: DiaryboxScreen,
-      screen: WritingDiaryScreen,
+      screen: DiaryboxScreen,
+      //screen: MyDiaryListScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <Ionicons
