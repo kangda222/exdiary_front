@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -19,7 +19,12 @@ export default class WritingDiaryScreen extends Component {
         return (<View styles={styles.container}>
             <View style={{flexDirection:'row', padding:5}}>
                 <Text style={{padding:10}}>제목 : </Text>
-                <TextInput placeholder='제목을 입력해주세요' value={this.state.title} name='title' onChangeText={(text) => this.setState({title:text})}></TextInput>
+                <TextInput style={{width:'70%', marginRight:17}} placeholder='제목을 입력해주세요' value={this.state.title} name='title' onChangeText={(text) => this.setState({title:text})}></TextInput>
+                <Button style={styles.button} title='저장'/>
+            </View>
+            <View style={styles.line}></View> 
+            <View>
+                
             </View>
         </View>
     )}
@@ -29,10 +34,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    container2:{
-        alignItems: 'center',
-        justifyContent:'center',
-        marginTop:'33%'
+    button:{
+        width:40,
+        height:25,
+        backgroundColor:'powderblue',
+        borderRadius: 10,
     },
     line: { 
         backgroundColor:'powderblue',
