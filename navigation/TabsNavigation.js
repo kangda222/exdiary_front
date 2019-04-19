@@ -11,8 +11,8 @@ import { Ionicons } from "@expo/vector-icons";
 const TabsNavigation = createBottomTabNavigator(
   {
     Diarybox: {
-      //screen: DiaryboxScreen,
-      screen: MyDiaryListScreen,
+      screen: DiaryboxScreen,
+      //screen: MyDiaryListScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <Ionicons
