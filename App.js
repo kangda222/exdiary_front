@@ -10,6 +10,7 @@ import AppContainer from "./components/AppContainer";
 const { persistor, store } = configureStore();
 
 class App extends React.Component {
+  //test
   state = {
     isLoadingComplete: false
   };
