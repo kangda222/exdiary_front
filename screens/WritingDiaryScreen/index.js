@@ -21,16 +21,6 @@ export default class WritingDiaryScreen extends Component {
                 <Text style={{padding:10}}>제목 : </Text>
                 <TextInput placeholder='제목을 입력해주세요' value={this.state.title} name='title' onChangeText={(text) => this.setState({title:text})}></TextInput>
             </View>
-            <View style={styles.line}></View> 
-            <View>
-                { !diaryList ? // 일기 리스트가 존재하지 않으면
-                    <View style={styles.container2}>
-                        <Text style={styles.text}>일기를 작성해봅시다!</Text>
-                        <Ionicons name='ios-add-circle-outline' size={50} onPress={()=>alert('일기쓰러가자')}/>
-                    </View>
-                    : <Text> 일기장에 해당하는 일기 리스트를 보여주도록 개발 </Text>
-                }
-            </View>
         </View>
     )}
 };
