@@ -1,4 +1,5 @@
 // Imports
+import { AsyncStorage } from "react-native";
 
 // Actions
 const LOG_IN = "LOG_IN";
@@ -18,7 +19,9 @@ function logOut(user) {
 
 // API Actions
 function login(username, password) {
+  console.log(`login username : ${username} password : ${password}`);
   return dispatch => {
+    dispatch(setLogIn(""));
     return true;
   };
 }
@@ -50,10 +53,10 @@ function applyLogIn(state, action) {
   };
 }
 
-async function applyLogOut(state, action) {
+function applyLogOut(state, action) {
   console.log("===applyLogOut=============" + JSON.stringify(state));
   const { token } = action;
-  await AsyncStorage.clear();
+  AsyncStorage.clear();
   return {
     ...state,
     isLoggedIn: false,
