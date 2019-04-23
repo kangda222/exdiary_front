@@ -1,16 +1,19 @@
-import { connect } from "react-redux";
-import Action from "./action";
-import { actionCreators as userActions } from "../../redux/modules/user";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    login: (username, password) => {
-      return dispatch(userActions.login(username, password));
-    }
-  };
-};
+const LogInScreen = () => (
+  <View style={styles.container}>
+    <Text>LogInScreen</Text>
+  </View>
+);
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Action);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+export default LogInScreen;
