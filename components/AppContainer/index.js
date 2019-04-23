@@ -1,19 +1,11 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
-import RootNavigation from "../../navigation/RootNavigation";
+import { connect } from "react-redux";
+import AppContainer from "./screen";
 
-const AppContainer = () => (
-  <View style={styles.container}>
-    <StatusBar hidden={false} />
-    <RootNavigation />
-  </View>
-);
+const mapStateToProps = (state, ownProps) => {
+  const { user } = state;
+  return {
+    isLoggedIn: user.isLoggedIn
+  };
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  }
-});
-
-export default AppContainer;
+export default connect(mapStateToProps)(AppContainer);

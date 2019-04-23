@@ -2,21 +2,21 @@ import React from "react";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import TabsNavigation from "./TabsNavigation";
 import { Ionicons } from "@expo/vector-icons";
-import WritingScreen from '../screens/WritingDiaryScreen';
+import WritingScreen from "../screens/WritingDiaryScreen";
 
 const RootNavigation = createStackNavigator(
   {
     Tabs: {
       screen: TabsNavigation,
       navigationOptions: {
-        title: '교환일기',
-        headerRight: <Ionicons name='ios-contact' size={30}></Ionicons>,    
+        title: "교환일기",
+        headerRight: <Ionicons name="ios-contact" size={30} />
       }
     },
     WritingScreen: {
       screen: WritingScreen,
       navigationOptions: {
-        title: '글 작성', 
+        title: "글 작성"
       }
     }
   },
@@ -26,8 +26,6 @@ const RootNavigation = createStackNavigator(
       gesturesEnabled: true
     }
   }
-  
 );
-
 
 export default createAppContainer(RootNavigation);
