@@ -1,11 +1,24 @@
 import { connect } from "react-redux";
 import AppContainer from "./screen";
+import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
   const { user } = state;
   return {
-    isLoggedIn: user.isLoggedIn
+    isLoggedIn: user.isLoggedIn,
+    profile: user.profile
   };
 };
 
-export default connect(mapStateToProps)(AppContainer);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    initApp: () => {
+      dispatch(diaryActions.getDiary());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppContainer);

@@ -6,8 +6,15 @@ import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 
 class AppContainer extends Component {
   static propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired
+    isLoggedIn: PropTypes.bool.isRequired,
+    initApp: PropTypes.func.isRequired
   };
+  componentDidMount() {
+    const { isLoggedIn, initApp } = this.props;
+    if (isLoggedIn) {
+      initApp();
+    }
+  }
 
   render() {
     const { isLoggedIn } = this.props;

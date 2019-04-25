@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { AppLoading, Font, Asset } from "expo";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
 import configureStore from "./redux/configureStore";
@@ -11,7 +11,6 @@ const { persistor, store } = configureStore();
 //store.dispatch({ type: "LOG_OUT" });
 
 class App extends React.Component {
-  //test
   state = {
     isLoadingComplete: false
   };
@@ -39,7 +38,7 @@ class App extends React.Component {
     return Promise.all([
       Font.loadAsync({
         ...Ionicons.font,
-        ...MaterialIcons.font
+        ...Feather.font
       })
     ]);
   };

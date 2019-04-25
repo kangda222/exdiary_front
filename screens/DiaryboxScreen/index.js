@@ -1,19 +1,26 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { connect } from "react-redux";
+import Action from "./action";
+import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
-const DiaryboxScreen = () => (
-  <View style={styles.container}>
-    <Text>DiaryboxScreen</Text>
-  </View>
-);
+const mapStateToProps = (state, ownProps) => {
+  const {
+    diary: { myDiary, exDiary }
+  } = state;
+  return {
+    myDiary,
+    exDiary
+  };
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getDiary: () => {
+      dispatch(diaryActions.getDiary());
+    }
+  };
+};
 
-export default DiaryboxScreen;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Action);
