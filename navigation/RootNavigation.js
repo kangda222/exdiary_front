@@ -16,7 +16,7 @@ const RootNavigation = createStackNavigator(
     WritingScreen: {
       screen: WritingScreen,
       navigationOptions: {
-        title: "글 작성"
+        title: "글 작성" 
       }
     }
   },

@@ -12,10 +12,8 @@ const DiaryboxRoute = createStackNavigator(
       screen: WritingDiaryScreen
     }
   },
-  {
-    navigationOptions: {
-      headerMode: "none"
-    }
+  { 
+    headerMode: "none"
   }
 );
 
