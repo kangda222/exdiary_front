@@ -13,7 +13,7 @@ class Action extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevProps) {
-    if (nextProps.feed) {
+    if (nextProps.myDiary || nextProps.exDiary) {
       return {
         isFetching: false
       };

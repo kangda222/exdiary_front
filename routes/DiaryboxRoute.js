@@ -13,9 +13,7 @@ const DiaryboxRoute = createStackNavigator(
     }
   },
   {
-    navigationOptions: {
-      headerMode: "none"
-    }
+    headerMode: "none"
   }
 );
 

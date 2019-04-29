@@ -1,7 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import PropTypes from "prop-types";
+import DiaryBox from "../../components/Diarybox";
 
 const DiaryboxScreen = props => (
   <View style={styles.container}>
@@ -17,8 +24,20 @@ const DiaryboxScreen = props => (
       </>
     ) : (
       <>
-        <Text>{props.myDiary.length !== 0 ? "내일기" : ""}</Text>
+        {props.myDiary.length !== 0 ? (
+          <>
+            <Text>내일기</Text>
+            <DiaryBox {...props.myDiary[0]} />
+          </>
+        ) : null}
         <Text>{props.exDiary.length !== 0 ? "교환일기" : ""}</Text>
+        <FlatList
+          data={props.exDiary}
+          keyExtractor={item => item.id.toString()}
+          refreshing={props.isFetching}
+          onRefresh={props.refresh}
+          renderItem={({ item }) => <DiaryBox {...item} />}
+        />
       </>
     )}
   </View>
