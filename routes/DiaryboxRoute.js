@@ -9,9 +9,6 @@ const DiaryboxRoute = createStackNavigator(
     DiaryboxScreen: {
       screen: DiaryboxScreen
     },
-    WritingDiaryScreen: {
-      screen: WritingDiaryScreen
-    },
     DiarylistScreen: {
       screen: DiarylistScreen
     }

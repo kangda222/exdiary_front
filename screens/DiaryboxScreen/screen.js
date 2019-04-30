@@ -17,7 +17,7 @@ const DiaryboxScreen = props => (
         <Text>내일기</Text>
         <Text>일기를 써주세요...</Text>
         <TouchableOpacity
-          onPressOut={() => props.navigation.navigate("WritingDiaryScreen")}
+          onPressOut={() => props.navigation.navigate("WritingScreen")}
         >
           <Feather name={"plus-circle"} size={30} />
         </TouchableOpacity>

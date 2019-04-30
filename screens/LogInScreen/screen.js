@@ -51,15 +51,12 @@ const LogInScreen = props => (
                   <Text style={styles.fbText}>Log in with Facebook</Text>
               </View>
           </TouchableOpacity> */}
+      <TouchableOpacity onPressOut={() => props.navigation.navigate("SignUp")}>
+        <Text> 가입하기</Text>
+      </TouchableOpacity>
     </View>
   </View>
 );
-
-// const LogInScreen = () => (
-//   <View style={styles.container}>
-//     <Text>LogInScreen</Text>
-//   </View>
-// );
 
 const styles = StyleSheet.create({
   container: {
