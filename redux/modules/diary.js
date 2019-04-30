@@ -61,7 +61,10 @@ function getDiaryContent(id) {
   };
 }
 
-const initialState = {};
+const initialState = {
+  myDiary: [],
+  exDiary: []
+};
 
 function reducer(state = initialState, action) {
   switch (action.type) {
