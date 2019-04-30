@@ -4,7 +4,8 @@ import DiaryboxScreen from "./screen";
 
 class Action extends Component {
   static propTypes = {
-    feed: PropTypes.array,
+    myDiary: PropTypes.array,
+    exDiary: PropTypes.array,
     getDiary: PropTypes.func.isRequired
   };
 

@@ -5,6 +5,7 @@ import { AsyncStorage } from "react-native";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const SET_USER = "SET_USER";
+const SAVE_TOKEN = "SAVE_TOKEN";
 
 // Action Creators
 function setLogIn(token) {
@@ -25,6 +26,13 @@ function setUser(user) {
   };
 }
 
+function saveToken(token) {
+  return {
+    type: SAVE_TOKEN,
+    token
+  };
+}
+
 // API Actions
 function login(username, password) {
   console.log(`login username : ${username} password : ${password}`);
@@ -32,6 +40,15 @@ function login(username, password) {
     dispatch(setLogIn(""));
     dispatch(setUser({ name: "user01" }));
     return true;
+  };
+}
+
+function signUp(username, password, email) {
+  console.log(
+    `login username : ${username} password : ${password} email : ${email}`
+  );
+  return dispatch => {
+    return false;
   };
 }
 
@@ -49,6 +66,8 @@ function reducer(state = initialState, action) {
       return applyLogOut(state, action);
     case SET_USER:
       return applySetUser(state, action);
+    case SAVE_TOKEN:
+      return applySetToken(state, action);
     default:
       return state;
   }
@@ -83,10 +102,21 @@ function applySetUser(state, action) {
   };
 }
 
+function applySetToken(state, action) {
+  const { token } = action;
+  //localStorage.setItem("jwt", token);
+  return {
+    ...state,
+    isLoggedIn: true,
+    token: token
+  };
+}
+
 // Exports
 const actionCreators = {
   login,
-  logOut
+  logOut,
+  signUp
 };
 
 export { actionCreators };
