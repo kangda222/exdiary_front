@@ -51,19 +51,15 @@ class Action extends Component{
     }
 
     _focused = () => {
-        const {focusTitle, focused_title} = this.props;
         this.setState({
             focused_title : true
         })
-        focusTitle();
     }
 
     _unfocused = () => {
-        const {unFocusTitle} = this.props;
-        this.setState({
+        this.setState({ 
             focused_title : false
         })
-        unFocusTitle();
     }
 
     _onStyleKeyPress = (toolType) => {
