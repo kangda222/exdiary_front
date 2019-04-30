@@ -6,7 +6,6 @@ import  CNRichTextEditor , { CNToolbar, getInitialObject, getDefaultStyles} from
 import { MenuProvider,} from 'react-native-popup-menu';
 
 const defaultStyles = getDefaultStyles();
-
 const WritingDiaryScreen = props => {
     return (
         <MenuProvider style={styles.container}>
@@ -14,7 +13,10 @@ const WritingDiaryScreen = props => {
                 <Text style={{ padding: 5, fontSize: 15 }}>제목 : </Text>
                 <TextInput placeholder='제목을 입력해주세요' value={props.title} name='title' maxLength={50}
                     style={{ width: '70%', marginRight: 13, fontSize: 15 }}
-                    onChangeText={props.onTitleChanged} />
+                    onChangeText={props.onTitleChanged}
+                    onFocus={props.focused}
+                    onEndEditing={props.unfocused}
+                   />
                 <TouchableOpacity style={styles.button} onPressOut={props.save}><Text>저장</Text></TouchableOpacity>
             </View>
 
@@ -28,7 +30,7 @@ const WritingDiaryScreen = props => {
                     onSelectedTagChanged={props.onSelectedTagChanged}
                     onSelectedStyleChanged={props.onSelectedStyleChanged}
                     value={props.contents}
-                    style={{ backgroundColor: '#fff' }}
+                    style={{backgroundColor: '#fff' }}
                     styleList={defaultStyles}
                     onValueChanged={props.onValueChanged}
                     onRemoveImage={props.onRemoveImage}
@@ -36,23 +38,24 @@ const WritingDiaryScreen = props => {
                 </View>
                 </TouchableWithoutFeedback>
                 <View>
-                    <CNToolbar
-                      size={28}
-                      bold={<Text style={[styles.toolbarButton, styles.boldButton]}>B</Text>}
-                      italic={<Text style={[styles.toolbarButton, styles.italicButton]}>I</Text>}
-                      underline={<Text style={[styles.toolbarButton, styles.underlineButton]}>U</Text>}
-                      lineThrough={<Text style={[styles.toolbarButton, styles.lineThroughButton]}>S</Text>}
-                      body={<Text style={styles.toolbarButton}>T</Text>}
-                      ul={<Text style={styles.toolbarButton}>ul</Text>}
-                      ol={<Text style={styles.toolbarButton}>ol</Text>}
-                      image={<Ionicons name="ios-image" size={28} color="#737373" />}
-                      selectedTag={props.selectedTag}
-                      selectedStyles={props.selectedStyles}
-                      onStyleKeyPress={props.onStyleKeyPress}
-                      />
+                    {props.focused_title === true ? 
+                        null : 
+                        <CNToolbar
+                        size={28}
+                        bold={<Text style={[styles.toolbarButton, styles.boldButton]}>B</Text>}
+                        italic={<Text style={[styles.toolbarButton, styles.italicButton]}>I</Text>}
+                        underline={<Text style={[styles.toolbarButton, styles.underlineButton]}>U</Text>}
+                        lineThrough={<Text style={[styles.toolbarButton, styles.lineThroughButton]}>S</Text>}
+                        body={<Text style={styles.toolbarButton}>T</Text>}
+                        ul={<Text style={styles.toolbarButton}>ul</Text>}
+                        ol={<Text style={styles.toolbarButton}>ol</Text>}
+                        image={<Ionicons name="ios-image" size={28} color="#737373" />}
+                        selectedTag={props.selectedTag}
+                        selectedStyles={props.selectedStyles}
+                        onStyleKeyPress={props.onStyleKeyPress} />
+                } 
                 </View>
             </KeyboardAvoidingView>
-         
         </MenuProvider>
     )
 };

@@ -19,15 +19,14 @@ class Action extends Component{
     constructor(props){
        super(props);
         this.state = {
-            title: '',           
-            height: '',
+            title: '',  
+            focused_title:'',
             //편집기 관련 
             selectedTag : 'body',
             selectedStyles : [],
-            contents: [getInitialObject()],
+            contents: [getInitialObject()],      
         };
         this.editor = null;
-
     }
 
     render() {
@@ -45,8 +44,20 @@ class Action extends Component{
                 onRemoveImage={this._onRemoveImage}
                 insertImage={this._insertImage}
                 inputEditor={this._inputEditor}
+                focused={this._focused}
+                unfocused={this._unfocused}
             />
         );
+    }
+
+    _focused = () => {
+        const {focusTitle, focused_title} = this.props;
+        focusTitle();
+    }
+
+    _unfocused = () => {
+        const {unFocusTitle} = this.props;
+        unFocusTitle();
     }
 
     _onStyleKeyPress = (toolType) => {
@@ -70,6 +81,7 @@ class Action extends Component{
     _inputEditor = (input) => {
         this.editor = input; 
     }
+
     // 텍스트 입력 시 
     _onValueChanged = (value) => {
 
@@ -170,7 +182,6 @@ class Action extends Component{
     _insertImage(url) {        
         editor.insertImage(url);
     }
-
 
 }
 

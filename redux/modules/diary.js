@@ -1,4 +1,6 @@
 const SET_DIARY = "SET_DIARY";
+const FOCUSED_TITLE = "FOCUSED_TITLE";
+const UNFOCUSED = "UNFOCUSED";
 
 function setDiary(myDiary, exDiary) {
   return {
@@ -22,12 +24,30 @@ function getDiary() {
   };
 }
 
-const initialState = {};
+function focusTitle(){
+  return{
+    type:FOCUSED_TITLE
+  };
+}
+
+function unFocusTitle(){
+  return{
+    type:UNFOCUSED,
+  };
+}
+
+const initialState = {
+  focused_title:false
+};
 
 function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DIARY:
       return applySetDiary(state, action);
+    case FOCUSED_TITLE:
+      return applyFocusTitle(state, action);
+    case UNFOCUSED:
+      return applyUnFocus(state,action);
     default:
       return state;
   }
@@ -42,8 +62,24 @@ function applySetDiary(state, action) {
   };
 }
 
+function applyFocusTitle(state){
+  return { 
+    ...state,
+    focused_title:true,
+  }
+}
+
+function applyUnFocus(state){
+  return { 
+    ...state,
+    focused_title:false,
+  }
+}
+
 const actionCreators = {
-  getDiary
+  getDiary,
+  focusTitle,
+  unFocusTitle
 };
 
 export { actionCreators };

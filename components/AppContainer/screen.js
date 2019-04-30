@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet, Text, View, StatusBar} from "react-native";
 import RootNavigation from "../../navigation/RootNavigation";
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 
@@ -20,10 +20,10 @@ class AppContainer extends Component {
     const { isLoggedIn } = this.props;
     console.log("appContainer isLoggedIn :: " + isLoggedIn);
     return (
-      <View style={styles.container}>
-        <StatusBar hidden={false} />
-        {isLoggedIn ? <RootNavigation /> : <LoggedOutNavigation />}
-      </View>
+        <View style={styles.container}>
+          <StatusBar hidden={false} />
+          {isLoggedIn ? <RootNavigation /> : <LoggedOutNavigation />}
+        </View>
     );
   }
 }
