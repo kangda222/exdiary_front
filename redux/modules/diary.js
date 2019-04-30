@@ -29,14 +29,14 @@ function setDiaryContent(diaryContent) {
 //일기장 가져오기
 function getDiary() {
   return (dispatch, getSate) => {
-  //  const myDiary = [];
-  //  const exDiary = [];
-     const myDiary = [{ title: "myDiary", id: "0" }];
-     const exDiary = [
-       { title: "exchangeDiary", id: "1" },
-       { title: "exDiary2", id: "2" },
-       { title: "exDiary3", id: "3" }
-     ];
+    const myDiary = [];
+    const exDiary = [];
+    // const myDiary = [{ title: "myDiary", id: "0" }];
+    // const exDiary = [
+    //   { title: "exchangeDiary", id: "1" },
+    //   { title: "exDiary2", id: "2" },
+    //   { title: "exDiary3", id: "3" }
+    // ];
     dispatch(setDiary(myDiary, exDiary));
   };
 }
@@ -109,15 +109,13 @@ function applySetDiary(state, action) {
 
 function applyFocusTitle(state){
   return { 
-    ...state,
-    focused_title:true,
+    ...state
   }
 }
 
 function applyUnFocus(state){
   return { 
-    ...state,
-    focused_title:false,
+    ...state
   }
 }
 
