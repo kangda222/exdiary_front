@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import WritingDiaryScreen from './screen'
 import {getInitialObject} from "react-native-cn-richtext-editor";
-import {ImagePicker} from 'expo';
+import {ImagePicker,Permissions} from 'expo';
 
 class Action extends Component{
 
@@ -119,19 +119,37 @@ class Action extends Component{
 
     // 갤러리에서 사진 선택 시 
     _handleChoosePhoto = async() => {
+        await this.askPermissionsAsync();
         let result = await ImagePicker.launchImageLibraryAsync({
-            allowsEditing:true,
-            aspect: [4, 3],
+        allowsEditing: true,
+        aspect: [4, 4],
+        base64: false,
         });
-
-        if(!result.cancelled){
-            this.setState({image:result.uri})
-        }
+        
+        this.insertImage(result.uri);
     }
 
-    _handleCamera = () => {
-
+    _handleCamera = async() => {
+        await this.askPermissionsAsync();
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [4, 4],
+            base64: false,
+        });
+        console.log(result);
+        
+        this.insertImage(result.uri);
     }
+
+    askPermissionsAsync = async () => {
+        const camera = await Permissions.askAsync(Permissions.CAMERA);
+        const cameraRoll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+        this.setState({
+        hasCameraPermission: camera.status === 'granted',
+        hasCameraRollPermission: cameraRoll.status === 'granted'
+        });
+    };
 
     _onRemoveImage = ({url, id}) => {        
         // do what you have to do after removing an image
