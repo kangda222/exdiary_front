@@ -69,8 +69,20 @@ const WritingDiaryScreen = props => {
                                 style={{ alignSelf: 'center', marginTop: 50,}}>
                                 <Text style={styles.modalText}>갤러리</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View>                   
+
                         <View style={styles.modalLine}></View>
+
+                        <View style={styles.modalContent}>
+                            <TouchableOpacity
+                                onPressOut={props.handelChooseVideo}
+                                style={{ alignSelf: 'center', marginTop: 50,}}>
+                                <Text style={styles.modalText}>비디오 </Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.modalLine}></View>
+
                         <View style={styles.modalContent}>
                             <TouchableOpacity
                                 onPress={props.handleCamera}
@@ -78,7 +90,9 @@ const WritingDiaryScreen = props => {
                                 <Text style={styles.modalText}>카메라</Text>
                             </TouchableOpacity>
                         </View>
+
                         <View style={styles.modalLine}></View>
+
                         <View style={styles.modalContent}>
                             <TouchableOpacity 
                                 onPressOut={props.toggleModal}

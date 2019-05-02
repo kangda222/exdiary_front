@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import WritingDiaryScreen from './screen'
 import {getInitialObject} from "react-native-cn-richtext-editor";
-import {ImagePicker,Permissions} from 'expo';
+import {ImagePicker,Permissions,Video} from 'expo';
 
 class Action extends Component{
 
@@ -12,7 +12,7 @@ class Action extends Component{
             focused_title:'',
             image:null,
             isModalVisible:null,
-            
+
             //편집기 관련 
             selectedTag : 'body',
             selectedStyles : [],
@@ -41,6 +41,7 @@ class Action extends Component{
                 toggleModal={this._toggleModal}
                 handleChoosePhoto={this._handleChoosePhoto}
                 handleCamera={this._handleCamera}
+                handelChooseVideo={this._handelChooseVideo}
         />
         
         );
@@ -122,6 +123,23 @@ class Action extends Component{
 
     }
 
+    // 갤러리에서 비디오 선택 시 
+    _handelChooseVideo = async() => {
+        await this.askPermissionsAsync();
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:'Videos',
+            allowsEditing: true,
+            aspect: [4, 4],
+            base64: false,
+        });
+        
+        this._insertVideo(result.uri);
+
+        this.setState({ // 이미지 적용 시 모달 사라지도록 
+            isModalVisible:false
+        });
+    }
+
     // 갤러리에서 사진 선택 시 
     _handleChoosePhoto = async() => {
         await this.askPermissionsAsync();
@@ -173,6 +191,10 @@ class Action extends Component{
 
     _insertImage(url) {        
         this.editor.insertImage(url);
+    }
+
+    _insertVideo(url) { 
+        // 비디오 입력 
     }
 
 }
