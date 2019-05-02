@@ -1,6 +1,4 @@
 const SET_DIARY = "SET_DIARY";
-const FOCUSED_TITLE = "FOCUSED_TITLE";
-const UNFOCUSED = "UNFOCUSED";
 const SET_DIARYLIST = "SET_DIARYLIST";
 const SET_DIARYCONTENT = "SET_DIARYCONTENT";
 
@@ -29,28 +27,16 @@ function setDiaryContent(diaryContent) {
 //일기장 가져오기
 function getDiary() {
   return (dispatch, getSate) => {
-  //  const myDiary = [];
-  //  const exDiary = [];
-     const myDiary = [{ title: "myDiary", id: "0" }];
-     const exDiary = [
-       { title: "exchangeDiary", id: "1" },
-       { title: "exDiary2", id: "2" },
-       { title: "exDiary3", id: "3" }
-     ];
+    const myDiary = [];
+    const exDiary = [];
+    // const myDiary = [{ title: "myDiary", id: "0" }];
+    // const exDiary = [
+    //   { title: "exchangeDiary", id: "1" },
+    //   { title: "exDiary2", id: "2" },
+    //   { title: "exDiary3", id: "3" }
+    // ];
     dispatch(setDiary(myDiary, exDiary));
   };
-}
-
-function focusTitle(){
-  return{
-    type:FOCUSED_TITLE
-  };
-}
-
-function unFocusTitle(){
-  return{
-    type:UNFOCUSED,
-  }
 }
 
 //일기장 리스트 가져오기
@@ -76,7 +62,6 @@ function getDiaryContent(id) {
 }
 
 const initialState = {
-  focused_title:false,
   myDiary: [],
   exDiary: []
 };
@@ -85,10 +70,6 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DIARY:
       return applySetDiary(state, action);
-    case FOCUSED_TITLE:
-      return applyFocusTitle(state, action);
-    case UNFOCUSED:
-      return applyUnFocus(state,action);
     case SET_DIARYLIST:
       return applySetDiaryList(state, action);
     case SET_DIARYCONTENT:
@@ -105,20 +86,6 @@ function applySetDiary(state, action) {
     myDiary,
     exDiary
   };
-}
-
-function applyFocusTitle(state){
-  return { 
-    ...state,
-    focused_title:true,
-  }
-}
-
-function applyUnFocus(state){
-  return { 
-    ...state,
-    focused_title:false,
-  }
 }
 
 function applySetDiaryList(state, action) {
@@ -139,8 +106,6 @@ function applySetDiaryContent(state, action) {
 
 const actionCreators = {
   getDiary,
-  focusTitle,
-  unFocusTitle,
   getDiaryList,
   getDiaryContent
 };
