@@ -23,7 +23,7 @@ const WritingDiaryScreen = props => {
 
             <View style={styles.line}></View>
             
-            <KeyboardAvoidingView behavior={'padding'} keyboardVerticalOffset={80} style={styles.editorArea}>
+            <KeyboardAvoidingView behavior={'padding'} keyboardVerticalOffset={70} style={styles.editorArea}>
                 <View style={styles.main}>
                     <CNRichTextEditor
                     ref={props.inputEditor}
@@ -61,7 +61,6 @@ const WritingDiaryScreen = props => {
                     <Modal isVisible={props.isModalVisible} 
                             backdropColor={'white'} 
                             backdropOpacity={9.0}
-                            deviceWidth={'100%'}
                             animationInTiming={500}
                     >
                         <View style={styles.modalContent}>

@@ -12,6 +12,7 @@ class Action extends Component{
             focused_title:'',
             image:null,
             isModalVisible:null,
+            
             //편집기 관련 
             selectedTag : 'body',
             selectedStyles : [],
@@ -45,16 +46,19 @@ class Action extends Component{
         );
     }
 
+    // 이미지 관련 모달 show/hide 
     _toggleModal = () => {
         this.setState({ isModalVisible: !this.state.isModalVisible });
       }
-
+    
+    // true : 타이틀 입력 시 Text Editor 안보이도록
     _focused = () => {
         this.setState({
             focused_title : true
         })
     }
 
+    // Text Editor 보이도록 
     _unfocused = () => {
         this.setState({ 
             focused_title : false
@@ -106,6 +110,7 @@ class Action extends Component{
         });
     }
 
+    // 제목 입력 시 
     _onTitleChanged = (value) => {
         this.setState({
             title: value
@@ -121,14 +126,19 @@ class Action extends Component{
     _handleChoosePhoto = async() => {
         await this.askPermissionsAsync();
         let result = await ImagePicker.launchImageLibraryAsync({
-        allowsEditing: true,
-        aspect: [4, 4],
-        base64: false,
+            allowsEditing: true,
+            aspect: [4, 4],
+            base64: false,
         });
         
-        this.insertImage(result.uri);
+        this._insertImage(result.uri);
+
+        this.setState({ // 이미지 적용 시 모달 사라지도록 
+            isModalVisible:false
+        });
     }
 
+    // 카메라 기능 
     _handleCamera = async() => {
         await this.askPermissionsAsync();
         let result = await ImagePicker.launchCameraAsync({
@@ -138,7 +148,12 @@ class Action extends Component{
         });
         console.log(result);
         
-        this.insertImage(result.uri);
+        this._insertImage(result.uri);
+
+        this.setState({
+            isModalVisible:false
+        });
+
     }
 
     askPermissionsAsync = async () => {
@@ -157,7 +172,7 @@ class Action extends Component{
     }
 
     _insertImage(url) {        
-        editor.insertImage(url);
+        this.editor.insertImage(url);
     }
 
 }
