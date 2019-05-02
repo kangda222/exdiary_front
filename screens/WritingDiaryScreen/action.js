@@ -1,19 +1,8 @@
 import React, { Component } from "react";
-import {Alert, Text, View } from "react-native";
 import WritingDiaryScreen from './screen'
-import {getInitialObject,getDefaultStyles} from "react-native-cn-richtext-editor";
-import {
-    Menu,
-    MenuOptions,
-    MenuOption,
-    MenuTrigger,
-    renderers
-  } from 'react-native-popup-menu';
+import {getInitialObject} from "react-native-cn-richtext-editor";
+import {ImagePicker} from 'expo';
 
-const { SlideInMenu } = renderers;
-
-const defaultStyles = getDefaultStyles();
-  
 class Action extends Component{
 
     constructor(props){
@@ -21,6 +10,8 @@ class Action extends Component{
         this.state = {
             title: '',  
             focused_title:'',
+            image:null,
+            isModalVisible:null,
             //편집기 관련 
             selectedTag : 'body',
             selectedStyles : [],
@@ -46,9 +37,14 @@ class Action extends Component{
                 inputEditor={this._inputEditor}
                 focused={this._focused}
                 unfocused={this._unfocused}
-            />
+                toggleModal={this._toggleModal}
+        />
+        
         );
     }
+    _toggleModal = () => {
+        this.setState({ isModalVisible: !this.state.isModalVisible });
+      }
 
     _focused = () => {
         this.setState({
@@ -118,62 +114,16 @@ class Action extends Component{
 
     }
 
-     // 이미지 추가 버튼 클릭 시 나타나는 Selector 
-     _renderImageSelector() {
-        return (
-            <Menu renderer={SlideInMenu} onSelect={this.onImageSelectorClicked}>
-            <MenuTrigger>
-                <Ionicons name="ios-image" size={28} color="#737373" />
-            </MenuTrigger>
-            <MenuOptions>
-                <MenuOption value={1}>
-                    <Ionicons name='ios-camera' size={30} style={{paddingRight:10}}/>,
-                </MenuOption>
-                <View/>
-                <MenuOption value={2} >
-                    <Text>
-                        Photo Library
-                    </Text>
-                </MenuOption> 
-                <View/>
-                <MenuOption value={3}>
-                    <Text>
-                        Cancel
-                    </Text>
-                </MenuOption>
-            </MenuOptions>
-            </Menu>
-        );
-    }
+    _pickImage = async() => {
+        alert('사진 고릅시다')
+        let result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing:true,
+            aspect: [4, 3],
+        });
 
-    // 폰트 선택 시 폰트 사이즈 설정 
-    _renderFontSizeSelector() {
-        return (
-            <Menu renderer={SlideInMenu} >
-                <MenuTrigger>
-                    <Text>F</Text>
-                </MenuTrigger>
-                <MenuOptions style={{flexDirection:'row'}}>
-                    <MenuOption value={1}>
-                        <Text>15</Text>
-                    </MenuOption>
-                    <View/>
-                    <MenuOption value={2} >
-                        <Text>16</Text>
-                    </MenuOption> 
-                    <View/>
-                    <MenuOption value={3}>
-                        <Text>19</Text>
-                    </MenuOption>
-                    <MenuOption value={4}>
-                        <Text>24</Text>
-                    </MenuOption>
-                    <MenuOption value={5}>
-                        <Text>30</Text>
-                    </MenuOption>
-                </MenuOptions>
-            </Menu>
-        );
+        if(!result.cancelled){
+            this.setState({image:result.uri})
+        }
     }
 
     _onRemoveImage = ({url, id}) => {        

@@ -1,14 +1,15 @@
-import React,{ Component } from 'react';
+import React from 'react';
 import {StyleSheet,Text, View,Keyboard,TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView,Platform } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput} from 'react-native-gesture-handler';
-import  CNRichTextEditor , { CNToolbar, getInitialObject, getDefaultStyles} from "react-native-cn-richtext-editor";
-import { MenuProvider,} from 'react-native-popup-menu';
+import  CNRichTextEditor , { CNToolbar,  getDefaultStyles} from "react-native-cn-richtext-editor";
+
 
 const defaultStyles = getDefaultStyles();
+
 const WritingDiaryScreen = props => {
     return (
-        <MenuProvider style={styles.container}>
+        <View style={styles.container}>
             <View style={{ flexDirection: 'row', padding: 5 }}>
                 <Text style={{ padding: 5, fontSize: 15 }}>제목 : </Text>
                 <TextInput placeholder='제목을 입력해주세요' value={props.title} name='title' maxLength={50}
@@ -38,7 +39,7 @@ const WritingDiaryScreen = props => {
                 </View>
                 </TouchableWithoutFeedback>
                 <View>
-                    {props.focused_title === true ? 
+                    {props.focused_title ? 
                         null : 
                         <CNToolbar
                         size={28}
@@ -49,14 +50,33 @@ const WritingDiaryScreen = props => {
                         body={<Text style={styles.toolbarButton}>T</Text>}
                         ul={<Text style={styles.toolbarButton}>ul</Text>}
                         ol={<Text style={styles.toolbarButton}>ol</Text>}
-                        image={<Ionicons name="ios-image" size={28} color="#737373" />}
+                        image={<Ionicons name="ios-image" size={28} color="#737373" onPress={props.toggleModal}/>}
                         selectedTag={props.selectedTag}
                         selectedStyles={props.selectedStyles}
                         onStyleKeyPress={props.onStyleKeyPress} />
                 } 
                 </View>
             </KeyboardAvoidingView>
-        </MenuProvider>
+            {props.isModalVisible ?
+                <View style={{ height: '40%' }}>
+                    <TouchableOpacity
+                        style={{ alignSelf: 'center', marginTop: 50, }}>
+                        <Text>갤러리</Text>
+                    </TouchableOpacity>
+                    <View style={styles.line}></View>
+                    <TouchableOpacity
+                        style={{ alignSelf: 'center', marginTop: 50, }}>
+                        <Text>카메라</Text>
+                    </TouchableOpacity>
+                    <View style={styles.line}></View>
+                    <TouchableOpacity
+                        onPressOut={props.toggleModal}
+                        style={{ alignSelf: 'center', marginTop: 50, }}>
+                        <Text>취소</Text>
+                    </TouchableOpacity>
+                </View> : null 
+            }
+        </View>
     )
 };
 
