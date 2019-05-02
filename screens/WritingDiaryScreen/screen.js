@@ -3,7 +3,7 @@ import {StyleSheet,Text, View,Keyboard,TouchableOpacity, TouchableWithoutFeedbac
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput} from 'react-native-gesture-handler';
 import  CNRichTextEditor , { CNToolbar,  getDefaultStyles} from "react-native-cn-richtext-editor";
-
+import Modal from 'react-native-modal';
 
 const defaultStyles = getDefaultStyles();
 
@@ -23,8 +23,7 @@ const WritingDiaryScreen = props => {
 
             <View style={styles.line}></View>
             
-            <KeyboardAvoidingView behavior={Platform.OS === 'android' ? 'padding' : null} keyboardVerticalOffset={80} style={styles.editorArea}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+            <KeyboardAvoidingView behavior={'padding'} keyboardVerticalOffset={80} style={styles.editorArea}>
                 <View style={styles.main}>
                     <CNRichTextEditor
                     ref={props.inputEditor}
@@ -37,7 +36,6 @@ const WritingDiaryScreen = props => {
                     onRemoveImage={props.onRemoveImage}
                     />
                 </View>
-                </TouchableWithoutFeedback>
                 <View>
                     {props.focused_title ? 
                         null : 
@@ -57,23 +55,39 @@ const WritingDiaryScreen = props => {
                 } 
                 </View>
             </KeyboardAvoidingView>
+
             {props.isModalVisible ?
-                <View style={{ height: '40%' }}>
-                    <TouchableOpacity
-                        style={{ alignSelf: 'center', marginTop: 50, }}>
-                        <Text>갤러리</Text>
-                    </TouchableOpacity>
-                    <View style={styles.line}></View>
-                    <TouchableOpacity
-                        style={{ alignSelf: 'center', marginTop: 50, }}>
-                        <Text>카메라</Text>
-                    </TouchableOpacity>
-                    <View style={styles.line}></View>
-                    <TouchableOpacity
-                        onPressOut={props.toggleModal}
-                        style={{ alignSelf: 'center', marginTop: 50, }}>
-                        <Text>취소</Text>
-                    </TouchableOpacity>
+                <View >
+                    <Modal isVisible={props.isModalVisible} 
+                            backdropColor={'white'} 
+                            backdropOpacity={9.0}
+                            deviceWidth={'100%'}
+                            animationInTiming={500}
+                    >
+                        <View style={styles.modalContent}>
+                            <TouchableOpacity
+                                onPressOut={props.handleChoosePhoto}
+                                style={{ alignSelf: 'center', marginTop: 50,}}>
+                                <Text style={styles.modalText}>갤러리</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.modalLine}></View>
+                        <View style={styles.modalContent}>
+                            <TouchableOpacity
+                                onPress={props.handleCamera}
+                                style={{alignSelf: 'center', marginTop: 50,}}>
+                                <Text style={styles.modalText}>카메라</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.modalLine}></View>
+                        <View style={styles.modalContent}>
+                            <TouchableOpacity 
+                                onPressOut={props.toggleModal}
+                                style={{ alignSelf: 'center', marginTop: 50,}}>
+                                <Text style={styles.modalText}>취소</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>
                 </View> : null 
             }
         </View>
@@ -103,6 +117,24 @@ const styles = StyleSheet.create({
         fontSize: 35,
         fontWeight:'bold',
         padding:20
+    },
+    modalContent:{ 
+        backgroundColor: 'white',
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    modalLine:{
+        backgroundColor:'powderblue',
+        height:2,
+        width:'100%',
+    },
+    modalText:{
+        fontSize: 35,
+        fontWeight:'bold',
+        color:'powderblue',
     },
     // 편집기 관련 CSS 
     editorArea: {

@@ -38,10 +38,13 @@ class Action extends Component{
                 focused={this._focused}
                 unfocused={this._unfocused}
                 toggleModal={this._toggleModal}
+                handleChoosePhoto={this._handleChoosePhoto}
+                handleCamera={this._handleCamera}
         />
         
         );
     }
+
     _toggleModal = () => {
         this.setState({ isModalVisible: !this.state.isModalVisible });
       }
@@ -114,8 +117,8 @@ class Action extends Component{
 
     }
 
-    _pickImage = async() => {
-        alert('사진 고릅시다')
+    // 갤러리에서 사진 선택 시 
+    _handleChoosePhoto = async() => {
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing:true,
             aspect: [4, 3],
@@ -124,6 +127,10 @@ class Action extends Component{
         if(!result.cancelled){
             this.setState({image:result.uri})
         }
+    }
+
+    _handleCamera = () => {
+
     }
 
     _onRemoveImage = ({url, id}) => {        
