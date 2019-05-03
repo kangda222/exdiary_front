@@ -30,7 +30,7 @@ class Action extends Component{
                 onSelectedStyleChanged={this._onSelectedStyleChanged}
                 onValueChanged={this._onValueChanged}
                 onTitleChanged={this._onTitleChanged}
-                save={this._save}
+                insertContents={this._insertContents}
                 renderImageSelector={this._renderImageSelector}
                 renderFontSizeSelector={this._renderFontSizeSelector}
                 onRemoveImage={this._onRemoveImage}
@@ -119,8 +119,9 @@ class Action extends Component{
     }   
 
     // 글쓰기 저장 
-    _save = () => {
-
+    _insertContents = () => {
+        alert('저장 버튼 클릭')
+        fetch('https://192.168.245.1/insertContents')
     }
 
     // 갤러리에서 비디오 선택 시 
@@ -193,8 +194,26 @@ class Action extends Component{
         this.editor.insertImage(url);
     }
 
-    _insertVideo(url) { 
-        // 비디오 입력 
+    _insertVideo(url, id, height, width) { 
+        const { focusInputIndex } = this.state;   
+        const { value } = this.props;
+        let index = focusInputIndex + 1;
+
+        const myHeight = (this.state.layoutWidth - 4 < width) ? height * ((this.state.layoutWidth - 4) / width) : height;
+        this.contentHeights[index] = myHeight + 4;
+
+        const item = {
+            id: shortid.generate(),
+            imageId: id,
+            component: 'video',
+            url,
+            size: {
+              height,
+              width,
+            },
+          };
+
+        let newContents = value;
     }
 
 }

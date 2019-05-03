@@ -18,7 +18,7 @@ const WritingDiaryScreen = props => {
                     onFocus={props.focused}
                     onEndEditing={props.unfocused}
                    />
-                <TouchableOpacity style={styles.button} onPressOut={props.save}><Text>저장</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPressOut={props.insertContents}><Text>저장</Text></TouchableOpacity>
             </View>
 
             <View style={styles.line}></View>
