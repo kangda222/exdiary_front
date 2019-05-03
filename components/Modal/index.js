@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Modal from "react-native-modal";
-import { Dimensions, StatusBar } from "react-native";
+import { Dimensions, StatusBar, TouchableOpacity, Alert } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
+import ProfileModal from "../ProfileModal";
+import PasswordModal from "../PasswordModal";
 
 const { width, height } = Dimensions.get("window");
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
@@ -11,6 +13,11 @@ class Action extends Component {
   constructor(props) {
     super(props);
   }
+
+  state = {
+    isVisibleProfile: false,
+    isVisiblePassword: false
+  };
 
   render() {
     //console.log(width, height);
@@ -26,15 +33,52 @@ class Action extends Component {
             <Ionicons name="ios-contact" size={50} />
             <Username>{this.props.username}</Username>
           </Profile>
-          <Menu>프로필 설정</Menu>
-          <Menu>비밀번호 변경</Menu>
-          <Menu>좋아요</Menu>
-          <Menu>회원탈퇴</Menu>
-          <Menu>로그아웃</Menu>
+          <TouchableOpacity onPressOut={() => this._toggleProfileModal()}>
+            <Menu>프로필 설정</Menu>
+            <ProfileModal
+              isVisibleProfile={this.state.isVisibleProfile}
+              toggleModal={this._toggleProfileModal}
+              username={this.props.username}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPressOut={() => this._togglePasswordModal()}>
+            <Menu>비밀번호 변경</Menu>
+            <PasswordModal
+              isVisiblePassword={this.state.isVisiblePassword}
+              toggleModal={this._togglePasswordModal}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Menu>좋아요</Menu>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Menu>회원탈퇴</Menu>
+          </TouchableOpacity>
+          <TouchableOpacity onPressOut={() => this._Alert()}>
+            <Menu>로그아웃</Menu>
+          </TouchableOpacity>
         </Container>
       </Modal>
     );
   }
+
+  _Alert = () =>
+    Alert.alert("로그아웃", "로그아웃 하시겠습니까?", [
+      {
+        text: "취소",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      { text: "확인", onPress: () => console.log("OK Pressed") }
+    ]);
+
+  _toggleProfileModal = () => {
+    this.setState({ isVisibleProfile: !this.state.isVisibleProfile });
+  };
+
+  _togglePasswordModal = () => {
+    this.setState({ isVisiblePassword: !this.state.isVisiblePassword });
+  };
 }
 
 const Container = styled.View`
@@ -45,10 +89,15 @@ const Container = styled.View`
 `;
 
 const Profile = styled.View`
+  flex-direction: row;
   margin: ${STATUSBAR_HEIGHT}px 2px 2px;
 `;
 
-const Username = styled.Text``;
+const Username = styled.Text`
+  font-weight: 500;
+  font-size: 25;
+  margin-left: 10;
+`;
 
 const Menu = styled.Text``;
 
