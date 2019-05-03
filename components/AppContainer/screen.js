@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Text, View, StatusBar} from "react-native";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
 import RootNavigation from "../../navigation/RootNavigation";
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 
 class AppContainer extends Component {
+  state = {
+    isModalVisible: false
+  };
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     initApp: PropTypes.func.isRequired
@@ -17,15 +20,30 @@ class AppContainer extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, profile } = this.props;
     console.log("appContainer isLoggedIn :: " + isLoggedIn);
     return (
-        <View style={styles.container}>
-          <StatusBar hidden={false} />
-          {isLoggedIn ? <RootNavigation /> : <LoggedOutNavigation />}
-        </View>
+      <View style={styles.container}>
+        <StatusBar hidden={false} />
+        {isLoggedIn ? (
+          <RootNavigation
+            screenProps={{
+              toggleModal: this._toggleModal,
+              isModalVisible: this.state.isModalVisible,
+              username: profile.name
+            }}
+          />
+        ) : (
+          <LoggedOutNavigation />
+        )}
+      </View>
     );
   }
+
+  _toggleModal = () => {
+    console.log("toggle ", this.state.isModalVisible);
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
 }
 
 const styles = StyleSheet.create({
