@@ -11,6 +11,7 @@ const STATUSBAR_HEIGHT = StatusBar.currentHeight;
 
 class Action extends Component {
   constructor(props) {
+    console.log(props);
     super(props);
   }
 
@@ -37,7 +38,7 @@ class Action extends Component {
             <Menu>프로필 설정</Menu>
             <ProfileModal
               isVisibleProfile={this.state.isVisibleProfile}
-              toggleModal={this._toggleProfileModal}
+              toggleProfileModal={this._toggleProfileModal}
               username={this.props.username}
             />
           </TouchableOpacity>
@@ -73,10 +74,12 @@ class Action extends Component {
     ]);
 
   _toggleProfileModal = () => {
+    console.log(this.state.isVisibleProfile);
     this.setState({ isVisibleProfile: !this.state.isVisibleProfile });
   };
 
   _togglePasswordModal = () => {
+    console.log(this.state.isVisiblePassword);
     this.setState({ isVisiblePassword: !this.state.isVisiblePassword });
   };
 }
