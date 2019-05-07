@@ -52,6 +52,20 @@ function signUp(username, password, email) {
   };
 }
 
+function checkingPassword(password) {
+  return (dispatch, getState) => {
+    const {
+      user: { username }
+    } = getState();
+    console.log(`username: ${username} password : ${password}`);
+    if (password === "1234") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+}
+
 // Initial State
 const initialState = {
   isLoggedIn: false
@@ -116,7 +130,8 @@ function applySetToken(state, action) {
 const actionCreators = {
   login,
   logOut,
-  signUp
+  signUp,
+  checkingPassword
 };
 
 export { actionCreators };
