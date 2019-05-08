@@ -52,7 +52,7 @@ class Action extends Component {
           <TouchableOpacity>
             <Menu>좋아요</Menu>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPressOut={() => this._secession()}>
             <Menu>회원탈퇴</Menu>
           </TouchableOpacity>
           <TouchableOpacity onPressOut={() => this._Alert()}>
@@ -86,6 +86,10 @@ class Action extends Component {
   _logout = () => {
     this.props.toggleModal();
     this.props.logout();
+  };
+
+  _secession = () => {
+    this.props.secession();
   };
 }
 

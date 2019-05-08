@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     logout: () => {
       return dispatch(userActions.logOut());
+    },
+    secession: () => {
+      return dispatch(userActions.secession());
     }
   };
 };

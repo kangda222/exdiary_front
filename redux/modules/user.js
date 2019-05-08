@@ -73,6 +73,12 @@ function updatePassword(password) {
   };
 }
 
+function secession() {
+  return (dispatch, getState) => {
+    console.log(`==탈퇴==`);
+  };
+}
+
 // Initial State
 const initialState = {
   isLoggedIn: false
@@ -139,7 +145,8 @@ const actionCreators = {
   logOut,
   signUp,
   checkingPassword,
-  updatePassword
+  updatePassword,
+  secession
 };
 
 export { actionCreators };
