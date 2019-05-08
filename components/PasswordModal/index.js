@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     checkPassword: password => {
       return dispatch(userActions.checkingPassword(password));
+    },
+    updatePassword: password => {
+      return dispatch(userActions.updatePassword(password));
     }
   };
 };

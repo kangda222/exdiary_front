@@ -66,6 +66,13 @@ function checkingPassword(password) {
   };
 }
 
+function updatePassword(password) {
+  return (dispatch, getState) => {
+    console.log(`update password :: ${password}`);
+    return true;
+  };
+}
+
 // Initial State
 const initialState = {
   isLoggedIn: false
@@ -131,7 +138,8 @@ const actionCreators = {
   login,
   logOut,
   signUp,
-  checkingPassword
+  checkingPassword,
+  updatePassword
 };
 
 export { actionCreators };
