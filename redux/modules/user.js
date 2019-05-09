@@ -43,6 +43,7 @@ function login(username, password) {
   };
 }
 
+//회원가입
 function signUp(username, password, email) {
   console.log(
     `login username : ${username} password : ${password} email : ${email}`
@@ -52,6 +53,7 @@ function signUp(username, password, email) {
   };
 }
 
+//비밀번호 일치여부
 function checkingPassword(password) {
   return (dispatch, getState) => {
     const {
@@ -66,6 +68,7 @@ function checkingPassword(password) {
   };
 }
 
+//비밀번호 변경
 function updatePassword(password) {
   return (dispatch, getState) => {
     console.log(`update password :: ${password}`);
@@ -73,9 +76,21 @@ function updatePassword(password) {
   };
 }
 
+//회원탈퇴
 function secession() {
   return (dispatch, getState) => {
     console.log(`==탈퇴==`);
+  };
+}
+
+//프로필 수정
+function updateProfile(username, phoneNumber, isMale) {
+  return (dispatch, getState) => {
+    console.log(
+      `updateProfile!!!!!!!!!! username ${username}, phoneNumber ${phoneNumber}, isMale ${isMale}`
+    );
+    dispatch(setUser({ name: username }));
+    return true;
   };
 }
 
@@ -146,7 +161,8 @@ const actionCreators = {
   signUp,
   checkingPassword,
   updatePassword,
-  secession
+  secession,
+  updateProfile
 };
 
 export { actionCreators };
