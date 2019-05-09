@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 import DiaryBox from "../../components/Diarybox";
 import Modal from 'react-native-modal';
 import { TextInput } from "react-native-gesture-handler";
-import {CheckBox} from 'react-native-elements';
 
 const DiaryboxScreen = props => (
   <View style={styles.container}>

@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getDiary: () => {
       dispatch(diaryActions.getDiary());
+    },
+    getDiaryList: () => {
+      dispatch(diaryActions.getDiaryList());
     }
   };
 };

@@ -24,22 +24,32 @@ function setDiaryContent(diaryContent) {
   };
 }
 
-//일기장 가져오기
-function getDiary() {
+//일기장 목록 가져오기
+function getDiary(email) {
   return (dispatch, getSate) => {
-    const myDiary = [];
-    const exDiary = [];
-    // const myDiary = [{ title: "myDiary", id: "0" }];
-    // const exDiary = [
-    //   { title: "exchangeDiary", id: "1" },
-    //   { title: "exDiary2", id: "2" },
-    //   { title: "exDiary3", id: "3" }
-    // ];
-    dispatch(setDiary(myDiary, exDiary));
+    let url = 'http://192.168.245.1:8080/diary/getDiary';
+    fetch(url,{
+      method:'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body:JSON.stringify({
+        email:"qwerty@naver.com",
+      }),
+    })
+    .then((response) => response.json())
+    .then(data => {
+      const diaryList = JSON.stringify(data);
+      if(diaryList){
+        // dispatch(setDiary(diaryList));
+      }
+      
+    })
+    .catch(e => e)
   };
 }
 
-//일기장 리스트 가져오기
+//일기 리스트 가져오기
 function getDiaryList(id) {
   return (dispatch, getState) => {
     const diaryList = [
@@ -87,7 +97,6 @@ function applySetDiary(state, action) {
     exDiary
   };
 }
-
 function applySetDiaryList(state, action) {
   const { diaryList } = action;
   return {

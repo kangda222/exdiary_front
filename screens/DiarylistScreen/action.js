@@ -25,8 +25,12 @@ class Action extends Component {
   };
 
   render() {
-    return <DiarylistScreen {...this.props} {...this.state} />;
+    return <DiarylistScreen 
+            {...this.props} 
+            {...this.state} 
+            />;
   }
+
 }
 
 export default Action;

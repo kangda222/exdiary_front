@@ -63,9 +63,36 @@ class Action extends Component {
   }
 
   _submitDiaryInfo = () => {
-    alert('switchValue:'+this.state.switchValue+'diary_type'+this.state.diary_type);
+    const { getDiaryList } = this.props;
+    let url = 'http://192.168.245.1:8080/diary/insertDiaryInfo';
+    fetch(url,{
+      method:'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body:JSON.stringify({
+        user_num:'1',
+        email:'qwerty@naver.com',
+        diary_type:this.state.diary_type,
+        diary_title:this.state.diary_title,
+        explanation:this.state.explanation
+      }),
+    })
+    .then((response) => response.json())
+    .then(responseJsonFromServer => {
+      if(JSON.stringify(responseJsonFromServer) > 0){
+        
+        getDiary();
+      }
+      else {
+        alert('일기장 생성에 실패');
+      }
+    })
+    .catch(e => e)
 
-    //fetch('http://192.168.245.1:8080/insertDiaryInfo')
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  
+
   }
 
   _handleToggleSwitch = () => {
@@ -75,7 +102,6 @@ class Action extends Component {
 
     if(this.state.switchValue){
       this.setState({
-        
         diary_type:'default'
       })
     }else{
