@@ -6,6 +6,7 @@ import DiarylistScreen from "../screens/DiarylistScreen";
 
 const DiaryboxRoute = createStackNavigator(
   {
+    // 일기장 리스트 보여주는 화면 
     DiaryboxScreen: {
       screen: DiaryboxScreen
     },
@@ -14,6 +15,7 @@ const DiaryboxRoute = createStackNavigator(
     }
   },
   {
+    mode:"card",
     headerMode: "none"
   }
 );

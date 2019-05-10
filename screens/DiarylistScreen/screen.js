@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 
 const DiarylistScreen = props => (
   <View>
+    <Text>DiarylistScreen</Text>
     <FlatList
       data={props.diaryList}
       keyExtractor={item => item.id.toString()}

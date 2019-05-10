@@ -6,7 +6,7 @@ import DiarylistScreen from "./screen";
 class Action extends Component {
   constructor(props) {
     super(props);
-    //console.log(props);
+    console.log(props);
     const {
       navigation: {
         state: {
@@ -20,15 +20,15 @@ class Action extends Component {
   }
 
   static propTypes = {
-    diaryContent: PropTypes.array,
-    getDiaryContent: PropTypes.func.isRequired
+    // diaryContent: PropTypes.array,
+    // getDiaryContent: PropTypes.func.isRequired
   };
 
   render() {
-    return <DiarylistScreen 
-            {...this.props} 
-            {...this.state} 
-            />;
+    return <DiarylistScreen
+      {...this.props}
+      {...this.state}
+    />;
   }
 
 }

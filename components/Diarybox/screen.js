@@ -12,7 +12,8 @@ const Diarybox = props => (
       });
     }}
   >
-    <Text>{props.title}</Text>
+    <Text>{props.diary_title}</Text>
+    <Text>{props.create_date.substring(0,10)}</Text>
   </TouchableOpacity>
 );
 

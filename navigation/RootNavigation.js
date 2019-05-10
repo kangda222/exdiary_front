@@ -39,7 +39,7 @@ const RootNavigation = createStackNavigator(
     }
   },
   {
-    mode: "modal",
+    mode: "card",
     defaultNavigationOptions: {
       gesturesEnabled: true
     }

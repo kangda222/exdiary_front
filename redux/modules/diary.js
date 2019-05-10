@@ -47,12 +47,10 @@ function getDiary(email) {
 }
 
 //일기 리스트 가져오기
-function getDiaryList(id) {
+function getDiaryList(diary_num) {
+  console.log('getDiaryList() diary_num : ' , diary_num);
   return (dispatch, getState) => {
-    const diaryList = [
-      { title: "diarylist", id: "1", content: "lalalalala" },
-      { title: "diarylist2", id: "2", content: "lalalal222222222222ala" }
-    ];
+    const diaryList = [];
     dispatch(setDiaryList(diaryList));
   };
 }
@@ -115,6 +113,7 @@ function applySetDiary(state, action) {
   };
 }
 function applySetDiaryList(state, action) {
+  console.log('applySetDiary ()');
   const { diaryList } = action;
   return {
     ...state,
@@ -123,6 +122,7 @@ function applySetDiaryList(state, action) {
 }
 
 function applySetDiaryContent(state, action) {
+  console.log('applySetDiaryContent ()');
   const { diaryContent } = action;
   return {
     ...state,

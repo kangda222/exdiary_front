@@ -35,13 +35,7 @@ const DiaryboxScreen = props => (
                 keyExtractor={(item) => item.diary_num.toString()}
                 refreshing={props.isFetching}
                 onRefresh={props.refresh}
-                renderItem={({ item }) =>
-                  <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity>
-                      <Text>{item.diary_title}</Text>
-                      <Text>{item.create_date.substring(0,10)}</Text>
-                    </TouchableOpacity>
-                  </View>}
+                renderItem={({ item }) => <DiaryBox {...item} />}
               />
             </>
           ) : null}
@@ -51,14 +45,7 @@ const DiaryboxScreen = props => (
             keyExtractor={item => item.diary_num.toString()}
             refreshing={props.isFetching}
             onRefresh={props.refresh}
-            renderItem={({ item }) =>
-              <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity>
-                  <Text>{item.diary_title}</Text>
-                  <Text>{item.create_date}</Text>
-                </TouchableOpacity>
-              </View>
-            }
+            renderItem={({ item }) => <DiaryBox {...item} />}
           />
           {props.exDiary.length < 5 || props.myDiary.length < 1 ? (
             <TouchableOpacity
