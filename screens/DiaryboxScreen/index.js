@@ -3,12 +3,9 @@ import Action from "./action";
 import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    diary: { myDiary, exDiary }
-  } = state;
+  const { diary: {exDiary, myDiary, totalDiary} } = state;
   return {
-    myDiary,
-    exDiary
+    exDiary,myDiary,totalDiary
   };
 };
 

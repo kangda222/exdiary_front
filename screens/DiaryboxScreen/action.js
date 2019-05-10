@@ -3,33 +3,50 @@ import PropTypes from "prop-types";
 import DiaryboxScreen from "./screen";
 
 class Action extends Component {
+  // 타입 검사 
   static propTypes = {
-    myDiary: PropTypes.array,
+    // totalDiary: PropTypes.array,
     exDiary: PropTypes.array,
+    myDiary: PropTypes.array,
     getDiary: PropTypes.func.isRequired
   };
 
   state = {
     isFetching: false,
     isModalVisible: false,
-    explanation: '',
-    diary_title: '',
-    diary_type:'default',
+    explanation: null,
+    diary_title: null,
+    diary_type: 'default',
     switchValue: false,
+    myDiaryData: this.props.myDiary,
+    exDiaryData: this.props.exDiary
   };
 
-  static getDerivedStateFromProps(nextProps, prevProps) {
-    if (nextProps.myDiary || nextProps.exDiary) {
+  /*
+  컴포넌트가 최초 마운팅 됐을 경우와 부모 컴포넌트에서 전달해주는 props가 변경 되었을 경우 호출되며, 
+  render() 메서드가 호출되기 이전에 호출된다.
+  */
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // console.log('***** nextProps:' + nextProps.length);
+    // console.log('***** this.state.myDiary : ' + prevState.myDiaryData.length);
+
+    if (nextProps.myDiary.length !== prevState.myDiaryData.length
+      || nextProps.exDiary.length !== prevState.exDiaryData.length) {
+      // 리스트 업데이트 
+      console.log('getDerivedStateFromProps() List Update...');
       return {
+        ...this.state,
         isFetching: false
-      };
+      }
     }
-    return { ...this.state };
+    else {
+      return { ...this.state }
+    }
   }
 
   render() {
     return (
-      <DiaryboxScreen 
+      <DiaryboxScreen
         {...this.props}
         {...this.state}
         refresh={this._refresh}
@@ -42,12 +59,13 @@ class Action extends Component {
     );
   }
 
-  _refresh = () => {
+  _refresh = async () => {
     const { getDiary } = this.props;
+    await getDiary();
     this.setState({
       isFetching: true
     });
-    getDiary();
+
   };
 
   _toggleModal = () => {
@@ -62,52 +80,60 @@ class Action extends Component {
     this.setState({ explanation: text });
   }
 
+  // 일기장 생성 시 
   _submitDiaryInfo = () => {
-    const { getDiaryList } = this.props;
+    const { getDiary, myDiary, exDiary } = this.props;
     let url = 'http://192.168.245.1:8080/diary/insertDiaryInfo';
-    fetch(url,{
-      method:'post',
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body:JSON.stringify({
-        user_num:'1',
-        email:'qwerty@naver.com',
-        diary_type:this.state.diary_type,
-        diary_title:this.state.diary_title,
-        explanation:this.state.explanation
-      }),
-    })
-    .then((response) => response.json())
-    .then(responseJsonFromServer => {
-      if(JSON.stringify(responseJsonFromServer) > 0){
-        
-        getDiary();
+    if ((this.state.diary_type === "default" && myDiary.length === 0) ||
+      (this.state.diary_type === "exchange" && exDiary.length < 5)) {
+      fetch(url, {
+        method: 'post',
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        body: JSON.stringify({
+          user_num: '1',
+          email: 'qwerty@naver.com',
+          diary_type: this.state.diary_type,
+          diary_title: this.state.diary_title,
+          explanation: this.state.explanation
+        }),
+      })
+        .then((response) => response.json())
+        .then(response => {
+          if (JSON.stringify(response) > 0 && this.state.diary_title !== 'null') {
+            alert('일기장이 생성 되었습니다');
+            getDiary();
+            this.setState({ isModalVisible: !this.state.isModalVisible });
+          }
+          else { 
+            alert('제목을 입력해 주세요');
+          }
+        }).catch(e => e)
+    } else {
+      if (myDiary.length > 0) {
+        alert("나의 일기장은 한개만 생성 가능합니다.");
       }
       else {
-        alert('일기장 생성에 실패');
+        alert("교환일기는 최대 5개까지 생성 가능합니다.");
       }
-    })
-    .catch(e => e)
-
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-  
-
+      this.setState({ isModalVisible: !this.state.isModalVisible });
+    }
   }
 
   _handleToggleSwitch = () => {
     this.setState({
-      switchValue:!this.state.switchValue
+      switchValue: !this.state.switchValue
     })
 
-    if(this.state.switchValue){
+    if (this.state.switchValue) {
       this.setState({
-        diary_type:'default'
+        diary_type: 'default'
       })
-    }else{
+    } else {
       this.setState({
-        
-        diary_type:'exchange'
+
+        diary_type: 'exchange'
       })
     }
   }

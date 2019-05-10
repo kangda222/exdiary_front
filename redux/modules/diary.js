@@ -2,11 +2,10 @@ const SET_DIARY = "SET_DIARY";
 const SET_DIARYLIST = "SET_DIARYLIST";
 const SET_DIARYCONTENT = "SET_DIARYCONTENT";
 
-function setDiary(myDiary, exDiary) {
+function setDiary(data) {
   return {
     type: SET_DIARY,
-    myDiary,
-    exDiary
+    data
   };
 }
 
@@ -26,7 +25,8 @@ function setDiaryContent(diaryContent) {
 
 //일기장 목록 가져오기
 function getDiary(email) {
-  return (dispatch, getSate) => {
+
+  return (dispatch, getState) => {
     let url = 'http://192.168.245.1:8080/diary/getDiary';
     fetch(url,{
       method:'post',
@@ -39,11 +39,8 @@ function getDiary(email) {
     })
     .then((response) => response.json())
     .then(data => {
-      const diaryList = JSON.stringify(data);
-      if(diaryList){
-        // dispatch(setDiary(diaryList));
-      }
-      
+     console.log("***** data.length : ", data.length)
+     dispatch(setDiary(data));
     })
     .catch(e => e)
   };
@@ -73,7 +70,8 @@ function getDiaryContent(id) {
 
 const initialState = {
   myDiary: [],
-  exDiary: []
+  exDiary: [],
+  totalDiary: []
 };
 
 function reducer(state = initialState, action) {
@@ -90,11 +88,30 @@ function reducer(state = initialState, action) {
 }
 
 function applySetDiary(state, action) {
-  const { myDiary, exDiary } = action;
+  const { data } = action;
+
+  // 내일기, 교환일기 구분 
+  let ex = [];
+  let my = [];
+
+  if(data){
+    for(diary of data){
+      if(diary.diary_type === "exchange"){
+        ex.push(diary)
+      }
+      else{
+        my.push(diary)
+      }
+    }
+  }
+
+  console.log('***** exDiary.length:'+ ex.length);
+
   return {
     ...state,
-    myDiary,
-    exDiary
+    exDiary : ex,
+    myDiary : my,
+    totalDiary : data
   };
 }
 function applySetDiaryList(state, action) {
