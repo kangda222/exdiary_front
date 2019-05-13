@@ -70,7 +70,8 @@ function getDiaryList(diary_num) {
 }
 
 //일기 내용 가져오기
-function getDiaryContent(id) {
+function getDiaryContent(page_num) {
+  console.log("*********** getDiaryContent() page_num: " + page_num);
   return (dispatch, getSate) => {
     const diaryContent = [
       { title: "diarylist", id: "1", content: "lalalalala" },
@@ -99,6 +100,7 @@ function reducer(state = initialState, action) {
   }
 }
 
+// 일기장 목록 가져오기
 function applySetDiary(state, action) {
   const { data } = action;
 

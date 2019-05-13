@@ -11,7 +11,8 @@ const Diarybox = props => (
       onPressOut={() => {
         props.handlePress(props.diary_num);
         props.navigation.navigate("DiarylistScreen", {
-          diaryList: props.diaryList
+          diaryList: props.diaryList,
+          diary_title : props.diary_title
         });
       }}
     >

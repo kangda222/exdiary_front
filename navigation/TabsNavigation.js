@@ -10,7 +10,6 @@ const TabsNavigation = createBottomTabNavigator(
   {
     Diarybox: {
       screen: DiaryboxRoute,
-      //screen: MyDiaryListScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <Ionicons

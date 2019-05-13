@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { TouchableOpacity, FlatList, Text } from "react-native";
 import DiarylistScreen from "./screen";
 
 class Action extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     const {
       navigation: {
         state: {
@@ -15,10 +13,9 @@ class Action extends Component {
       }
     } = props;
     this.state = {
-      diaryList
+      diaryList,
     };
   }
-
   static propTypes = {
     // diaryContent: PropTypes.array,
     // getDiaryContent: PropTypes.func.isRequired
@@ -28,7 +25,14 @@ class Action extends Component {
     return <DiarylistScreen
       {...this.props}
       {...this.state}
+      getDiaryContents={this._getDiaryContents}
     />;
+  }
+  
+  // 일기에 해당하는 내용 가져오기
+  _getDiaryContents = _page_num => {
+    const {getDiaryContent} = this.props;
+    getDiaryContent(_page_num);
   }
 
 }

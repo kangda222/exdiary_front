@@ -1,8 +1,8 @@
-import React from "react";
 import { createStackNavigator } from "react-navigation";
 import DiaryboxScreen from "../screens/DiaryboxScreen";
 import WritingDiaryScreen from "../screens/WritingDiaryScreen";
 import DiarylistScreen from "../screens/DiarylistScreen";
+import DiaryContentsScreen from "../screens/DiaryContentsScreen";
 
 const DiaryboxRoute = createStackNavigator(
   {
@@ -10,8 +10,13 @@ const DiaryboxRoute = createStackNavigator(
     DiaryboxScreen: {
       screen: DiaryboxScreen
     },
+    // 일기 리스트 보여주는 화면 
     DiarylistScreen: {
       screen: DiarylistScreen
+    },
+    // 일기 내용 보여주는 화면 
+    DiaryContentsScreen: {
+      screen: DiaryContentsScreen
     }
   },
   {

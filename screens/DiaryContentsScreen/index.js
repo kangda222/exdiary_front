@@ -3,20 +3,16 @@ import Action from "./action";
 import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    diary: { diaryContent }
-  } = state;
-  return {
-    diaryContent
-  };
+    const a = 1;
+    return {
+        a
+    }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    getDiaryContent:page_num => {
-      dispatch(diaryActions.getDiaryContent(page_num));
+    return {
+        
     }
-  };
 };
 
 export default connect(
