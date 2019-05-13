@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 // 일기 리스트 목록 그리기 
 const DiarylistScreen = props => (
   <View>
-    <Text></Text>
+    <Text>{props.diary_title}</Text>
     <FlatList
       data={props.diaryList}
       keyExtractor={item => item.page_num.toString()}

@@ -8,12 +8,13 @@ class Action extends Component {
     const {
       navigation: {
         state: {
-          params: { diaryList }
+          params: { diaryList, diary_title }
         }
       }
     } = props;
     this.state = {
       diaryList,
+      diary_title // 일기장 제목을 나타내주기 위해 
     };
   }
   static propTypes = {

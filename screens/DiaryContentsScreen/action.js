@@ -8,7 +8,7 @@ class Action extends Component {
           {...this.props}
           {...this.state}
         />;
-      }
+    }
 }
 
 export default Action;
