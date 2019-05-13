@@ -43,12 +43,54 @@ function login(username, password) {
   };
 }
 
+//회원가입
 function signUp(username, password, email) {
   console.log(
     `login username : ${username} password : ${password} email : ${email}`
   );
   return dispatch => {
     return false;
+  };
+}
+
+//비밀번호 일치여부
+function checkingPassword(password) {
+  return (dispatch, getState) => {
+    const {
+      user: { username }
+    } = getState();
+    console.log(`username: ${username} password : ${password}`);
+    if (password === "1234") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+}
+
+//비밀번호 변경
+function updatePassword(password) {
+  return (dispatch, getState) => {
+    console.log(`update password :: ${password}`);
+    return true;
+  };
+}
+
+//회원탈퇴
+function secession() {
+  return (dispatch, getState) => {
+    console.log(`==탈퇴==`);
+  };
+}
+
+//프로필 수정
+function updateProfile(username, phoneNumber, isMale) {
+  return (dispatch, getState) => {
+    console.log(
+      `updateProfile!!!!!!!!!! username ${username}, phoneNumber ${phoneNumber}, isMale ${isMale}`
+    );
+    dispatch(setUser({ name: username }));
+    return true;
   };
 }
 
@@ -116,7 +158,11 @@ function applySetToken(state, action) {
 const actionCreators = {
   login,
   logOut,
-  signUp
+  signUp,
+  checkingPassword,
+  updatePassword,
+  secession,
+  updateProfile
 };
 
 export { actionCreators };

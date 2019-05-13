@@ -41,7 +41,6 @@ class AppContainer extends Component {
   }
 
   _toggleModal = () => {
-    console.log("toggle ", this.state.isModalVisible);
     this.setState({ isModalVisible: !this.state.isModalVisible });
   };
 }

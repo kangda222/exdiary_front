@@ -13,11 +13,8 @@ import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    logout: () => {
-      return dispatch(userActions.logOut());
-    },
-    secession: () => {
-      return dispatch(userActions.secession());
+    updateProfile: (username, phoneNumber, isMale) => {
+      return dispatch(userActions.updateProfile(username, phoneNumber, isMale));
     }
   };
 };
