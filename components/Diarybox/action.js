@@ -11,12 +11,15 @@ class Action extends Component {
     diaryList: PropTypes.array
   };
   render() {
-    return <Diarybox {...this.props} handlePress={this._handlePress} />;
+    return <Diarybox
+      {...this.props}
+      handlePress={this._handlePress}
+    />;
   }
 
-  _handlePress = id => {
+  _handlePress = diary_num => {
     const { getDiarylist } = this.props;
-    getDiarylist(id);
+    getDiarylist(diary_num);
   };
 }
 

@@ -28,30 +28,44 @@ function getDiary(email) {
 
   return (dispatch, getState) => {
     let url = 'http://192.168.245.1:8080/diary/getDiary';
-    fetch(url,{
-      method:'post',
+    fetch(url, {
+      method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
-      body:JSON.stringify({
-        email:"qwerty@naver.com",
+      body: JSON.stringify({
+        email: "qwerty@naver.com",
       }),
     })
-    .then((response) => response.json())
-    .then(data => {
-     console.log("***** data.length : ", data.length)
-     dispatch(setDiary(data));
-    })
-    .catch(e => e)
+      .then((response) => response.json())
+      .then(data => {
+        console.log("***** data.length : ", data.length)
+        dispatch(setDiary(data));
+      })
+      .catch(e => e)
   };
 }
 
 //일기 리스트 가져오기
 function getDiaryList(diary_num) {
-  console.log('getDiaryList() diary_num : ' , diary_num);
+  console.log('getDiaryList() diary_num : ', diary_num);
   return (dispatch, getState) => {
-    const diaryList = [];
-    dispatch(setDiaryList(diaryList));
+    let url = 'http://192.168.245.1:8080/diaryList/getDiaryList';
+    fetch(url, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        diary_num: diary_num
+      }),
+
+    }).then((response) => response.json())
+      .then(diaryList => {
+        console.log("***** diaryList.length : ", diaryList.length)
+        dispatch(setDiaryList(diaryList));
+      })
+      .catch(e => e)
   };
 }
 
@@ -92,28 +106,29 @@ function applySetDiary(state, action) {
   let ex = [];
   let my = [];
 
-  if(data){
-    for(diary of data){
-      if(diary.diary_type === "exchange"){
+  if (data) {
+    for (diary of data) {
+      if (diary.diary_type === "exchange") {
         ex.push(diary)
       }
-      else{
+      else {
         my.push(diary)
       }
     }
   }
 
-  console.log('***** exDiary.length:'+ ex.length);
+  console.log('***** exDiary.length:' + ex.length);
 
   return {
     ...state,
-    exDiary : ex,
-    myDiary : my,
-    totalDiary : data
+    exDiary: ex,
+    myDiary: my,
+    totalDiary: data
   };
 }
+
 function applySetDiaryList(state, action) {
-  console.log('applySetDiary ()');
+  console.log('applySetDiaryList ()');
   const { diaryList } = action;
   return {
     ...state,

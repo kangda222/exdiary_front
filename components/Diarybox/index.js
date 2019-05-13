@@ -12,8 +12,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   //const {id} = ownProps;
   return {
-    getDiarylist: id => {
-      return dispatch(diaryActions.getDiaryList(id));
+    getDiarylist: diary_num => {
+      return dispatch(diaryActions.getDiaryList(diary_num));
     }
   };
 };
