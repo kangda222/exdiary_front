@@ -69,8 +69,12 @@ class Action extends Component {
   };
 
   _toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({ isModalVisible: !this.state.isModalVisible, diary_title: null, diary_type: "default", explanation: null, switchValue:false});
   }
+
+  _reset = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible, diary_title: null, diary_type: "default", explanation: null, switchValue:false});
+  };
 
   _onTitleChanged = (text) => {
     this.setState({ diary_title: text });
@@ -104,7 +108,7 @@ class Action extends Component {
           if (JSON.stringify(response) > 0 && this.state.diary_title !== 'null') {
             alert('일기장이 생성 되었습니다');
             getDiary();
-            this.setState({ isModalVisible: !this.state.isModalVisible });
+            this._toggleModal();
           }
           else { 
             alert('제목을 입력해 주세요');
@@ -117,7 +121,7 @@ class Action extends Component {
       else {
         alert("교환일기는 최대 5개까지 생성 가능합니다.");
       }
-      this.setState({ isModalVisible: !this.state.isModalVisible });
+      this._toggleModal();
     }
   }
 
