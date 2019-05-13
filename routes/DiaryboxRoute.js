@@ -17,6 +17,10 @@ const DiaryboxRoute = createStackNavigator(
     // 일기 내용 보여주는 화면 
     DiaryContentsScreen: {
       screen: DiaryContentsScreen
+    },
+    // 일기 쓰기 화면
+    WritingDiaryScreen: {
+      screen:WritingDiaryScreen
     }
   },
   {

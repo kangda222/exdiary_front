@@ -62,6 +62,7 @@ function getDiaryList(diary_num) {
 
     }).then((response) => response.json())
       .then(diaryList => {
+        console.log('diaryList : ', JSON.stringify(diaryList));
         dispatch(setDiaryList(diaryList));
       })
       .catch(e => e)

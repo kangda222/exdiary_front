@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet,Text, View,Keyboard,TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView,Platform } from 'react-native';
+import {StyleSheet,Text, View,TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView,Platform } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput} from 'react-native-gesture-handler';
 import  CNRichTextEditor , { CNToolbar,  getDefaultStyles} from "react-native-cn-richtext-editor";

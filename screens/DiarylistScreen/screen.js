@@ -3,31 +3,41 @@ import {
   Text,
   View,
   TouchableOpacity,
-  FlatList
+  FlatList,
 } from "react-native";
 import PropTypes from "prop-types";
+import { Feather } from "@expo/vector-icons";
 
 // 일기 리스트 목록 그리기 
 const DiarylistScreen = props => (
   <View>
-    <Text>{props.diary_title}</Text>
-    <FlatList
-      data={props.diaryList}
-      keyExtractor={item => item.page_num.toString()}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPressOut={() => {
-          props.getDiaryContents(item.page_num.toString());
-          props.navigation.navigate("DiaryContentsScreen", {
-              
-          });
-        }}>
-          <View style={{ flexDirection: 'row' }}>
-            <Text>{item.title} </Text>
-            <Text>{item.write_date.substring(0, 10)}</Text>
-          </View>
-        </TouchableOpacity>
-      )}
-    />
+    {props.diaryList.length !== 0 ?
+      <>
+        <Text>{props.diary_title}</Text>
+        <FlatList
+          data={props.diaryList}
+          keyExtractor={item => item.page_num.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPressOut={() => {
+              props.getDiaryContents(item.page_num.toString());
+              props.navigation.navigate("DiaryContentsScreen", {
+
+              });
+            }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text>{item.title} </Text>
+                <Text>{item.write_date.substring(0, 10)}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </> : null}
+    <TouchableOpacity onPressOut={() => {
+      props.navigation.navigate("WritingDiaryScreen");
+    }}>
+      <Feather name={"plus-circle"} size={30} />
+      <Text>일기를 추가하세요!</Text>
+    </TouchableOpacity>
   </View>
 );
 
