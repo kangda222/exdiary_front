@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet,Text, View,TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView,Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView, Platform } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
-import { TextInput} from 'react-native-gesture-handler';
-import  CNRichTextEditor , { CNToolbar,  getDefaultStyles} from "react-native-cn-richtext-editor";
+import { TextInput } from 'react-native-gesture-handler';
+import CNRichTextEditor, { CNToolbar, getDefaultStyles } from "react-native-cn-richtext-editor";
 import Modal from 'react-native-modal';
 
 const defaultStyles = getDefaultStyles();
@@ -17,66 +17,66 @@ const WritingDiaryScreen = props => {
                     onChangeText={props.onTitleChanged}
                     onFocus={props.focused}
                     onEndEditing={props.unfocused}
-                   />
+                />
                 <TouchableOpacity style={styles.button} onPressOut={props.insertContents}><Text>저장</Text></TouchableOpacity>
             </View>
 
             <View style={styles.line}></View>
-            
+
             <KeyboardAvoidingView behavior={'padding'} keyboardVerticalOffset={70} style={styles.editorArea}>
                 <View style={styles.main}>
                     <CNRichTextEditor
-                    ref={props.inputEditor}
-                    onSelectedTagChanged={props.onSelectedTagChanged}
-                    onSelectedStyleChanged={props.onSelectedStyleChanged}
-                    value={props.contents}
-                    style={{backgroundColor: '#fff' }}
-                    styleList={defaultStyles}
-                    onValueChanged={props.onValueChanged}
-                    onRemoveImage={props.onRemoveImage}
+                        ref={props.inputEditor}
+                        onSelectedTagChanged={props.onSelectedTagChanged}
+                        onSelectedStyleChanged={props.onSelectedStyleChanged}
+                        value={props.contents}
+                        style={{ backgroundColor: '#fff' }}
+                        styleList={defaultStyles}
+                        onValueChanged={props.onValueChanged}
+                        onRemoveImage={props.onRemoveImage}
                     />
                 </View>
                 <View>
-                    {props.focused_title ? 
-                        null : 
+                    {props.focused_title ?
+                        null :
                         <CNToolbar
-                        size={28}
-                        bold={<Text style={[styles.toolbarButton, styles.boldButton]}>B</Text>}
-                        italic={<Text style={[styles.toolbarButton, styles.italicButton]}>I</Text>}
-                        underline={<Text style={[styles.toolbarButton, styles.underlineButton]}>U</Text>}
-                        lineThrough={<Text style={[styles.toolbarButton, styles.lineThroughButton]}>S</Text>}
-                        body={<Text style={styles.toolbarButton}>T</Text>}
-                        ul={<Text style={styles.toolbarButton}>ul</Text>}
-                        ol={<Text style={styles.toolbarButton}>ol</Text>}
-                        image={<Ionicons name="ios-image" size={28} color="#737373" onPress={props.toggleModal}/>}
-                        selectedTag={props.selectedTag}
-                        selectedStyles={props.selectedStyles}
-                        onStyleKeyPress={props.onStyleKeyPress} />
-                } 
+                            size={28}
+                            bold={<Text style={[styles.toolbarButton, styles.boldButton]}>B</Text>}
+                            italic={<Text style={[styles.toolbarButton, styles.italicButton]}>I</Text>}
+                            underline={<Text style={[styles.toolbarButton, styles.underlineButton]}>U</Text>}
+                            lineThrough={<Text style={[styles.toolbarButton, styles.lineThroughButton]}>S</Text>}
+                            body={<Text style={styles.toolbarButton}>T</Text>}
+                            ul={<Text style={styles.toolbarButton}>ul</Text>}
+                            ol={<Text style={styles.toolbarButton}>ol</Text>}
+                            image={<Ionicons name="ios-image" size={28} color="#737373" onPress={props.toggleModal} />}
+                            selectedTag={props.selectedTag}
+                            selectedStyles={props.selectedStyles}
+                            onStyleKeyPress={props.onStyleKeyPress} />
+                    }
                 </View>
             </KeyboardAvoidingView>
 
             {props.isModalVisible ?
                 <View >
-                    <Modal isVisible={props.isModalVisible} 
-                            backdropColor={'white'} 
-                            backdropOpacity={9.0}
-                            animationInTiming={500}
+                    <Modal isVisible={props.isModalVisible}
+                        backdropColor={'white'}
+                        backdropOpacity={9.0}
+                        animationInTiming={500}
                     >
                         <View style={styles.modalContent}>
                             <TouchableOpacity
                                 onPressOut={props.handleChoosePhoto}
-                                style={{ alignSelf: 'center', marginTop: 50,}}>
+                                style={{ alignSelf: 'center', marginTop: 50, }}>
                                 <Text style={styles.modalText}>갤러리</Text>
                             </TouchableOpacity>
-                        </View>                   
+                        </View>
 
                         <View style={styles.modalLine}></View>
 
                         <View style={styles.modalContent}>
                             <TouchableOpacity
                                 onPressOut={props.handelChooseVideo}
-                                style={{ alignSelf: 'center', marginTop: 50,}}>
+                                style={{ alignSelf: 'center', marginTop: 50, }}>
                                 <Text style={styles.modalText}>비디오 </Text>
                             </TouchableOpacity>
                         </View>
@@ -86,7 +86,7 @@ const WritingDiaryScreen = props => {
                         <View style={styles.modalContent}>
                             <TouchableOpacity
                                 onPress={props.handleCamera}
-                                style={{alignSelf: 'center', marginTop: 50,}}>
+                                style={{ alignSelf: 'center', marginTop: 50, }}>
                                 <Text style={styles.modalText}>카메라</Text>
                             </TouchableOpacity>
                         </View>
@@ -94,14 +94,14 @@ const WritingDiaryScreen = props => {
                         <View style={styles.modalLine}></View>
 
                         <View style={styles.modalContent}>
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 onPressOut={props.toggleModal}
-                                style={{ alignSelf: 'center', marginTop: 50,}}>
+                                style={{ alignSelf: 'center', marginTop: 50, }}>
                                 <Text style={styles.modalText}>취소</Text>
                             </TouchableOpacity>
                         </View>
                     </Modal>
-                </View> : null 
+                </View> : null
             }
         </View>
     )
@@ -112,26 +112,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    button:{
-        width:40,
-        height:30,
-        backgroundColor:'powderblue',
+    button: {
+        width: 40,
+        height: 30,
+        backgroundColor: 'powderblue',
         borderRadius: 10,
-        alignItems:'center', justifyContent:'center'
+        alignItems: 'center', justifyContent: 'center'
     },
-    line: { 
-        backgroundColor:'powderblue',
-        height:2,
-        width:'95%',
-        marginLeft:6,
-        marginBottom:10
+    line: {
+        backgroundColor: 'powderblue',
+        height: 2,
+        width: '95%',
+        marginLeft: 6,
+        marginBottom: 10
     },
     text: {
         fontSize: 35,
-        fontWeight:'bold',
-        padding:20
+        fontWeight: 'bold',
+        padding: 20
     },
-    modalContent:{ 
+    modalContent: {
         backgroundColor: 'white',
         padding: 22,
         justifyContent: 'center',
@@ -139,22 +139,22 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderColor: 'rgba(0, 0, 0, 0.1)',
     },
-    modalLine:{
-        backgroundColor:'powderblue',
-        height:2,
-        width:'100%',
+    modalLine: {
+        backgroundColor: 'powderblue',
+        height: 2,
+        width: '100%',
     },
-    modalText:{
+    modalText: {
         fontSize: 35,
-        fontWeight:'bold',
-        color:'powderblue',
+        fontWeight: 'bold',
+        color: 'powderblue',
     },
     // 편집기 관련 CSS 
     editorArea: {
         flex: 1,
-        backgroundColor:'#eee',
-        flexDirection: 'column', 
-        justifyContent: 'flex-end', 
+        backgroundColor: '#eee',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
     },
     main: {
         flex: 1,

@@ -8,13 +8,19 @@ class Action extends Component {
     const {
       navigation: {
         state: {
-          params: { diaryList, diary_title }
+          params: {
+            diaryList,
+            diary_title,
+            diary_num
+          }
         }
       }
     } = props;
+
     this.state = {
       diaryList,
-      diary_title // 일기장 제목을 나타내주기 위해 
+      diary_title, // 일기장 제목을 나타내주기 위해 
+      diary_num // 일기장 번호 넘겨주기 위해 
     };
   }
   static propTypes = {
@@ -27,12 +33,13 @@ class Action extends Component {
       {...this.props}
       {...this.state}
       getDiaryContents={this._getDiaryContents}
+      setValue={this._setValue}
     />;
   }
-  
+
   // 일기에 해당하는 내용 가져오기
   _getDiaryContents = _page_num => {
-    const {getDiaryContent} = this.props;
+    const { getDiaryContent } = this.props;
     getDiaryContent(_page_num);
   }
 

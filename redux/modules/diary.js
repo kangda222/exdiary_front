@@ -73,12 +73,40 @@ function getDiaryList(diary_num) {
 function getDiaryContent(page_num) {
   console.log("*********** getDiaryContent() page_num: " + page_num);
   return (dispatch, getSate) => {
-    const diaryContent = [
-      { title: "diarylist", id: "1", content: "lalalalala" },
-      { title: "diarylist2", id: "2", content: "lalalal222222222222ala" }
-    ];
+    const diaryContent = [];
     dispatch(setDiaryContent(diaryContent));
   };
+}
+
+function insertDiaryContents(_diary_num,_user_num,_title,_contents,_nickname,_email) {
+  console.log("insertDiaryContents() " + _contents);
+  console.log("insertDiaryContents() stringfy" + JSON.stringify(_contents));
+ 
+  return (dispatch, getSate) => {
+    let url = 'http://192.168.245.1:8080/diaryList/insertDiaryContents';
+    fetch(url, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        diary_num:_diary_num,
+        user_num:_user_num,
+        title:_title,
+        contents:JSON.stringify(_contents),
+        nickname:_nickname,
+        email:_email,
+      }),
+    }).then((response) => response.json())
+      .then(result => {
+        if(JSON.stringify(result) > 0 ){
+          alert('일기 작성 완료');
+        }else {
+          alert("일기 쓰기 실패");
+        }
+      })
+      .catch(e => e)
+  }
 }
 
 const initialState = {
@@ -147,10 +175,12 @@ function applySetDiaryContent(state, action) {
   };
 }
 
+
 const actionCreators = {
   getDiary,
   getDiaryList,
-  getDiaryContent
+  getDiaryContent,
+  insertDiaryContents
 };
 
 export { actionCreators };

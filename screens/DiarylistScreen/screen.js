@@ -21,7 +21,6 @@ const DiarylistScreen = props => (
             <TouchableOpacity onPressOut={() => {
               props.getDiaryContents(item.page_num.toString());
               props.navigation.navigate("DiaryContentsScreen", {
-
               });
             }}>
               <View style={{ flexDirection: 'row' }}>
@@ -32,8 +31,12 @@ const DiarylistScreen = props => (
           )}
         />
       </> : null}
+      
     <TouchableOpacity onPressOut={() => {
-      props.navigation.navigate("WritingDiaryScreen");
+      // alert('props:'+ props.diary_title + "diary_num" + props.diary_num);
+      props.navigation.navigate("WritingDiaryScreen", {
+        diary_num: props.diary_num,
+      });
     }}>
       <Feather name={"plus-circle"} size={30} />
       <Text>일기를 추가하세요!</Text>
