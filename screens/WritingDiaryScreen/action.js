@@ -15,7 +15,7 @@ class Action extends Component {
             }
         } = props;
         this.state = {
-            title: '',
+            title:null,
             focused_title: '',
             image: null,
             isModalVisible: null,
@@ -127,11 +127,14 @@ class Action extends Component {
     }
 
     // 글쓰기 저장 
-    _insertContents = () => {
-        console.log('insertContents() : ' +this.state.diary_num);
+    _insertContents = async () => {
         const { insertDiaryContents } = this.props;
-        
-        insertDiaryContents(this.state.diary_num, "1", this.state.title, this.state.contents,"담비", "qwerty@naver.com");
+        const result = await insertDiaryContents(this.state.diary_num, "1", this.state.title, this.state.contents, "담비", "qwerty@naver.com");
+        if (result) {
+            console.log('****** result : true');
+            this.props.navigation.navigate('DiaryContentsScreen');
+        }
+        console.log('****** result : ' + result);
     }
 
     // 갤러리에서 비디오 선택 시 
