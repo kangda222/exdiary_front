@@ -1,5 +1,6 @@
 // Imports
 import { AsyncStorage } from "react-native";
+import { API_URL } from "../../constants";
 
 // Actions
 const LOG_IN = "LOG_IN";
@@ -34,12 +35,33 @@ function saveToken(token) {
 }
 
 // API Actions
-function login(username, password) {
-  console.log(`login username : ${username} password : ${password}`);
+function login(email, password) {
+  console.log(`login email : ${email} password : ${password}`);
   return dispatch => {
-    dispatch(setLogIn(""));
-    dispatch(setUser({ name: "user01" }));
-    return true;
+    return fetch(`${API_URL}/user/logIn`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(JSON.stringify(json));
+        if (json.user) {
+          dispatch(setLogIn(json.user.token));
+          dispatch(setUser(json.user));
+          return true;
+        } else {
+          return false;
+        }
+      });
+    // dispatch(setLogIn(""));
+    // dispatch(setUser({ name: "user01" }));
+    // return true;
   };
 }
 

@@ -25,7 +25,7 @@ const RootNavigation = createStackNavigator(
             <Modal
               isModalVisible={props.screenProps.isModalVisible}
               toggleModal={props.screenProps.toggleModal}
-              username={props.screenProps.username}
+              profile={props.screenProps.profile}
             />
           </View>
         )

@@ -23,7 +23,7 @@ const LogInScreen = props => (
     </View>
     <View style={styles.content}>
       <TextInput
-        placeholder="Username"
+        placeholder="Email"
         //style={styles.textInput}
         autoCapitalize={"none"}
         autoCorrect={false}
