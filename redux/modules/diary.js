@@ -25,7 +25,6 @@ function setDiaryContent(diaryContent) {
 
 //일기장 목록 가져오기
 function getDiary(email) {
-
   return (dispatch, getState) => {
     let url = 'http://192.168.245.1:8080/diary/getDiary';
     fetch(url, {
@@ -39,7 +38,6 @@ function getDiary(email) {
     })
       .then((response) => response.json())
       .then(data => {
-        console.log("***** data.length : ", data.length)
         dispatch(setDiary(data));
       })
       .catch(e => e)
@@ -62,7 +60,6 @@ function getDiaryList(diary_num) {
 
     }).then((response) => response.json())
       .then(diaryList => {
-        console.log('diaryList : ', JSON.stringify(diaryList));
         dispatch(setDiaryList(diaryList));
       })
       .catch(e => e)
@@ -70,15 +67,31 @@ function getDiaryList(diary_num) {
 }
 
 //일기 내용 가져오기
-function getDiaryContent(page_num) {
-  console.log("*********** getDiaryContent() page_num: " + page_num);
+function getDiaryContent(_diary_num, _page_num) {
+  console.log("*********** getDiaryContent() page_num: " + _page_num, "diary_num" + _diary_num);
   return (dispatch, getSate) => {
-    const diaryContent = [];
-    dispatch(setDiaryContent(diaryContent));
+    let url = 'http://192.168.245.1:8080/diaryList/getDiaryListCotents';
+    fetch(url, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        diary_num: _diary_num,
+        page_num: _page_num
+      })
+    }).then((response => response.json()))
+      .then(contents => {
+        if(contents){
+          console.log("contents :" +contents);
+          dispatch(setDiaryContent(contents));
+        }
+      })
   };
 }
 
 function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email) {
+  console.log("_diary_num :" + _diary_num);
   return (dispatch, getSate) => {
     let url = 'http://192.168.245.1:8080/diaryList/insertDiaryContents';
     const insertResult = fetch(url, {
@@ -146,8 +159,6 @@ function applySetDiary(state, action) {
       }
     }
   }
-
-  console.log('***** exDiary.length:' + ex.length);
 
   return {
     ...state,

@@ -131,10 +131,8 @@ class Action extends Component {
         const { insertDiaryContents } = this.props;
         const result = await insertDiaryContents(this.state.diary_num, "1", this.state.title, this.state.contents, "담비", "qwerty@naver.com");
         if (result) {
-            console.log('****** result : true');
-            this.props.navigation.navigate('DiaryContentsScreen');
+            this.props.navigation.navigate('DiaryContentsScreen',);
         }
-        console.log('****** result : ' + result);
     }
 
     // 갤러리에서 비디오 선택 시 

@@ -6,6 +6,7 @@ const mapStateToProps = (state, ownProps) => {
   const {
     diary: { diaryContent }
   } = state;
+  
   return {
     diaryContent
   };
@@ -13,8 +14,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getDiaryContent:page_num => {
-      dispatch(diaryActions.getDiaryContent(page_num));
+    getDiaryContent:(diary_num,page_num) => {
+      dispatch(diaryActions.getDiaryContent(diary_num,page_num));
     }
   };
 };

@@ -19,7 +19,7 @@ const DiarylistScreen = props => (
           keyExtractor={item => item.page_num.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity onPressOut={() => {
-              props.getDiaryContents(item.page_num.toString());
+              props.getDiaryContents(item.diary_num.toString(), item.page_num.toString());
               props.navigation.navigate("DiaryContentsScreen", {
               });
             }}>
@@ -45,7 +45,7 @@ const DiarylistScreen = props => (
 );
 
 DiarylistScreen.proptypes = {
-  diaryList: PropTypes.array.isRequired
+  // diaryList: PropTypes.array.isRequired
 };
 
 export default DiarylistScreen;

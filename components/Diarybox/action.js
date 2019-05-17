@@ -8,7 +8,7 @@ class Action extends Component {
   }
   static propTypes = {
     getDiarylist: PropTypes.func.isRequired,
-    diaryList: PropTypes.array
+    // diaryList: PropTypes.array
   };
   render() {
     return <Diarybox
