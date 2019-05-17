@@ -32,14 +32,14 @@ class Action extends Component {
         <Container>
           <Profile>
             <Ionicons name="ios-contact" size={50} />
-            <Username>{this.props.username}</Username>
+            <Username>{this.props.profile.email}</Username>
           </Profile>
           <TouchableOpacity onPressOut={() => this._toggleProfileModal()}>
             <Menu>프로필 설정</Menu>
             <ProfileModal
               isVisibleProfile={this.state.isVisibleProfile}
               toggleProfileModal={this._toggleProfileModal}
-              username={this.props.username}
+              profile={this.props.profile}
             />
           </TouchableOpacity>
           <TouchableOpacity onPressOut={() => this._togglePasswordModal()}>

@@ -4,7 +4,7 @@ import LogInScreen from "./screen";
 
 class Action extends Component {
   state = {
-    username: "",
+    email: "",
     password: "",
     isSubmitting: false
   };
@@ -21,21 +21,21 @@ class Action extends Component {
     );
   }
   _changeUsername = text => {
-    this.setState({ username: text });
+    this.setState({ email: text });
   };
   _changePassword = text => {
     this.setState({ password: text });
   };
   _submit = async () => {
-    const { username, password, isSubmitting } = this.state;
+    const { email, password, isSubmitting } = this.state;
     const { login } = this.props;
     if (!isSubmitting) {
-      if (username && password) {
+      if (email && password) {
         this.setState({
           isSubmitting: true
         });
         // redux action
-        const loginResult = await login(username, password);
+        const loginResult = await login(email, password);
         if (!loginResult) {
           Alert.alert("잘못된 아이디, 비밀번호 입니다");
           this.setState({ isSubmitting: false });

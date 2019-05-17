@@ -30,7 +30,7 @@ class AppContainer extends Component {
             screenProps={{
               toggleModal: this._toggleModal,
               isModalVisible: this.state.isModalVisible,
-              username: profile.name
+              profile: profile
             }}
           />
         ) : (

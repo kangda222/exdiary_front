@@ -12,9 +12,12 @@ class Action extends Component {
   }
 
   state = {
-    isMale: true,
-    username: this.props.username,
-    phoneNumber: ""
+    isMale:
+      this.props.profile.gender && this.props.profile.gender === "F"
+        ? false
+        : true,
+    username: this.props.profile.nickname,
+    phoneNumber: this.props.profile.phoneNumber
   };
 
   render() {
