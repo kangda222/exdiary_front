@@ -4,18 +4,19 @@ import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
   const {
-    diary: { diaryContent }
+    diary: { diaryContent },
+    user: {token}
   } = state;
   
   return {
-    diaryContent
+    diaryContent,token
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getDiaryContent:(diary_num,page_num) => {
-      dispatch(diaryActions.getDiaryContent(diary_num,page_num));
+    getDiaryContent:(diary_num,page_num,token) => {
+      dispatch(diaryActions.getDiaryContent(diary_num,page_num,token));
     }
   };
 };

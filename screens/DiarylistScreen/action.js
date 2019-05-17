@@ -40,8 +40,8 @@ class Action extends Component {
   // 일기에 해당하는 내용 가져오기
   _getDiaryContents = (_diary_num,_page_num) => {
     console.log(_diary_num, _page_num);
-    const { getDiaryContent } = this.props;
-    getDiaryContent(_diary_num, _page_num);
+    const { getDiaryContent,token } = this.props;
+    getDiaryContent(_diary_num, _page_num,token);
   }
 
 }

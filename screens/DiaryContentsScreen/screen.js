@@ -8,7 +8,7 @@ import CNRichTextView from "react-native-cn-richtext-editor/src/CNRichTextView";
 const DiaryContentsScreen = props => (
     <View style={styles.main}>
         <CNRichTextView
-            //text={props.diaryContent}
+            text={props.diaryContent}
             // convertToHtmlString={props.diaryContent}
             style={{flex:1}} />
     </View>

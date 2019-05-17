@@ -3,9 +3,11 @@ import Action from "./action";
 import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
-    const { diary: {diaryContent} } = state;
+    const { diary: { diaryContent },
+        user: { token }
+    } = state;
     return {
-        diaryContent
+        diaryContent, token
     };
 };
 
@@ -16,6 +18,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Action);

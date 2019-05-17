@@ -70,14 +70,15 @@ function getDiaryList(diary_num,token) {
 }
 
 //일기 내용 가져오기
-function getDiaryContent(_diary_num, _page_num) {
-  console.log("*********** getDiaryContent() page_num: " + _page_num, "diary_num" + _diary_num);
+function getDiaryContent(_diary_num, _page_num, token) {
+  console.log("*********** getDiaryContent()" + token);
   return (dispatch, getSate) => {
     let url = 'http://192.168.245.1:8080/diaryList/getDiaryListCotents';
     fetch(url, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: _diary_num,
@@ -93,6 +94,7 @@ function getDiaryContent(_diary_num, _page_num) {
   };
 }
 
+// 일기 내용 작성하기
 function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email,token) {
   console.log("insertDiaryContents _diary_num :" + _diary_num + "token:"+ token);
   return (dispatch, getSate) => {
