@@ -110,7 +110,7 @@ class Action extends Component {
   };
 
   _reset = () => {
-    this.setState({ password: "", password2: "" });
+    this.setState({ password: "", password2: "", isChange: false });
     this.props.toggleModal();
   };
 

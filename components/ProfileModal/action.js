@@ -13,10 +13,8 @@ class Action extends Component {
 
   state = {
     isMale:
-      this.props.profile.gender && this.props.profile.gender === "F"
-        ? false
-        : true,
-    username: this.props.profile.nickname,
+      this.props.profile && this.props.profile.gender === "F" ? false : true,
+    nickname: this.props.profile.nickname,
     phoneNumber: this.props.profile.phoneNumber
   };
 
@@ -32,8 +30,8 @@ class Action extends Component {
           <Text>이름</Text>
           <TextInput
             placeholder="username"
-            value={this.state.username}
-            onChangeText={this._changeUsername}
+            value={this.state.nickname}
+            onChangeText={this._changeNickname}
           />
           <Text>핸드폰번호</Text>
           <TextInput
@@ -83,14 +81,14 @@ class Action extends Component {
   };
 
   _reset = () => {
-    this.setState({ username: this.props.username });
+    this.setState({ nickname: this.props.profile.nickname });
     this.props.toggleProfileModal();
   };
 
   _submit = async () => {
-    const { username, phoneNumber, isMale } = this.state;
+    const { nickname, phoneNumber, isMale } = this.state;
     const isSuccess = await this.props.updateProfile(
-      username,
+      nickname,
       phoneNumber,
       isMale
     );
@@ -100,15 +98,15 @@ class Action extends Component {
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]);
     } else {
-      this.setState({ username: this.props.username });
+      this.setState({ nickname: this.props.profile.nickname });
       Alert.alert("프로필 수정 오류", "다시 시도 해주세요", [
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]);
     }
   };
 
-  _changeUsername = text => {
-    this.setState({ username: text });
+  _changeNickname = text => {
+    this.setState({ nickname: text });
   };
 
   _changePhonNumber = text => {

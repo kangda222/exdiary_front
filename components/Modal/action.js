@@ -32,7 +32,9 @@ class Action extends Component {
         <Container>
           <Profile>
             <Ionicons name="ios-contact" size={50} />
-            <Username>{this.props.profile.email}</Username>
+            <Username>
+              {this.props.profile && this.props.profile.email}
+            </Username>
           </Profile>
           <TouchableOpacity onPressOut={() => this._toggleProfileModal()}>
             <Menu>프로필 설정</Menu>
@@ -70,7 +72,7 @@ class Action extends Component {
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel"
       },
-      { text: "확인", onPress: this._logout() }
+      { text: "확인", onPress: () => this._logout() }
     ]);
 
   _toggleProfileModal = () => {

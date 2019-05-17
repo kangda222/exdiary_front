@@ -59,9 +59,6 @@ function login(email, password) {
           return false;
         }
       });
-    // dispatch(setLogIn(""));
-    // dispatch(setUser({ name: "user01" }));
-    // return true;
   };
 }
 
@@ -78,15 +75,40 @@ function signUp(username, password, email) {
 //비밀번호 일치여부
 function checkingPassword(password) {
   return (dispatch, getState) => {
+    //console.log(getState());
     const {
-      user: { username }
+      user: {
+        profile: { email },
+        token
+      }
     } = getState();
-    console.log(`username: ${username} password : ${password}`);
-    if (password === "1234") {
-      return true;
-    } else {
-      return false;
-    }
+    console.log(`email: ${email} password : ${password}`);
+    return fetch(`${API_URL}/user/checkPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+      .then(response => {
+        if (response.status === 403) {
+          dispatch(logOut());
+        } else {
+          return response.json();
+        }
+      })
+      .then(json => {
+        console.log(JSON.stringify(json));
+        if (json.isCorrect) {
+          return true;
+        } else {
+          return false;
+        }
+      });
   };
 }
 
@@ -94,7 +116,39 @@ function checkingPassword(password) {
 function updatePassword(password) {
   return (dispatch, getState) => {
     console.log(`update password :: ${password}`);
-    return true;
+    const {
+      user: {
+        profile: { email },
+        token
+      }
+    } = getState();
+    console.log(`email: ${email} password : ${password}`);
+    return fetch(`${API_URL}/user/updatePassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+      .then(response => {
+        if (response.status === 403) {
+          dispatch(logOut());
+        } else {
+          return response.json();
+        }
+      })
+      .then(json => {
+        console.log(JSON.stringify(json));
+        if (json.isUpdate) {
+          return true;
+        } else {
+          return false;
+        }
+      });
   };
 }
 
@@ -106,13 +160,47 @@ function secession() {
 }
 
 //프로필 수정
-function updateProfile(username, phoneNumber, isMale) {
+function updateProfile(nickname, phoneNumber, isMale) {
   return (dispatch, getState) => {
+    const {
+      user: {
+        profile: { email },
+        token
+      }
+    } = getState();
     console.log(
-      `updateProfile!!!!!!!!!! username ${username}, phoneNumber ${phoneNumber}, isMale ${isMale}`
+      `updateProfile nickname ${nickname}, phoneNumber ${phoneNumber}, isMale ${isMale}`
     );
-    dispatch(setUser({ name: username }));
-    return true;
+    const gender = isMale ? "M" : "F";
+    //dispatch(setUser({ name: username }));
+    return fetch(`${API_URL}/user/updateProfile`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        email,
+        nickname,
+        phoneNumber,
+        gender
+      })
+    })
+      .then(response => {
+        if (response.status === 403) {
+          dispatch(logOut());
+        } else {
+          return response.json();
+        }
+      })
+      .then(json => {
+        console.log(JSON.stringify(json));
+        if (json.isUpdate) {
+          return true;
+        } else {
+          return false;
+        }
+      });
   };
 }
 
@@ -139,6 +227,7 @@ function reducer(state = initialState, action) {
 
 // Reducer Functions
 function applyLogIn(state, action) {
+  //console.log("===applyLogIn=============" + JSON.stringify(state));
   const { token } = action;
   return {
     ...state,
@@ -150,6 +239,7 @@ function applyLogIn(state, action) {
 async function applyLogOut(state, action) {
   console.log("===applyLogOut=============" + JSON.stringify(state));
   const { token } = action;
+  console.log(AsyncStorage.getAllKeys());
   await AsyncStorage.clear();
   return {
     ...state,
@@ -159,6 +249,7 @@ async function applyLogOut(state, action) {
 }
 
 function applySetUser(state, action) {
+  //console.log("===applySetUser=============" + JSON.stringify(state));
   const { user } = action;
   return {
     ...state,
