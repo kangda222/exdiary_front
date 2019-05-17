@@ -93,14 +93,15 @@ function getDiaryContent(_diary_num, _page_num) {
   };
 }
 
-function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email) {
-  console.log("_diary_num :" + _diary_num);
+function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email,token) {
+  console.log("insertDiaryContents _diary_num :" + _diary_num + "token:"+ token);
   return (dispatch, getSate) => {
     let url = 'http://192.168.245.1:8080/diaryList/insertDiaryContents';
     const insertResult = fetch(url, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: _diary_num,
