@@ -60,8 +60,8 @@ class Action extends Component {
   }
 
   _refresh = async () => {
-    const { getDiary } = this.props;
-    await getDiary();
+    const { getDiary,token } = this.props;
+    await getDiary(token);
     this.setState({
       isFetching: true
     });
@@ -86,14 +86,16 @@ class Action extends Component {
 
   // 일기장 생성 시 
   _submitDiaryInfo = () => {
-    const { getDiary, myDiary, exDiary } = this.props;
+    const { getDiary, myDiary, exDiary, token } = this.props;
     let url = 'http://192.168.245.1:8080/diary/insertDiaryInfo';
+    console.log("token:"+ token);
     if ((this.state.diary_type === "default" && myDiary.length === 0) ||
       (this.state.diary_type === "exchange" && exDiary.length < 5)) {
       fetch(url, {
         method: 'post',
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
+          "authorization": "Bearer " + token
         },
         body: JSON.stringify({
           user_num: '1',
@@ -107,7 +109,7 @@ class Action extends Component {
         .then(response => {
           if (JSON.stringify(response) > 0 && this.state.diary_title !== 'null') {
             alert('일기장이 생성 되었습니다');
-            getDiary();
+            getDiary(token);
             this._toggleModal();
           }
           else { 

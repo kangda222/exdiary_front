@@ -18,8 +18,9 @@ class Action extends Component {
   }
 
   _handlePress = diary_num => {
-    const { getDiarylist } = this.props;
-    getDiarylist(diary_num);
+    const { getDiarylist, token } = this.props;
+    console.log("diaryBox:",token);
+    getDiarylist(diary_num,token);
   };
 }
 

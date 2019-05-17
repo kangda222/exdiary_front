@@ -24,13 +24,15 @@ function setDiaryContent(diaryContent) {
 }
 
 //일기장 목록 가져오기
-function getDiary(email) {
+function getDiary(token) {
+  console.log("getDiary:"+ token);
   return (dispatch, getState) => {
     let url = 'http://192.168.245.1:8080/diary/getDiary';
     fetch(url, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
       },
       body: JSON.stringify({
         email: "qwerty@naver.com",
@@ -45,14 +47,15 @@ function getDiary(email) {
 }
 
 //일기 리스트 가져오기
-function getDiaryList(diary_num) {
-  console.log('getDiaryList() diary_num : ', diary_num);
+function getDiaryList(diary_num,token) {
+  console.log('getDiaryList() diary_num : ', diary_num + "token :"+ token);
   return (dispatch, getState) => {
     let url = 'http://192.168.245.1:8080/diaryList/getDiaryList';
     fetch(url, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: diary_num
