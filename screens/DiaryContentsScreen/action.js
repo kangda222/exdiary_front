@@ -5,8 +5,20 @@ import DiaryContentsScreen from "./screen";
 class Action extends Component {
   constructor(props) {
     super(props);
-    console.log("this.props.contents:"+ JSON.stringify(this.props.diaryContent));
-  }
+    const {
+      navigation: {
+          state: {
+              params: { title,write_date,nickname }
+          }
+      }
+  } = props;
+  
+    this.state = {
+      title,
+      write_date,
+      nickname
+    }
+}
 
     render() {
         return <DiaryContentsScreen

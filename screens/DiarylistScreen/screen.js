@@ -21,6 +21,9 @@ const DiarylistScreen = props => (
             <TouchableOpacity onPressOut={() => {
               props.getDiaryContents(item.diary_num.toString(), item.page_num.toString());
               props.navigation.navigate("DiaryContentsScreen", {
+                title:item.title,
+                write_date:item.write_date,
+                nickname:item.nickname,
               });
             }}>
               <View style={{ flexDirection: 'row' }}>
