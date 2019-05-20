@@ -60,8 +60,8 @@ class Action extends Component {
   }
 
   _refresh = async () => {
-    const { getDiary,token } = this.props;
-    await getDiary(token);
+    const { getDiary } = this.props;
+    await getDiary();
     this.setState({
       isFetching: true
     });
@@ -88,7 +88,6 @@ class Action extends Component {
   _submitDiaryInfo = () => {
     const { getDiary, myDiary, exDiary, token } = this.props;
     let url = 'http://192.168.245.1:8080/diary/insertDiaryInfo';
-    console.log("token:"+ token);
     if ((this.state.diary_type === "default" && myDiary.length === 0) ||
       (this.state.diary_type === "exchange" && exDiary.length < 5)) {
       fetch(url, {
@@ -109,7 +108,7 @@ class Action extends Component {
         .then(response => {
           if (JSON.stringify(response) > 0 && this.state.diary_title !== 'null') {
             alert('일기장이 생성 되었습니다');
-            getDiary(token);
+            getDiary();
             this._toggleModal();
           }
           else { 

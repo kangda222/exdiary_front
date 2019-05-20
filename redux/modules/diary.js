@@ -24,9 +24,11 @@ function setDiaryContent(diaryContent) {
 }
 
 //일기장 목록 가져오기
-function getDiary(token) {
-  console.log("getDiary:"+ token);
+function getDiary() {
   return (dispatch, getState) => {
+    const {user : {
+      token
+    }} = getState();
     let url = 'http://192.168.245.1:8080/diary/getDiary';
     fetch(url, {
       method: 'post',
@@ -47,9 +49,11 @@ function getDiary(token) {
 }
 
 //일기 리스트 가져오기
-function getDiaryList(diary_num,token) {
-  console.log('getDiaryList() diary_num : ', diary_num + "token :"+ token);
+function getDiaryList(diary_num) {
   return (dispatch, getState) => {
+    const {user : {
+      token
+    }} = getState();
     let url = 'http://192.168.245.1:8080/diaryList/getDiaryList';
     fetch(url, {
       method: 'post',
@@ -70,9 +74,11 @@ function getDiaryList(diary_num,token) {
 }
 
 //일기 내용 가져오기
-function getDiaryContent(_diary_num, _page_num, token) {
-  console.log("*********** getDiaryContent()" + token);
-  return (dispatch, getSate) => {
+function getDiaryContent(_diary_num, _page_num) {
+  return (dispatch, getState) => {
+    const {user : {
+      token
+    }} = getState();
     let url = 'http://192.168.245.1:8080/diaryList/getDiaryListCotents';
     fetch(url, {
       method: 'post',
@@ -87,7 +93,6 @@ function getDiaryContent(_diary_num, _page_num, token) {
     }).then((response => response.json()))
       .then(contents => {
         if(contents){
-          console.log("contents :" +contents);
           dispatch(setDiaryContent(contents));
         }
       })
@@ -95,9 +100,11 @@ function getDiaryContent(_diary_num, _page_num, token) {
 }
 
 // 일기 내용 작성하기
-function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email,token) {
-  console.log("insertDiaryContents _diary_num :" + _diary_num + "token:"+ token);
-  return (dispatch, getSate) => {
+function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email) {
+  return (dispatch, getState) => {
+    const {user : {
+      token
+    }} = getState();
     let url = 'http://192.168.245.1:8080/diaryList/insertDiaryContents';
     const insertResult = fetch(url, {
       method: 'post',

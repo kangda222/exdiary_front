@@ -5,15 +5,15 @@ import { actionCreators as diaryActions } from "../../redux/modules/diary";
 const mapStateToProps = (state, ownProps) => {
   const {
     diary: { diaryList },
-    user : { token }} = state;
-  return { diaryList,token };
+   } = state;
+  return { diaryList };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   //const {id} = ownProps;
   return {
-    getDiarylist: (diary_num,token) => {
-      return dispatch(diaryActions.getDiaryList(diary_num,token));
+    getDiarylist: (diary_num) => {
+      return dispatch(diaryActions.getDiaryList(diary_num));
     }
   };
 };

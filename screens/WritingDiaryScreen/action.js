@@ -128,8 +128,8 @@ class Action extends Component {
 
     // 글쓰기 저장 
     _insertContents = async () => {
-        const { insertDiaryContents, token } = this.props;
-        const result = await insertDiaryContents(this.state.diary_num, "1", this.state.title, this.state.contents, "담비", "qwerty@naver.com",token);
+        const { insertDiaryContents } = this.props;
+        const result = await insertDiaryContents(this.state.diary_num, "1", this.state.title, this.state.contents, "담비", "qwerty@naver.com");
         if (result) {
             this.props.navigation.navigate('DiaryContentsScreen',);
         }
