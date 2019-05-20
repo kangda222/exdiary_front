@@ -24,7 +24,19 @@ class Action extends Component {
         return <DiaryContentsScreen
           {...this.props}
           {...this.state}
+          deleteContent = {this._deleteContent}
+          changeContent = {this._changeContent}
         />;
+    }
+
+    // 컨텐츠 삭제 시 
+    _deleteContent = () => {
+      console.log("deleteContent()");
+    }
+
+    // 컨텐츠 수정 시 
+    _changeContent = () => {
+      console.log("changeContent()");
     }
 }
 

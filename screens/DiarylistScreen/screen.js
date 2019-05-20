@@ -36,7 +36,6 @@ const DiarylistScreen = props => (
       </> : null}
       
     <TouchableOpacity onPressOut={() => {
-      // alert('props:'+ props.diary_title + "diary_num" + props.diary_num);
       props.navigation.navigate("WritingDiaryScreen", {
         diary_num: props.diary_num,
       });

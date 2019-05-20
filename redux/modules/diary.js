@@ -1,3 +1,5 @@
+import { API_URL } from "../../constants";
+
 const SET_DIARY = "SET_DIARY";
 const SET_DIARYLIST = "SET_DIARYLIST";
 const SET_DIARYCONTENT = "SET_DIARYCONTENT";
@@ -26,11 +28,12 @@ function setDiaryContent(diaryContent) {
 //일기장 목록 가져오기
 function getDiary() {
   return (dispatch, getState) => {
-    const {user : {
+    const { user: {
       token
-    }} = getState();
-    let url = 'http://192.168.245.1:8080/diary/getDiary';
-    fetch(url, {
+    } } = getState();
+
+    console.log("getDiary() token:" + token);
+    fetch(`${API_URL}/diary/getDiary`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -51,11 +54,11 @@ function getDiary() {
 //일기 리스트 가져오기
 function getDiaryList(diary_num) {
   return (dispatch, getState) => {
-    const {user : {
+    const { user: {
       token
-    }} = getState();
-    let url = 'http://192.168.245.1:8080/diaryList/getDiaryList';
-    fetch(url, {
+    } } = getState();
+    console.log("getDiaryList() token:" + token);
+    fetch(`${API_URL}/diaryList/getDiaryList`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -76,11 +79,12 @@ function getDiaryList(diary_num) {
 //일기 내용 가져오기
 function getDiaryContent(_diary_num, _page_num) {
   return (dispatch, getState) => {
-    const {user : {
+    const { user: {
       token
-    }} = getState();
-    let url = 'http://192.168.245.1:8080/diaryList/getDiaryListCotents';
-    fetch(url, {
+    } } = getState();
+
+    console.log("getDiaryContent() token:" + token);
+    fetch(`${API_URL}/diaryList/getDiaryListCotents`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -92,7 +96,7 @@ function getDiaryContent(_diary_num, _page_num) {
       })
     }).then((response => response.json()))
       .then(contents => {
-        if(contents){
+        if (contents) {
           dispatch(setDiaryContent(contents));
         }
       })
@@ -102,11 +106,12 @@ function getDiaryContent(_diary_num, _page_num) {
 // 일기 내용 작성하기
 function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email) {
   return (dispatch, getState) => {
-    const {user : {
+    const { user: {
       token
-    }} = getState();
-    let url = 'http://192.168.245.1:8080/diaryList/insertDiaryContents';
-    const insertResult = fetch(url, {
+    } } = getState();
+
+    console.log("insertDiaryContents() token:" + token);
+    const insertResult = fetch(`${API_URL}/diaryList/insertDiaryContents`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -132,6 +137,39 @@ function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname
       })
       .catch(e => e)
     return insertResult;
+  }
+}
+
+// 일기 내용 삭제 
+function deleteDiaryContents() {
+  console.log("deleteDiaryContents()");
+  return (dispatch, getstate) => {
+    const { user: {
+      token
+    } } = getState();
+
+    const deleteResult = fetch(`${API_URL}/diaryList/deleteDiaryContents`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+
+      }).then((response) => response.json())
+        .then(result => {
+          if (JSON.stringify(result) > 0) {
+            alert('일기 삭제 완료');
+            return true;
+          } else {
+            alert('일기 삭제 실패');
+            return false;
+          }
+        })
+        .catch(e => e)
+    })
+
+    return deleteResult;
   }
 }
 
