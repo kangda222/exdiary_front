@@ -3,6 +3,8 @@ import Modal from "react-native-modal";
 import { Dimensions, StatusBar, Alert } from "react-native";
 import styled from "styled-components/native";
 import { CheckBox } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
+import PhotoMenuModal from "../PhotoMenuModal";
 import { white } from "ansi-colors";
 
 class Action extends Component {
@@ -14,8 +16,10 @@ class Action extends Component {
   state = {
     isMale:
       this.props.profile && this.props.profile.gender === "F" ? false : true,
-    nickname: this.props.profile.nickname,
-    phoneNumber: this.props.profile.phoneNumber
+    nickname: this.props.profile && this.props.profile.nickname,
+    phoneNumber: this.props.profile && this.props.profile.phoneNumber,
+    isShowPhotoMenu: false,
+    image: this.props.profile && this.props.profile.profile_img
   };
 
   render() {
@@ -27,6 +31,22 @@ class Action extends Component {
       >
         <Container>
           <Text>프로필 변경!!</Text>
+          <TouchableOpacity onPressOut={() => this._togglePhotoMenu()}>
+            {this.state.image ? (
+              <Image
+                source={{
+                  uri: this.state.image
+                }}
+              />
+            ) : (
+              <Ionicons name="ios-contact" size={50} />
+            )}
+            <PhotoMenuModal
+              isShowPhotoMenu={this.state.isShowPhotoMenu}
+              togglePhotoMenu={this._togglePhotoMenu}
+              setImage={this._setImage}
+            />
+          </TouchableOpacity>
           <Text>이름</Text>
           <TextInput
             placeholder="username"
@@ -86,11 +106,13 @@ class Action extends Component {
   };
 
   _submit = async () => {
-    const { nickname, phoneNumber, isMale } = this.state;
+    const { nickname, phoneNumber, isMale, image } = this.state;
+    //console.log(image);
     const isSuccess = await this.props.updateProfile(
       nickname,
       phoneNumber,
-      isMale
+      isMale,
+      image
     );
     if (isSuccess) {
       await this.props.toggleProfileModal();
@@ -112,6 +134,14 @@ class Action extends Component {
   _changePhonNumber = text => {
     this.setState({ phoneNumber: text });
   };
+
+  _togglePhotoMenu = () => {
+    this.setState({ isShowPhotoMenu: !this.state.isShowPhotoMenu });
+  };
+
+  _setImage = uri => {
+    this.setState({ image: uri });
+  };
 }
 
 const Container = styled.View`
@@ -123,5 +153,13 @@ const Text = styled.Text``;
 const TextInput = styled.TextInput``;
 
 const Button = styled.Button``;
+
+const Image = styled.Image`
+  width: 40;
+  height: 40;
+  border-radius: 20;
+`;
+
+const TouchableOpacity = styled.TouchableOpacity``;
 
 export default Action;

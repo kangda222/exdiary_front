@@ -1,6 +1,7 @@
 // Imports
 import { AsyncStorage } from "react-native";
 import { API_URL } from "../../constants";
+import uuidv1 from "uuid/v1";
 
 // Actions
 const LOG_IN = "LOG_IN";
@@ -160,7 +161,7 @@ function secession() {
 }
 
 //프로필 수정
-function updateProfile(nickname, phoneNumber, isMale) {
+function updateProfile(nickname, phoneNumber, isMale, image) {
   return (dispatch, getState) => {
     const {
       user: {
@@ -169,22 +170,27 @@ function updateProfile(nickname, phoneNumber, isMale) {
       }
     } = getState();
     console.log(
-      `updateProfile nickname ${nickname}, phoneNumber ${phoneNumber}, isMale ${isMale}`
+      `updateProfile nickname ${nickname}, phoneNumber ${phoneNumber}, isMale ${isMale}, image ${image}`
     );
     const gender = isMale ? "M" : "F";
+    const data = new FormData();
+    data.append("email", email);
+    data.append("nickname", nickname);
+    data.append("phoneNumber", phoneNumber);
+    data.append("gender", gender);
+    data.append("file", {
+      uri: image,
+      type: "image/jpeg",
+      name: `${uuidv1()}.jpg`
+    });
     //dispatch(setUser({ name: username }));
     return fetch(`${API_URL}/user/updateProfile`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({
-        email,
-        nickname,
-        phoneNumber,
-        gender
-      })
+      body: data
     })
       .then(response => {
         if (response.status === 403) {
