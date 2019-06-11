@@ -6,13 +6,18 @@ const mapStateToProps = (state, ownProps) => {
     const { diary: { diaryContent },
     } = state;
     return {
-        diaryContent 
+        diaryContent
     };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        
+        deleteDiaryContents: () => {
+            dispatch(diaryActions.deleteDiaryContents());
+        },
+        updateDiaryContents: () => {
+            dispatch(diaryActions.updateDiaryContents());
+        }
     }
 };
 

@@ -84,7 +84,7 @@ function getDiaryContent(_diary_num, _page_num) {
     } } = getState();
 
     console.log("getDiaryContent() token:" + token);
-    fetch(`${API_URL}/diaryList/getDiaryListCotents`, {
+    fetch(`${API_URL}/diaryList/getDiaryListContents`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -141,7 +141,7 @@ function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname
 }
 
 // 일기 내용 삭제 
-function deleteDiaryContents() {
+function deleteDiaryContents(_diary_num, _page_num) {
   console.log("deleteDiaryContents()");
   return (dispatch, getstate) => {
     const { user: {
@@ -155,7 +155,8 @@ function deleteDiaryContents() {
         "Authorization": "Bearer " + token
       },
       body: JSON.stringify({
-
+        diary_num: _diary_num,
+        page_num: _page_num
       }).then((response) => response.json())
         .then(result => {
           if (JSON.stringify(result) > 0) {
@@ -170,6 +171,43 @@ function deleteDiaryContents() {
     })
 
     return deleteResult;
+  }
+}
+
+// 일기 내용 수정
+function updateDiaryContents(_diary_num, _page_num, _title) {
+  console.log("updateDiaryContents()");
+  return (dispatch, getState) => {
+    const { user: { token }, diary: { diaryContent } } = getState();
+
+    console.log("diaryContent: " + diaryContent);
+
+    const updateResult = fetch(`${API_URL}/diaryList/updateDiaryContents`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        diary_num: _diary_num,
+        page_num: _page_num,
+        title: _title,
+        contents: diaryContent
+      }).then((response) => response.json())
+        .then(result => {
+          if (JSON.stringify(result) > 0) {
+            alert('일기 수정 완료');
+            return true;
+          } else {
+            alert('일기 수정 실패');
+            return false;
+          }
+        })
+        .catch(e => e)
+    })
+
+    return updateResult;
+
   }
 }
 
@@ -242,7 +280,9 @@ const actionCreators = {
   getDiary,
   getDiaryList,
   getDiaryContent,
-  insertDiaryContents
+  insertDiaryContents,
+  deleteDiaryContents,
+  updateDiaryContents
 };
 
 export { actionCreators };

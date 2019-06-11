@@ -24,6 +24,8 @@ const DiarylistScreen = props => (
                 title:item.title,
                 write_date:item.write_date,
                 nickname:item.nickname,
+                page_num:item.page_num,
+                diary_num:item.diary_num
               });
             }}>
               <View style={{ flexDirection: 'row' }}>

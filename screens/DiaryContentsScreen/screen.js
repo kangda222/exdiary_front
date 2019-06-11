@@ -9,7 +9,7 @@ const DiaryContentsScreen = props => (
         <View style={{ flexDirection: 'row' }}>
             <Text>제목 : {props.title} </Text>
 
-            <Text>작성일 : {props.write_date.substring(0,10)} </Text>
+            <Text>작성일 : {props.write_date.substring(0, 10)} </Text>
 
             <Text>닉네임 : {props.nickname} </Text>
         </View>
@@ -18,7 +18,13 @@ const DiaryContentsScreen = props => (
             style={{ flex: 1 }} />
         <View>
             <TouchableOpacity onPressOut={props.changeContent}><Text>삭제</Text></TouchableOpacity>
-            <TouchableOpacity onPressOut={props.deleteContent}><Text>수정</Text></TouchableOpacity>
+            <TouchableOpacity onPressOut={() => {
+                props.navigation.navigate("WritingDiaryScreen", {
+                    diary_num:props.diary_num,
+                    page_num:props.page_num,
+                    diaryContent:props.diaryContent
+                });
+            }}><Text>수정</Text></TouchableOpacity>
         </View>
     </View>
 );
