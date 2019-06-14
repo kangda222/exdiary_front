@@ -53,6 +53,7 @@ function getDiary() {
 
 //일기 리스트 가져오기
 function getDiaryList(diary_num) {
+  console.log("getDiaryList ()  diary_num : " + diary_num)
   return (dispatch, getState) => {
     const { user: {
       token
@@ -67,9 +68,9 @@ function getDiaryList(diary_num) {
       body: JSON.stringify({
         diary_num: diary_num
       }),
-
     }).then((response) => response.json())
       .then(diaryList => {
+        console.log("diaryList : " + JSON.stringify(diaryList));
         dispatch(setDiaryList(diaryList));
       })
       .catch(e => e)
@@ -110,7 +111,6 @@ function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname
       token
     } } = getState();
 
-    console.log("insertDiaryContents() token:" + token);
     const insertResult = fetch(`${API_URL}/diaryList/insertDiaryContents`, {
       method: 'post',
       headers: {
@@ -142,8 +142,8 @@ function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname
 
 // 일기 내용 삭제 
 function deleteDiaryContents(_diary_num, _page_num) {
-  console.log("deleteDiaryContents()");
-  return (dispatch, getstate) => {
+  console.log("deleteDiaryContents() _diary_num :" + _diary_num + "_page_num :" + _page_num);
+  return (dispatch, getState) => {
     const { user: {
       token
     } } = getState();
@@ -157,10 +157,12 @@ function deleteDiaryContents(_diary_num, _page_num) {
       body: JSON.stringify({
         diary_num: _diary_num,
         page_num: _page_num
-      }).then((response) => response.json())
+      }),
+    }).then((response) => response.json())
         .then(result => {
           if (JSON.stringify(result) > 0) {
             alert('일기 삭제 완료');
+            dispatch(getDiaryList(_diary_num));
             return true;
           } else {
             alert('일기 삭제 실패');
@@ -168,8 +170,6 @@ function deleteDiaryContents(_diary_num, _page_num) {
           }
         })
         .catch(e => e)
-    })
-
     return deleteResult;
   }
 }
@@ -179,9 +179,6 @@ function updateDiaryContents(_diary_num, _page_num, _title) {
   console.log("updateDiaryContents()");
   return (dispatch, getState) => {
     const { user: { token }, diary: { diaryContent } } = getState();
-
-    console.log("diaryContent: " + diaryContent);
-
     const updateResult = fetch(`${API_URL}/diaryList/updateDiaryContents`, {
       method: 'post',
       headers: {

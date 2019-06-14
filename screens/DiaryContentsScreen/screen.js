@@ -17,7 +17,9 @@ const DiaryContentsScreen = props => (
             text={props.diaryContent}
             style={{ flex: 1 }} />
         <View>
-            <TouchableOpacity onPressOut={props.changeContent}><Text>삭제</Text></TouchableOpacity>
+            <TouchableOpacity onPressOut={() => {
+                props.deleteContent(props.diary_num.toString(), props.page_num.toString());
+            }}><Text>삭제</Text></TouchableOpacity>
             <TouchableOpacity onPressOut={() => {
                 props.navigation.navigate("WritingDiaryScreen", {
                     diary_num:props.diary_num,
