@@ -10,21 +10,22 @@ class Action extends Component {
         const {
             navigation: {
                 state: {
-                    params: { diary_num, user_num, nickname, email }
+                    params: { diary_num, page_num, title, contents}
                 }
             }
         } = props;
         this.state = {
-            title:null,
+            title,
             focused_title: '',
             image: null,
-            isModalVisible: null,
+            isModalVisible:null,
 
             //편집기 관련 
             selectedTag: 'body',
             selectedStyles: [],
-            contents: [getInitialObject()],
-            diary_num
+            contents: (contents) ? contents :[getInitialObject()],
+            diary_num,
+            page_num
         };
         this.editor = null;
     }
@@ -50,6 +51,7 @@ class Action extends Component {
                 handleChoosePhoto={this._handleChoosePhoto}
                 handleCamera={this._handleCamera}
                 handelChooseVideo={this._handelChooseVideo}
+                changeContent={this._changeContent}
             />
 
         );
@@ -226,6 +228,16 @@ class Action extends Component {
         };
 
         let newContents = value;
+    }
+
+    // 컨텐츠 수정 시 
+    _changeContent = () => {
+        console.log("changeContent()");
+        const { updateDiaryContents } = this.props;
+        const result = updateDiaryContents(this.state.diary_num, this.state.page_num, this.state.title, this.state.contents);
+        if(result){
+            this.props.navigation.navigate("DiarylistScreen");
+        }
     }
 
 }

@@ -24,7 +24,8 @@ const DiaryContentsScreen = props => (
                 props.navigation.navigate("WritingDiaryScreen", {
                     diary_num:props.diary_num,
                     page_num:props.page_num,
-                    diaryContent:props.diaryContent
+                    title:props.title,
+                    contents:props.diaryContent
                 });
             }}><Text>수정</Text></TouchableOpacity>
         </View>

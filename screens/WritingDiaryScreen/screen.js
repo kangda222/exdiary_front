@@ -18,10 +18,13 @@ const WritingDiaryScreen = props => {
                     onFocus={props.focused}
                     onEndEditing={props.unfocused}
                 />
+                {props.diary_num && props.page_num ? <TouchableOpacity style={styles.button} onPressOut={
+                 props.changeContent
+                }><Text>수정</Text></TouchableOpacity> :
                 <TouchableOpacity style={styles.button} onPressOut={
-                   props.insertContents
-                }>
-                <Text>저장</Text></TouchableOpacity>
+                    props.insertContents
+                 }><Text>저장</Text></TouchableOpacity>
+                }
             </View>
 
             <View style={styles.line}></View>

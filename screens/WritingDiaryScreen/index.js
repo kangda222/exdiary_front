@@ -12,6 +12,10 @@ const mapDispatchToProps = (dispatch) => {
         // 일기 내용 가져오기 
         getDiaryContent:(diary_num,page_num) => {
             dispatch(diaryActions.getDiaryContent(diary_num,page_num));
+        },
+        // 일기 내용 수정하기
+        updateDiaryContents: (diary_num, page_num, title, contents) => {
+           return dispatch(diaryActions.updateDiaryContents(diary_num, page_num, title, contents));
         }
     };
 };

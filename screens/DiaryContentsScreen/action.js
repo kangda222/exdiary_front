@@ -36,19 +36,11 @@ class Action extends Component {
     console.log("deleteContent()");
     const { deleteDiaryContents } = this.props;
     const result = await deleteDiaryContents(_diary_num, _page_num);
-    
-    console.log("result!!!!! :" + result);
     if(result){
       this.props.navigation.navigate("DiarylistScreen");
     }
   }
 
-  // 컨텐츠 수정 시 
-  _changeContent = () => {
-    console.log("changeContent()");
-    const { updateDiaryContents} = this.props;
-    updateDiaryContents(diary_num, page_num, title);
-  }
 }
 
 export default Action;
