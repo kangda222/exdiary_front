@@ -32,7 +32,6 @@ function getDiary() {
       token
     } } = getState();
 
-    console.log("getDiary() token:" + token);
     fetch(`${API_URL}/diary/getDiary`, {
       method: 'post',
       headers: {
@@ -51,6 +50,62 @@ function getDiary() {
   };
 }
 
+// 일기장 타이틀, 설명 변경 시 
+function updateDiaryInfo(_diary_num, _diary_title, _explanation) {
+  return (dispatch, getState) => {
+    const { user: {
+      token
+    } } = getState();
+
+    fetch(`${API_URL}/diary/updateDiaryInfo`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        diary_num: _diary_num,
+        diary_title: _diary_title,
+        explanation: _explanation
+      }),
+    })
+      .then((response) => response.json())
+      .then(data => {
+        dispatch(setDiary(data));
+      })
+      .catch(e => e)
+  };
+}
+
+// 일기장 삭제 시 
+function deleteDiary(_diary_num) {
+  console.log("deleteDiary() : " + _diary_num);
+  return (dispatch, getState) => {
+    const { user: {
+      token
+    } } = getState();
+
+    fetch(`${API_URL}/diary/deleteDiary`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        diary_num: _diary_num,
+      }),
+    })
+      .then((response) => response.json())
+      .then(result => {
+        if(JSON.stringify(result)){
+          alert('일기장 삭제 완료');
+          dispatch(getDiary());
+        }
+      })
+      .catch(e => e)
+  };
+}
+
 //일기 리스트 가져오기
 function getDiaryList(diary_num) {
   console.log("getDiaryList ()  diary_num : " + diary_num)
@@ -58,7 +113,7 @@ function getDiaryList(diary_num) {
     const { user: {
       token
     } } = getState();
-    console.log("getDiaryList() token:" + token);
+
     fetch(`${API_URL}/diaryList/getDiaryList`, {
       method: 'post',
       headers: {
@@ -70,7 +125,6 @@ function getDiaryList(diary_num) {
       }),
     }).then((response) => response.json())
       .then(diaryList => {
-        console.log("diaryList : " + JSON.stringify(diaryList));
         dispatch(setDiaryList(diaryList));
       })
       .catch(e => e)
@@ -84,7 +138,6 @@ function getDiaryContent(_diary_num, _page_num) {
       token
     } } = getState();
 
-    console.log("getDiaryContent() token:" + token);
     fetch(`${API_URL}/diaryList/getDiaryListContents`, {
       method: 'post',
       headers: {
@@ -276,6 +329,8 @@ const actionCreators = {
   getDiary,
   getDiaryList,
   getDiaryContent,
+  updateDiaryInfo, 
+  deleteDiary,
   insertDiaryContents,
   deleteDiaryContents,
   updateDiaryContents

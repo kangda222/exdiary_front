@@ -14,6 +14,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getDiarylist: (diary_num) => {
       return dispatch(diaryActions.getDiaryList(diary_num));
+    },
+    updateDiaryInfo: (diary_num,diary_title,explanation) => {
+      return updateDiaryInfo(diaryActions.updateDiaryInfo(diary_num,diary_title,explanation));
+    },
+    deleteDiary: (diary_num) => {
+      return dispatch(diaryActions.deleteDiary(diary_num));
     }
   };
 };
