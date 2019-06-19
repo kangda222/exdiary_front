@@ -5,7 +5,6 @@ class Action extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       loadded: false
     }
   }
@@ -21,6 +20,7 @@ class Action extends Component {
       handlePress={this._handlePress}
       editDiaryInfo={this._editDiaryInfo}
       deleteDiary={this._deleteDiary}
+      cancel={this._cancel}
     />;
   }
 
@@ -41,9 +41,12 @@ class Action extends Component {
 
   // 일기장 수정 시 
   _editDiaryInfo = () => {
-    console.log(this.props);
     // const { updateDiaryInfo } = this.props;
+  }
 
+  // 취소 선택 시 
+  _cancel = () => {
+    console.log("_cancel ()");
   }
 }
 

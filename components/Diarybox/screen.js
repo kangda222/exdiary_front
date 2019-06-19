@@ -12,11 +12,13 @@ const Diarybox = props => (
     <TouchableOpacity
       onPressOut={() => {
         props.handlePress(props.diary_num);
-        props.navigation.navigate("DiarylistScreen", {
-          diaryList: props.diaryList,
-          diary_title: props.diary_title, // 일기장 타이틀 
-          diary_num: props.diary_num
-        });
+        if(props.loadded){
+          props.navigation.navigate("DiarylistScreen", {
+            diaryList: props.diaryList,
+            diary_title: props.diary_title, // 일기장 타이틀 
+            diary_num: props.diary_num
+          });
+        }
       }}
     >
       <View style={{ flexDirection: 'row' }}>
@@ -29,7 +31,7 @@ const Diarybox = props => (
       buttonStyle={{ width: 20, height: 20, margin: 7.5, resizeMode: "contain" }}
       //destructiveIndex={1}
       options={["Edit", "Delete", "Cancel"]}
-      actions={[props.editDiaryInfo, props.deleteDiary]}
+      actions={[props.editDiaryInfo, props.deleteDiary, props.cancel]}
       />
   </View>
 );
