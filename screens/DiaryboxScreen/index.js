@@ -3,10 +3,10 @@ import Action from "./action";
 import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
-  const { diary: {exDiary, myDiary, totalDiary},
-        user: {token}} = state;
+  const { diary: { exDiary, myDiary, totalDiary },
+    user: { token } } = state;
   return {
-    exDiary,myDiary,totalDiary,token
+    exDiary, myDiary, totalDiary, token
   };
 };
 
@@ -17,7 +17,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getDiaryList: () => {
       dispatch(diaryActions.getDiaryList());
-    }
+    },
+    // 일기장 수정 시 
+    updateDiaryInfo: (diary_type, diary_num, diary_title, explanation) => {
+      return dispatch(diaryActions.updateDiaryInfo(diary_type, diary_num, diary_title, explanation));
+    },
   };
 };
 

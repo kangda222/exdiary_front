@@ -27,6 +27,7 @@ function setDiaryContent(diaryContent) {
 
 //일기장 목록 가져오기
 function getDiary() {
+  console.log("getDiary()");
   return (dispatch, getState) => {
     const { user: {
       token
@@ -114,7 +115,7 @@ function getDiaryList(diary_num) {
       token
     } } = getState();
 
-    fetch(`${API_URL}/diaryList/getDiaryList`, {
+    const result = fetch(`${API_URL}/diaryList/getDiaryList`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -125,9 +126,13 @@ function getDiaryList(diary_num) {
       }),
     }).then((response) => response.json())
       .then(diaryList => {
-        dispatch(setDiaryList(diaryList));
+        if(diaryList){
+          dispatch(setDiaryList(diaryList));
+          return true;
+        }
       })
       .catch(e => e)
+      return result; 
   };
 }
 
@@ -182,6 +187,7 @@ function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname
       .then(result => {
         if (JSON.stringify(result) > 0) {
           alert('일기 작성 완료');
+          dispatch(getDiaryList(_diary_num));
           return true;
         } else {
           alert('일기 작성 실패');
