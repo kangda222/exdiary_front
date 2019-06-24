@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text, View, TouchableOpacity, Picker } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import { Ionicons } from "@expo/vector-icons";
 import OptionsMenu from "react-native-options-menu"
 const MoreIcon = require("../../assets/images/icon_receiptpay.png");
 

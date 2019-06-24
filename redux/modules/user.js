@@ -8,6 +8,7 @@ const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const SET_USER = "SET_USER";
 const SAVE_TOKEN = "SAVE_TOKEN";
+const SEARCH_USER = "SEARCH_USER";
 
 // Action Creators
 function setLogIn(token) {
@@ -33,6 +34,13 @@ function saveToken(token) {
     type: SAVE_TOKEN,
     token
   };
+}
+
+function searchUser(search_user) {
+  return {
+    type: SEARCH_USER,
+    search_user
+  }
 }
 
 // API Actions
@@ -210,9 +218,44 @@ function updateProfile(nickname, phoneNumber, isMale, image) {
   };
 }
 
+// 유저 검색
+function selectUser(_searchValue) {
+  console.log("selectUser() :" + _searchValue);
+  return (dispatch, getState) => {
+    const { user: {
+      token
+    } } = getState();
+
+    fetch(`${API_URL}/user/selectUser`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        email: '',
+        nickname: _searchValue,
+      }),
+    })
+      .then((response) => response.json())
+      .then(userList => {
+        if (userList.length > 0 ) {
+          console.log("userList() :" + JSON.stringify(userList));
+          dispatch(searchUser(userList));
+        }
+        else {
+          alert('일치하는 유저가 존재하지 않습니다');
+        }
+      })
+      .catch(e => e)
+  }
+}
+
+
 // Initial State
 const initialState = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  userList: []
 };
 
 // Reducer
@@ -226,6 +269,8 @@ function reducer(state = initialState, action) {
       return applySetUser(state, action);
     case SAVE_TOKEN:
       return applySetToken(state, action);
+    case SEARCH_USER:
+      return applySearchUser(state, action);
     default:
       return state;
   }
@@ -273,6 +318,14 @@ function applySetToken(state, action) {
   };
 }
 
+function applySearchUser(state, action) {
+  const { search_user } = action;
+  return {
+    ...state,
+    userList: search_user
+  }
+}
+
 // Exports
 const actionCreators = {
   login,
@@ -281,7 +334,8 @@ const actionCreators = {
   checkingPassword,
   updatePassword,
   secession,
-  updateProfile
+  updateProfile,
+  selectUser
 };
 
 export { actionCreators };
