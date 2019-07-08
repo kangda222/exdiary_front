@@ -5,15 +5,14 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import PropTypes from "prop-types";
 import { Feather } from "@expo/vector-icons";
 
 // 일기 리스트 목록 그리기 
 const DiarylistScreen = props => (
   <View>
+    <Text>{props.diary_title}</Text>
     {props.diaryList.length !== 0 ?
       <>
-        <Text>{props.diary_title}</Text>
         <FlatList
           data={props.diaryList}
           keyExtractor={item => item.page_num.toString()}
@@ -32,10 +31,13 @@ const DiarylistScreen = props => (
                 <Text>{item.title} </Text>
                 <Text>{item.write_date.substring(0, 10)}</Text>
               </View>
-              {props.diary_type == 'exchange' ? 
-              <Text>
-                {props.userlist}
-              </Text> : null }
+              {props.diary_type == 'exchange' && userlist.length > 0 ?
+                <View>
+                  <Text>{props.userlist}</Text>
+                  <Text>함께 할 친구를 추가하세요!</Text>
+                </View>
+                : null
+              }
             </TouchableOpacity>
           )}
         />

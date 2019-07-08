@@ -31,6 +31,7 @@ class Action extends Component {
     if (result) {
       this.setState({ loadded: !this.state.loadded });
     }
+    console.log("this.props.userlist :" + this.props.userlist);
   };
 
   // 일기장 삭제 시 

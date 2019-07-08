@@ -97,8 +97,8 @@ class Action extends Component {
           "authorization": "Bearer " + token
         },
         body: JSON.stringify({
-          user_num: '1',
-          email: 'qwerty@naver.com',
+          user_num: '8',
+          email: 'user03@example.com',
           diary_type: this.state.diary_type,
           diary_title: this.state.diary_title,
           explanation: this.state.explanation
