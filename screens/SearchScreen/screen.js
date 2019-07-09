@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import OptionsMenu from "react-native-options-menu"
 import Modal from 'react-native-modal';
+import ModalDropdown from 'react-native-modal-dropdown';
 const MoreIcon = require("../../assets/images/icon_receiptpay.png");
 
 
@@ -57,7 +58,9 @@ const UserSearchScreen = props => (
                                         item.nickname,
                                         (item.gender !== null || item.gender !== '') ? item.gender : '',
                                     )
-                                }, props.toggleModalVisible, props.cancel]}
+                                }, () => {props.toggleModalVisible(
+                                        item.user_num
+                                )}, props.cancel]}
                             />
                         </View>
                     )} />
@@ -97,6 +100,12 @@ const UserSearchScreen = props => (
                 onSwipeComplete={props.toggleModalVisible}
             >
                 <View style={{ backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+                    <View>
+                        {props.exDiary.length !== 0 ? <ModalDropdown options={props.exDiaryList}
+                            defaultValue={"내 교환일기 선택"}
+                        /> : <Text>선택 할 교환일기가 존재하지 않습니다.</Text>}
+                    
+                    </View>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity onPressOut={props.toggleModalVisible} style={styles.modalbutton}>
                             <Text>취소</Text>

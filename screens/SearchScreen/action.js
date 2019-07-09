@@ -16,6 +16,7 @@ class Action extends Component {
         profile_img: '',
         nickname: '',
         gender: '',
+        exDiaryList:[]
     }
 
     render() {
@@ -54,7 +55,17 @@ class Action extends Component {
 
 
     // 교환 신청 모달 Toggle
-    _toggleModalVisible = () => {
+    _toggleModalVisible = async() => {
+        const { getDiary } = this.props;
+        await getDiary();
+        
+        // 모달에 있는 DropBox에 옵션 값으로 넣어주기 위해 배열로 담아서 그려줌 
+        if(this.props.exDiary.length !== 0){
+            for(var i=0; i<this.props.exDiary.length; i++){
+                this.state.exDiaryList[i] =  JSON.stringify(this.props.exDiary[i].diary_title);
+            }    
+        }
+
         this.setState({ isModalVisible: !this.state.isModalVisible });
     }
 
