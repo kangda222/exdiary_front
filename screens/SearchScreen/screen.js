@@ -59,7 +59,8 @@ const UserSearchScreen = props => (
                                         (item.gender !== null || item.gender !== '') ? item.gender : '',
                                     )
                                 }, () => {props.toggleModalVisible(
-                                        item.user_num
+                                        item.user_num,
+                                        item.nickname
                                 )}, props.cancel]}
                             />
                         </View>
@@ -104,8 +105,10 @@ const UserSearchScreen = props => (
                         {props.exDiary.length !== 0 ? <ModalDropdown options={props.exDiaryList}
                             defaultValue={"내 교환일기 선택"}
                         /> : <Text>선택 할 교환일기가 존재하지 않습니다.</Text>}
-                    
+                        <Text>초대자 : {props.inviter}</Text>
+                        <Text>교환 멤버 : {props.nickname}</Text>
                     </View>
+                    <Text>전송하시겠습니까?</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity onPressOut={props.toggleModalVisible} style={styles.modalbutton}>
                             <Text>취소</Text>

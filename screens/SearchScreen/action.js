@@ -16,7 +16,8 @@ class Action extends Component {
         profile_img: '',
         nickname: '',
         gender: '',
-        exDiaryList:[]
+        exDiaryList: [],
+        inviter: '' // 초대자 
     }
 
     render() {
@@ -55,18 +56,20 @@ class Action extends Component {
 
 
     // 교환 신청 모달 Toggle
-    _toggleModalVisible = async() => {
-        const { getDiary } = this.props;
+    _toggleModalVisible = async (user_num, nickname) => {
+        const { getDiary, profile } = this.props;
         await getDiary();
-        
-        // 모달에 있는 DropBox에 옵션 값으로 넣어주기 위해 배열로 담아서 그려줌 
-        if(this.props.exDiary.length !== 0){
-            for(var i=0; i<this.props.exDiary.length; i++){
-                this.state.exDiaryList[i] =  JSON.stringify(this.props.exDiary[i].diary_title);
-            }    
-        }
 
-        this.setState({ isModalVisible: !this.state.isModalVisible });
+        // 현재 접속중인 사용자 닉네임 뽑아오기
+        console.log("profile : " + JSON.stringify(profile.nickname) + " user_num : "+ user_num);
+
+        // 모달에 있는 DropBox에 옵션 값으로 넣어주기 위해 배열로 담아서 그려줌 
+        if (this.props.exDiary.length !== 0) {
+            for (var i = 0; i < this.props.exDiary.length; i++) {
+                this.state.exDiaryList[i] = JSON.stringify(this.props.exDiary[i].diary_title);
+            }
+        }
+        this.setState({ isModalVisible: !this.state.isModalVisible, inviter: profile.nickname, nickname:nickname });
     }
 
     // 검색한 유저에게 교환일기 요청 

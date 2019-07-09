@@ -149,6 +149,7 @@ function updatePassword(password) {
         } else {
           return response.json();
         }
+        
       })
       .then(json => {
         console.log(JSON.stringify(json));

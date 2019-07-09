@@ -5,9 +5,9 @@ import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
   const { diary: { exDiary },
-    user: { token, userList } } = state;
+    user: { token, userList, profile } } = state;
   return {
-    token, userList, exDiary
+    token, userList, exDiary, profile
   };
 };
 
