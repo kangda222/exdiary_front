@@ -252,6 +252,51 @@ function selectUser(_searchValue) {
   }
 }
 
+// 교환 신청 쪽지 전송 
+function sendExchangeRequest(ex_title, ex_diary_num, member, inviter){
+  console.log("sendExchangeRequest()");
+  return (dispatch, getState) => {
+    const { user : {
+      profile: { email, user_num },
+      token,
+    }} = getState();
+
+    console.log("초대자 이메일 :" + String(email) + "초대자 유저번호 :" + user_num + "초대자 닉네임:"+ inviter);
+    
+    console.log("교환일기 타이틀 :" + ex_title + "교환일기 번호:" + ex_diary_num);
+    
+    console.log("멤버 :" + member);
+  
+    const result = fetch(`${API_URL}/user/insertExchangeRequest`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        user_num: user_num,
+        email: email,
+        ex_title: ex_title,
+        ex_diary_num: ex_diary_num,
+        member: member,
+        inviter:inviter
+      }),
+    })
+    .then((response) => response.json())
+    .then(response => {
+        if(JSON.stringify(response) > 0 ){
+          alert("교환 신청이 완료되었습니다.");
+          return true;
+        }
+        else{
+          alert("교환 신청에 실패했습니다.");
+          return false;
+        }
+    })
+    .catch(e => e)
+    return result;
+  }
+}
 
 // Initial State
 const initialState = {
@@ -336,7 +381,8 @@ const actionCreators = {
   updatePassword,
   secession,
   updateProfile,
-  selectUser
+  selectUser,
+  sendExchangeRequest
 };
 
 export { actionCreators };

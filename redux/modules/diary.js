@@ -40,7 +40,7 @@ function getDiary() {
         "Authorization": "Bearer " + token
       },
       body: JSON.stringify({
-        email: "user03@example.com",
+        email: "user01@example.com",
       }),
     })
       .then((response) => response.json())

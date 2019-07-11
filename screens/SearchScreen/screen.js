@@ -58,10 +58,12 @@ const UserSearchScreen = props => (
                                         item.nickname,
                                         (item.gender !== null || item.gender !== '') ? item.gender : '',
                                     )
-                                }, () => {props.toggleModalVisible(
-                                        item.user_num,
-                                        item.nickname
-                                )}, props.cancel]}
+                                }, () => {
+                                    props.toggleModalVisible(
+                                        item.nickname,
+                                        item.user_num
+                                    )
+                                }, '']}
                             />
                         </View>
                     )} />
@@ -102,9 +104,11 @@ const UserSearchScreen = props => (
             >
                 <View style={{ backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
                     <View>
-                        {props.exDiary.length !== 0 ? <ModalDropdown options={props.exDiaryList}
-                            defaultValue={"내 교환일기 선택"}
-                        /> : <Text>선택 할 교환일기가 존재하지 않습니다.</Text>}
+                        {props.exDiary.length !== 0 ?
+                            <ModalDropdown options={props.exDiaryTitleList}
+                                onSelect={(index) => props.getSelectedIndeX(index)}
+                                defaultValue={"교환할 교환일기를 선택해주세요"}
+                            /> : null}
                         <Text>초대자 : {props.inviter}</Text>
                         <Text>교환 멤버 : {props.nickname}</Text>
                     </View>
@@ -113,7 +117,8 @@ const UserSearchScreen = props => (
                         <TouchableOpacity onPressOut={props.toggleModalVisible} style={styles.modalbutton}>
                             <Text>취소</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPressOut={props.submitDiaryInfo} style={styles.modalbutton}>
+                        <TouchableOpacity onPressOut={() => props.exchangeRequest()}
+                            style={styles.modalbutton}>
                             <Text>확인</Text>
                         </TouchableOpacity>
                     </View>

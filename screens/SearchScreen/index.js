@@ -20,6 +20,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     // 유저 검색 시 
     selectUser: (value) => {
       dispatch(userActions.selectUser(value));
+    },
+    sendExchangeRequest: (ex_title,ex_diary_num,member,inviter) => {
+      return dispatch(userActions.sendExchangeRequest(ex_title,ex_diary_num,member,inviter))
     }
   };
 };
