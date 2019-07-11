@@ -1,19 +1,26 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { connect } from "react-redux";
+import Action from "./action";
+import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
-const NotificationScreen = () => (
-  <View style={styles.container}>
-    <Text>NotificationScreen</Text>
-  </View>
-);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+const mapStateToProps = (state, ownProps) => {
+  const { user: { notificationList } } = state;
+  return {
+    notificationList // 알림 리스트
   }
-});
+};
 
-export default NotificationScreen;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    // 알림 리스트 가져오기 
+    _setNotification: () => {
+      dispatch(userActions._setNotification());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Action);
+

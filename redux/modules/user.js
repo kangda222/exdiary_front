@@ -9,6 +9,7 @@ const LOG_OUT = "LOG_OUT";
 const SET_USER = "SET_USER";
 const SAVE_TOKEN = "SAVE_TOKEN";
 const SEARCH_USER = "SEARCH_USER";
+const SET_NOTIFICATION = "SET_NOTIFICATION";
 
 // Action Creators
 function setLogIn(token) {
@@ -40,6 +41,13 @@ function searchUser(search_user) {
   return {
     type: SEARCH_USER,
     search_user
+  }
+}
+
+function setNotification(notification){
+  return {
+    type: SET_NOTIFICATION,
+    notification
   }
 }
 
@@ -149,7 +157,7 @@ function updatePassword(password) {
         } else {
           return response.json();
         }
-        
+
       })
       .then(json => {
         console.log(JSON.stringify(json));
@@ -240,7 +248,7 @@ function selectUser(_searchValue) {
     })
       .then((response) => response.json())
       .then(userList => {
-        if (userList.length > 0 ) {
+        if (userList.length > 0) {
           console.log("userList() :" + JSON.stringify(userList));
           dispatch(searchUser(userList));
         }
@@ -253,20 +261,20 @@ function selectUser(_searchValue) {
 }
 
 // 교환 신청 쪽지 전송 
-function sendExchangeRequest(ex_title, ex_diary_num, member, inviter){
+function sendExchangeRequest(ex_title, ex_diary_num, member, inviter) {
   console.log("sendExchangeRequest()");
   return (dispatch, getState) => {
-    const { user : {
+    const { user: {
       profile: { email, user_num },
       token,
-    }} = getState();
+    } } = getState();
 
-    console.log("초대자 이메일 :" + String(email) + "초대자 유저번호 :" + user_num + "초대자 닉네임:"+ inviter);
-    
+    console.log("초대자 이메일 :" + String(email) + "초대자 유저번호 :" + user_num + "초대자 닉네임:" + inviter);
+
     console.log("교환일기 타이틀 :" + ex_title + "교환일기 번호:" + ex_diary_num);
-    
+
     console.log("멤버 :" + member);
-  
+
     const result = fetch(`${API_URL}/user/insertExchangeRequest`, {
       method: 'post',
       headers: {
@@ -279,29 +287,35 @@ function sendExchangeRequest(ex_title, ex_diary_num, member, inviter){
         ex_title: ex_title,
         ex_diary_num: ex_diary_num,
         member: member,
-        inviter:inviter
+        inviter: inviter
       }),
     })
-    .then((response) => response.json())
-    .then(response => {
-        if(JSON.stringify(response) > 0 ){
+      .then((response) => response.json())
+      .then(response => {
+        if (JSON.stringify(response) > 0) {
           alert("교환 신청이 완료되었습니다.");
           return true;
         }
-        else{
+        else {
           alert("교환 신청에 실패했습니다.");
           return false;
         }
-    })
-    .catch(e => e)
+      })
+      .catch(e => e)
     return result;
   }
+}
+
+// 유저 관련 알림 가져오기 
+function _setNotification() {
+  console.log("setNotification()");
 }
 
 // Initial State
 const initialState = {
   isLoggedIn: false,
-  userList: []
+  userList: [],
+  notificationList:[]
 };
 
 // Reducer
@@ -317,6 +331,8 @@ function reducer(state = initialState, action) {
       return applySetToken(state, action);
     case SEARCH_USER:
       return applySearchUser(state, action);
+    case SET_NOTIFICATION:
+      return applySetNotification(state, action);
     default:
       return state;
   }
@@ -372,6 +388,14 @@ function applySearchUser(state, action) {
   }
 }
 
+function applySetNotification(state, action){
+  const { notification } = action;
+  return {
+    ...state,
+    notificationList: notification
+  }
+}
+
 // Exports
 const actionCreators = {
   login,
@@ -382,7 +406,8 @@ const actionCreators = {
   secession,
   updateProfile,
   selectUser,
-  sendExchangeRequest
+  sendExchangeRequest,
+  _setNotification
 };
 
 export { actionCreators };
