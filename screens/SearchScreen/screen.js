@@ -63,7 +63,7 @@ const UserSearchScreen = props => (
                                         item.nickname,
                                         item.user_num
                                     )
-                                }, '']}
+                                }, ()=>{}]}
                             />
                         </View>
                     )} />

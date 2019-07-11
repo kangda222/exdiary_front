@@ -70,14 +70,21 @@ class Action extends Component {
         console.log("profile : " + JSON.stringify(profile.nickname) + "inv_email : " + JSON.stringify(profile.email));
 
         // 모달에 있는 DropBox에 옵션 값으로 넣어주기 위해 배열로 담아서 그려줌 
-        if (this.props.exDiary.length !== 0) {
+        if (this.props.exDiary.length !== 0 && user_num !== profile.user_num) {
             for (var i = 0; i < this.props.exDiary.length; i++) {
                 this.state.exDiaryTitleList[i] = JSON.stringify(this.props.exDiary[i].diary_title);
                 this.state.exDiaryDiary_Num[i] = JSON.stringify(this.props.exDiary[i].diary_num);
             }
             this.setState({ isModalVisible: !this.state.isModalVisible, inviter: profile.nickname, nickname: nickname, inv_email:profile.email, user_num:user_num});
         }else {
-            alert("교환일기를 먼저 생성해 주세요");
+            if(user_num == profile.user_num){
+                alert("자신에게는 신청할 수 없습니다");
+            }
+            else {
+
+                alert("교환일기를 먼저 생성해 주세요");
+            }
+            
         }
     }
 
