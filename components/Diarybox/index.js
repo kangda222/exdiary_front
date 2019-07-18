@@ -1,12 +1,14 @@
 import { connect } from "react-redux";
 import Action from "./action";
 import { actionCreators as diaryActions } from "../../redux/modules/diary";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapStateToProps = (state, ownProps) => {
   const {
     diary: { diaryList },
+    user: {profile:{email,user_num}}
    } = state;
-  return { diaryList };
+  return { diaryList,email,user_num };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

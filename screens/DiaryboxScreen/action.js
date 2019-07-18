@@ -86,7 +86,7 @@ class Action extends Component {
 
   // 일기장 생성 시 
   _submitDiaryInfo = () => {
-    const { getDiary, myDiary, exDiary, token } = this.props;
+    const { getDiary, myDiary, exDiary, token,email } = this.props;
     let url = 'http://192.168.245.1:8080/diary/insertDiaryInfo';
     if ((this.state.diary_type === "default" && myDiary.length === 0) ||
       (this.state.diary_type === "exchange" && exDiary.length < 5)) {
@@ -97,8 +97,8 @@ class Action extends Component {
           "authorization": "Bearer " + token
         },
         body: JSON.stringify({
-          user_num: '2',
-          email: 'user01@example.com',
+          user_num: user_num,
+          email:email,
           diary_type: this.state.diary_type,
           diary_title: this.state.diary_title,
           explanation: this.state.explanation

@@ -7,6 +7,12 @@ class Action extends Component {
         mynotificationList: this.props.notificationList
     }
 
+    componentDidMount() {
+        const { _setNotification } = this.props;
+        _setNotification();
+    }
+
+
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.notificationList.length !== prevState.mynotificationList.length) {
             console.log('getDerivedStateFromProps() List Update...');

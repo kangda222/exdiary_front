@@ -44,7 +44,7 @@ function searchUser(search_user) {
   }
 }
 
-function setNotification(notification){
+function setNotification(notification) {
   return {
     type: SET_NOTIFICATION,
     notification
@@ -306,16 +306,41 @@ function sendExchangeRequest(ex_title, ex_diary_num, member, inviter) {
   }
 }
 
-// 유저 관련 알림 가져오기 
+// 로그인한 유저 관련 알림 가져오기 
 function _setNotification() {
   console.log("setNotification()");
+  return (dispatch, getState) => {
+    const { user: {
+      profile: { user_num },
+      token,
+    } } = getState();
+
+    console.log("user_num :"+user_num);
+
+    fetch(`${API_URL}/user/getNotificationList`, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        member:user_num
+      })
+    }).then((response) => response.json())
+      .then(list => {
+        console.log("List :" + JSON.stringify(list));
+        dispatch(setNotification(list));
+      })
+      .catch(e => e)
+
+  }
 }
 
 // Initial State
 const initialState = {
   isLoggedIn: false,
   userList: [],
-  notificationList:[]
+  notificationList: []
 };
 
 // Reducer
@@ -388,7 +413,7 @@ function applySearchUser(state, action) {
   }
 }
 
-function applySetNotification(state, action){
+function applySetNotification(state, action) {
   const { notification } = action;
   return {
     ...state,

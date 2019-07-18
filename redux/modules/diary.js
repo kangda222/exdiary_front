@@ -30,6 +30,7 @@ function getDiary() {
   console.log("getDiary()");
   return (dispatch, getState) => {
     const { user: {
+      profile:{email},
       token
     } } = getState();
 
@@ -40,7 +41,7 @@ function getDiary() {
         "Authorization": "Bearer " + token
       },
       body: JSON.stringify({
-        email: "user01@example.com",
+        email: email,
       }),
     })
       .then((response) => response.json())
