@@ -86,7 +86,7 @@ class Action extends Component {
 
   // 일기장 생성 시 
   _submitDiaryInfo = () => {
-    const { getDiary, myDiary, exDiary, token,email } = this.props;
+    const { getDiary, myDiary, exDiary, token, email, user_num } = this.props;
     let url = 'http://192.168.245.1:8080/diary/insertDiaryInfo';
     if ((this.state.diary_type === "default" && myDiary.length === 0) ||
       (this.state.diary_type === "exchange" && exDiary.length < 5)) {

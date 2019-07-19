@@ -5,7 +5,8 @@ class Action extends Component {
 
     state = {
         searchValue: '',
-        userList: (this.props.userList) ? this.props.userList : [],
+        // userList: (this.props.userList) ? this.props.userList : [],
+        prevUserList: this.props.userList,
         isFetching: false,
         isModalVisible: false,
         isUserInfoModalVisible: false,
@@ -21,6 +22,20 @@ class Action extends Component {
         inviter: '', // 초대자 닉네임 
         inv_email: '', // 초대자 이메일 
         selectedIndex:0, // 선택한 교환 일기 index값 
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log("userList?? :" + nextProps.userList.length);
+        if (nextProps.userList.length !== prevState.prevUserList.length) {
+            console.log('getDerivedStateFromProps() List Update...');
+            return {
+                ...this.state,
+                isFetching: false
+            }
+        }
+        else {
+            return { ...this.state }
+        }
     }
 
     render() {
