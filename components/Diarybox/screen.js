@@ -31,7 +31,7 @@ const Diarybox = props => (
       button={MoreIcon}
       buttonStyle={{ width: 20, height: 20, margin: 7.5, resizeMode: "contain" }}
       //destructiveIndex={1}
-      options={["Edit", "Delete", "Cancel"]}
+      options={["수정", "삭제", "취소"]}
       actions={[props.editDiaryInfo, props.deleteDiary, props.cancel]}
       />
   </View>

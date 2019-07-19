@@ -4,7 +4,11 @@ import NotificationScreen from './screen';
 class Action extends Component {
     state = {
         isFetching: false,
-        mynotificationList: this.props.notificationList
+        mynotificationList: this.props.notificationList,
+        isModalVisible: false,
+        ex_title: '',
+        ex_diary_num: '',
+        inviter: ''
     }
 
     componentDidMount() {
@@ -33,6 +37,7 @@ class Action extends Component {
                 {...this.props}
                 {...this.state}
                 refresh={this._refresh}
+                toggleModalVisible={this._toggleModalVisible}
             />
         );
     }
@@ -43,8 +48,16 @@ class Action extends Component {
         this.setState({
             isFetching: true
         });
-
     };
+
+    // 알림 선택 시 모달 toggle
+    _toggleModalVisible = async(inviter, ex_title) => {
+        this.setState({
+            isModalVisible: !this.state.isModalVisible,
+            inviter: inviter,
+            ex_title: ex_title
+        });
+    }
 
 }
 

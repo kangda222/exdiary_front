@@ -340,7 +340,7 @@ function _setNotification() {
 const initialState = {
   isLoggedIn: false,
   userList: [],
-  notificationList: []
+  notificationList:[]
 };
 
 // Reducer
