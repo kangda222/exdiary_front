@@ -1,38 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  TextInput,
-  StatusBar,
-  ActivityIndicator
-} from "react-native";
+import { Image, Dimensions, StatusBar, ActivityIndicator } from "react-native";
+import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
 const LogInScreen = props => (
-  <View style={styles.container}>
+  <Container>
     <StatusBar barStyle={"light-content"} />
-    <View style={styles.header}>
-      <Text>교환일기</Text>
-    </View>
-    <View style={styles.content}>
-      <TextInput
-        placeholder="Email"
-        //style={styles.textInput}
+    <Header>
+      <AppName>교환일기</AppName>
+    </Header>
+    <Content>
+      <Input
+        placeholder=" Email"
         autoCapitalize={"none"}
         autoCorrect={false}
         value={props.username}
         onChangeText={props.changeUsername}
       />
-      <TextInput
-        placeholder="Password"
-        //style={styles.textInput}
+      <Input
+        placeholder=" Password"
         autoCapitalize={"none"}
         secureTextEntry={true}
         value={props.password}
@@ -41,39 +30,62 @@ const LogInScreen = props => (
         onSubmitEditing={props.submit}
       />
       <TouchableOpacity onPressOut={props.submit}>
-        <View style={styles.button}>
-          <Text style={styles.btnText}> Log In</Text>
-        </View>
+        <Btn>
+          <BtnText> Log In </BtnText>
+        </Btn>
       </TouchableOpacity>
       {/* <TouchableOpacity style={styles.fbContainer}>
-              <View style={styles.fbView}>
-                  <Ionicons name="logo-facebook" size={22} color="#3E99EE" />
-                  <Text style={styles.fbText}>Log in with Facebook</Text>
-              </View>
-          </TouchableOpacity> */}
+            <View style={styles.fbView}>
+                <Ionicons name="logo-facebook" size={22} color="#3E99EE" />
+                <Text style={styles.fbText}>Log in with Facebook</Text>
+            </View>
+        </TouchableOpacity> */}
       <TouchableOpacity onPressOut={() => props.navigation.navigate("SignUp")}>
-        <Text> 가입하기</Text>
+        <BtnText> 가입하기 </BtnText>
       </TouchableOpacity>
-    </View>
-  </View>
+    </Content>
+  </Container>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  header: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width
-  },
-  content: {
-    flex: 4,
-    paddingTop: 50,
-    alignItems: "center",
-    justifyContent: "flex-start"
-  }
-});
+const Container = styled.View`
+  flex: 1;
+`;
+
+const Header = styled.View`
+  flex: 2;
+  align-items: center;
+  justify-content: center;
+  width: ${width};
+`;
+
+const AppName = styled.Text`
+  font-size: 50;
+`;
+
+const Content = styled.View`
+  flex: 4;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+const Input = styled.TextInput`
+  width: ${width / 2};
+  margin-bottom: 10;
+  border-width: 1;
+  border-radius: 10;
+`;
+
+const TouchableOpacity = styled.TouchableOpacity`
+  margin-bottom: 10;
+`;
+
+const Btn = styled.View`
+  width: ${width / 2};
+`;
+
+const BtnText = styled.Text`
+  text-align: center;
+  font-weight: bold;
+`;
 
 export default LogInScreen;
