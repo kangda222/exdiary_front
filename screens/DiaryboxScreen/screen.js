@@ -87,7 +87,7 @@ const DiaryboxScreen = props => (
             <Text style={styles.modalDescText}>이 일기는..</Text>
             <TextInput multiline={true} maxLength={40} numberOfLines={2}
               style={styles.modalDescTextInput}
-              placeholder='일기장에 대한 설명을 적어주세요 (최대 40자 까지 가능)'
+              placeholder='일기장에 대한 설명을 적어주세요 (최대 40자)'
               value={props.explanation}
               onChangeText={props.onExplanationChanged}
             />
