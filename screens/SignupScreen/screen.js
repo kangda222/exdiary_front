@@ -1,49 +1,90 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  TextInput,
-  StatusBar,
-  ActivityIndicator
-} from "react-native";
+import styled from "styled-components/native";
+import { Dimensions } from "react-native";
+
+const { width } = Dimensions.get("window");
 
 const SignupScreen = props => (
-  <View>
-    <Text>가입하기</Text>
-    <TextInput
-      placeholder="Email"
-      autoCapitalize={"none"}
-      autoCorrect={false}
-      value={props.email}
-      onChangeText={props.changeEmail}
-    />
-    <TextInput
-      placeholder="Username"
-      autoCapitalize={"none"}
-      autoCorrect={false}
-      value={props.username}
-      onChangeText={props.changeUsername}
-    />
-    <TextInput
-      placeholder="Password"
-      autoCapitalize={"none"}
-      secureTextEntry={true}
-      value={props.password}
-      onChangeText={props.changePassword}
-      returnKeyType={"send"}
-      onSubmitEditing={props.submit}
-    />
-    <TouchableOpacity onPressOut={props.submit}>
-      <Text> 가입하기 </Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPressOut={() => props.navigation.navigate("LogIn")}>
-      <Text> 로그인 하기 </Text>
-    </TouchableOpacity>
-  </View>
+  <Container>
+    <Header>
+      <Signup>가입하기</Signup>
+    </Header>
+    <Form>
+      <Input
+        placeholder=" Email"
+        placeholderTextColor="#80cbc4"
+        autoCapitalize={"none"}
+        autoCorrect={false}
+        value={props.email}
+        onChangeText={props.changeEmail}
+      />
+      <Input
+        placeholder=" Username"
+        placeholderTextColor="#80cbc4"
+        autoCapitalize={"none"}
+        autoCorrect={false}
+        value={props.username}
+        onChangeText={props.changeUsername}
+      />
+      <Input
+        placeholder=" Password"
+        placeholderTextColor="#80cbc4"
+        autoCapitalize={"none"}
+        secureTextEntry={true}
+        value={props.password}
+        onChangeText={props.changePassword}
+        returnKeyType={"send"}
+        onSubmitEditing={props.submit}
+      />
+      <TouchableOpacity onPressOut={props.submit}>
+        <BtnText> 가입하기 </BtnText>
+      </TouchableOpacity>
+      <TouchableOpacity onPressOut={() => props.navigation.navigate("LogIn")}>
+        <BtnText> 로그인 하기 </BtnText>
+      </TouchableOpacity>
+    </Form>
+  </Container>
 );
+
+const Container = styled.View`
+  flex: 1;
+`;
+
+const Header = styled.View`
+  flex: 2;
+  align-items: center;
+  justify-content: center;
+  width: ${width};
+`;
+
+const Signup = styled.Text`
+  font-size: 50;
+  color: #00897b;
+`;
+
+const Form = styled.View`
+  flex: 4;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+const Input = styled.TextInput`
+  width: ${width / 2};
+  margin-bottom: 10;
+  border-width: 1;
+  border-radius: 10;
+  border-color: #00897b;
+`;
+
+const TouchableOpacity = styled.TouchableOpacity`
+  margin-bottom: 10;
+`;
+
+const BtnText = styled.Text`
+  text-align: center;
+  font-weight: bold;
+  color: #00897b;
+`;
 
 export default SignupScreen;
