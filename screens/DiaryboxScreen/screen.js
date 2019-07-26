@@ -12,24 +12,35 @@ import PropTypes from "prop-types";
 import DiaryBox from "../../components/Diarybox";
 import Modal from 'react-native-modal';
 import { TextInput } from "react-native-gesture-handler";
+import { Card } from "react-native-elements";
 
 const DiaryboxScreen = props => (
   <View style={styles.container}>
     {props.myDiary.length === 0 && props.exDiary.length === 0 ? (
       <>
-        <Text>내일기</Text>
-        <Text>일기장을 생성 하세요</Text>
-        <TouchableOpacity
-          onPressOut={props.toggleModal}
-        >
-          <Feather name={"plus-circle"} size={30} />
-        </TouchableOpacity>
+        <Card containerStyle={{
+          borderRadius: 5,
+          borderWidth: 3,
+          borderStyle: 'dashed',
+          width: '70%',
+          height: '70%'
+        }}>
+          <View style={{alignItems:'center',justifyContent:'center',paddingTop:'50%'}}>
+            <Text style={styles.titleFont}>일기장을 생성 하세요!</Text>
+            <TouchableOpacity
+              style={{paddingTop:10}}
+              onPressOut={props.toggleModal}
+            >
+              <FontAwesome name={"plus-circle"} size={55} color='grey' />
+            </TouchableOpacity>
+          </View>
+        </Card>
       </>
     ) : (
         <>
           {props.myDiary.length !== 0 ? (
             <>
-            <View style={{height:'50%',alignItems:'center',justifyContent:'center'}}>
+              <View style={{ height: '50%', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={styles.titleFont}>나의 일기</Text>
                 <FlatList
                   data={props.myDiary}
@@ -38,25 +49,25 @@ const DiaryboxScreen = props => (
                   onRefresh={props.refresh}
                   renderItem={({ item }) => <DiaryBox {...item} />}
                 />
-                </View>
+              </View>
             </>
           ) : null}
-            <Text style={styles.titleFont}>{props.exDiary.length !== 0 ? "교환일기" : ""}</Text>
-            <FlatList
-              horizontal={true}
-              data={props.exDiary}
-              keyExtractor={item => item.diary_num.toString()}
-              refreshing={props.isFetching}
-              onRefresh={props.refresh}
-              renderItem={({ item }) => <DiaryBox {...item} />}
-            />
-            {props.exDiary.length < 5 || props.myDiary.length < 1 ? (
-              <TouchableOpacity
-                onPressOut={props.toggleModal}
-              >
-                <FontAwesome name={"plus-circle"} size={40} color='grey' />
-              </TouchableOpacity>
-            ) : null}
+          <Text style={styles.titleFont}>{props.exDiary.length !== 0 ? "교환일기" : ""}</Text>
+          <FlatList
+            horizontal={true}
+            data={props.exDiary}
+            keyExtractor={item => item.diary_num.toString()}
+            refreshing={props.isFetching}
+            onRefresh={props.refresh}
+            renderItem={({ item }) => <DiaryBox {...item} />}
+          />
+          {props.exDiary.length < 5 || props.myDiary.length < 1 ? (
+            <TouchableOpacity
+              onPressOut={props.toggleModal}
+            >
+              <FontAwesome name={"plus-circle"} size={40} color='grey' />
+            </TouchableOpacity>
+          ) : null}
         </>
       )}
     {props.isModalVisible ?
