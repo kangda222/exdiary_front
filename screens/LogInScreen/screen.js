@@ -15,6 +15,7 @@ const LogInScreen = props => (
     <Content>
       <Input
         placeholder=" Email"
+        placeholderTextColor="#80cbc4"
         autoCapitalize={"none"}
         autoCorrect={false}
         value={props.username}
@@ -22,6 +23,7 @@ const LogInScreen = props => (
       />
       <Input
         placeholder=" Password"
+        placeholderTextColor="#80cbc4"
         autoCapitalize={"none"}
         secureTextEntry={true}
         value={props.password}
@@ -60,6 +62,7 @@ const Header = styled.View`
 
 const AppName = styled.Text`
   font-size: 50;
+  color: #00897b;
 `;
 
 const Content = styled.View`
@@ -73,6 +76,7 @@ const Input = styled.TextInput`
   margin-bottom: 10;
   border-width: 1;
   border-radius: 10;
+  border-color: #00897b;
 `;
 
 const TouchableOpacity = styled.TouchableOpacity`
@@ -86,6 +90,7 @@ const Btn = styled.View`
 const BtnText = styled.Text`
   text-align: center;
   font-weight: bold;
+  color: #00897b;
 `;
 
 export default LogInScreen;

@@ -4,6 +4,7 @@ import TabsNavigation from "./TabsNavigation";
 import { Ionicons } from "@expo/vector-icons";
 import WritingScreen from "../screens/WritingDiaryScreen";
 import { TouchableOpacity, Text, View } from "react-native";
+import styled from "styled-components/native";
 import Modal from "../components/Modal";
 
 const RootNavigation = createStackNavigator(
@@ -12,6 +13,8 @@ const RootNavigation = createStackNavigator(
       screen: TabsNavigation,
       navigationOptions: props => ({
         title: "교환일기",
+        headerTitleStyle: { color: "#263238" },
+        headerStyle: { backgroundColor: "#ef9a9a" },
         headerRight: (
           <View>
             <TouchableOpacity
@@ -20,7 +23,9 @@ const RootNavigation = createStackNavigator(
                 props.screenProps.toggleModal();
               }}
             >
-              <Ionicons name="ios-contact" size={30} />
+              <Box>
+                <Ionicons name="ios-contact" size={30} color={"#263238"} />
+              </Box>
             </TouchableOpacity>
             <Modal
               isModalVisible={props.screenProps.isModalVisible}
@@ -45,5 +50,9 @@ const RootNavigation = createStackNavigator(
     }
   }
 );
+
+const Box = styled.View`
+  margin-right: 5;
+`;
 
 export default createAppContainer(RootNavigation);
