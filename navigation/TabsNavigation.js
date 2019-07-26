@@ -15,7 +15,7 @@ const TabsNavigation = createBottomTabNavigator(
           <Ionicons
             name="ios-bookmarks"
             size={30}
-            color={focused ? "blue" : "black"}
+            color={focused ? "#263238" : "#ffcdd2"}
           />
         )
       }
@@ -27,7 +27,7 @@ const TabsNavigation = createBottomTabNavigator(
           <Ionicons
             name={"ios-send"}
             size={30}
-            color={focused ? "blue" : "black"}
+            color={focused ? "#263238" : "#ffcdd2"}
           />
         )
       }
@@ -39,7 +39,7 @@ const TabsNavigation = createBottomTabNavigator(
           <Ionicons
             name={"ios-calendar"}
             size={30}
-            color={focused ? "blue" : "black"}
+            color={focused ? "#263238" : "#ffcdd2"}
           />
         )
       }
@@ -51,7 +51,7 @@ const TabsNavigation = createBottomTabNavigator(
           <Ionicons
             name={"ios-notifications"}
             size={30}
-            color={focused ? "blue" : "black"}
+            color={focused ? "#263238" : "#ffcdd2"}
           />
         )
       }
@@ -61,7 +61,7 @@ const TabsNavigation = createBottomTabNavigator(
     tabBarOptions: {
       showLabel: false,
       style: {
-        backgroundColor: "#FBFBFB",
+        backgroundColor: "#ef9a9a",
         height: 45
       }
     }
