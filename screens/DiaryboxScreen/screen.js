@@ -25,10 +25,10 @@ const DiaryboxScreen = props => (
           width: '70%',
           height: '70%'
         }}>
-          <View style={{alignItems:'center',justifyContent:'center',paddingTop:'50%'}}>
+          <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: '45%' }}>
             <Text style={styles.titleFont}>일기장을 생성 하세요!</Text>
             <TouchableOpacity
-              style={{paddingTop:10}}
+              style={{ paddingTop: 10 }}
               onPressOut={props.toggleModal}
             >
               <FontAwesome name={"plus-circle"} size={55} color='grey' />
@@ -77,23 +77,23 @@ const DiaryboxScreen = props => (
       >
         <View style={{ backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
           <View style={{ flexDirection: 'column' }}>
-            <Text style={{ marginBottom: 5 }}>제목</Text>
+            <Text style={styles.modalText}>제목</Text>
             <TextInput maxLength={20}
               style={styles.modalTextInput}
               placeholder='일기장 제목을 입력해주세요'
               value={props.diary_title}
               onChangeText={props.onTitleChanged}
             />
-            <Text style={{ marginBottom: 5 }}>이 일기는..</Text>
+            <Text style={styles.modalDescText}>이 일기는..</Text>
             <TextInput multiline={true} maxLength={40} numberOfLines={2}
-              style={styles.modalTextInput}
+              style={styles.modalDescTextInput}
               placeholder='일기장에 대한 설명을 적어주세요 (최대 40자 까지 가능)'
               value={props.explanation}
               onChangeText={props.onExplanationChanged}
             />
           </View>
           <View style={{ flexDirection: 'row' }}>
-            <Text>교환일기 여부</Text>
+            <Text style={{ color: 'grey', fontWeight: 'bold', marginBottom:10, marginTop:15 }}>교환일기 여부</Text>
             <Switch onValueChange={props.handleToggleSwitch}
               value={props.switchValue}
             />
@@ -102,12 +102,12 @@ const DiaryboxScreen = props => (
             <TouchableOpacity onPressOut={props.toggleModal}
               style={styles.modalbutton}
             >
-              <Text>취소</Text>
+              <Text style={styles.modalText}>취소</Text>
             </TouchableOpacity>
             <TouchableOpacity onPressOut={props.submitDiaryInfo}
               style={styles.modalbutton}
             >
-              <Text>확인</Text>
+              <Text style={styles.modalText}>확인</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -121,27 +121,55 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   modalbutton: {
     width: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10
+    marginTop: 10,
+    marginBottom:30
   },
   modalTextInput: {
-    width: '50%',
+    width: 250,
     borderRadius: 5,
     marginBottom: 2,
     marginRight: 5,
-    borderBottomColor: 'red',
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
+  },
+  modalDescTextInput: {
+    width: 300,
+    borderRadius: 5,
+    marginBottom: 2,
+    marginRight: 5,
+    borderBottomColor: 'grey',
     borderBottomWidth: 1,
   },
   titleFont: {
     paddingTop: 10,
     fontSize: 23,
     fontWeight: "900",
-    color: 'grey',
+    color: '#263238',
+  },
+  modalText: {
+    fontSize: 18,
+    color: '#263238',
+    fontWeight: "bold",
+    marginBottom: 5,
+    marginTop: 10
+  },
+  modalButtonText:{
+    fontSize: 18,
+    color: '#263238',
+    fontWeight: "bold",
+  },
+  modalDescText:{
+    fontSize: 18,
+    color: '#263238',
+    fontWeight: "bold",
+    marginBottom: 10,
+    marginTop:20,
   }
 });
 
