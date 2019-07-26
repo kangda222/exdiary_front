@@ -7,7 +7,7 @@ import {
   FlatList,
   Switch
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import DiaryBox from "../../components/Diarybox";
 import Modal from 'react-native-modal';
@@ -29,31 +29,34 @@ const DiaryboxScreen = props => (
         <>
           {props.myDiary.length !== 0 ? (
             <>
-              <Text>내일기</Text>
-              <FlatList
-                data={props.myDiary}
-                keyExtractor={(item) => item.diary_num.toString()}
-                refreshing={props.isFetching}
-                onRefresh={props.refresh}
-                renderItem={({ item }) => <DiaryBox {...item} />}
-              />
+            <View style={{height:'50%',alignItems:'center',justifyContent:'center'}}>
+                <Text style={styles.titleFont}>나의 일기</Text>
+                <FlatList
+                  data={props.myDiary}
+                  keyExtractor={(item) => item.diary_num.toString()}
+                  refreshing={props.isFetching}
+                  onRefresh={props.refresh}
+                  renderItem={({ item }) => <DiaryBox {...item} />}
+                />
+                </View>
             </>
           ) : null}
-          <Text>{props.exDiary.length !== 0 ? "교환일기" : ""}</Text>
-          <FlatList
-            data={props.exDiary}
-            keyExtractor={item => item.diary_num.toString()}
-            refreshing={props.isFetching}
-            onRefresh={props.refresh}
-            renderItem={({ item }) => <DiaryBox {...item} />}
-          />
-          {props.exDiary.length < 5 || props.myDiary.length < 1 ? (
-            <TouchableOpacity
-              onPressOut={props.toggleModal}
-            >
-              <Feather name={"plus-circle"} size={30} />
-            </TouchableOpacity>
-          ) : null}
+            <Text style={styles.titleFont}>{props.exDiary.length !== 0 ? "교환일기" : ""}</Text>
+            <FlatList
+              horizontal={true}
+              data={props.exDiary}
+              keyExtractor={item => item.diary_num.toString()}
+              refreshing={props.isFetching}
+              onRefresh={props.refresh}
+              renderItem={({ item }) => <DiaryBox {...item} />}
+            />
+            {props.exDiary.length < 5 || props.myDiary.length < 1 ? (
+              <TouchableOpacity
+                onPressOut={props.toggleModal}
+              >
+                <FontAwesome name={"plus-circle"} size={40} color='grey' />
+              </TouchableOpacity>
+            ) : null}
         </>
       )}
     {props.isModalVisible ?
@@ -123,7 +126,12 @@ const styles = StyleSheet.create({
     borderBottomColor: 'red',
     borderBottomWidth: 1,
   },
-
+  titleFont: {
+    paddingTop: 10,
+    fontSize: 23,
+    fontWeight: "900",
+    color: 'grey',
+  }
 });
 
 DiaryboxScreen.propTypes = {
