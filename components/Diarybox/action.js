@@ -26,9 +26,9 @@ class Action extends Component {
   }
 
   // 일기장 진입 시 
-  _handlePress = async () => {
+  _handlePress = async (diary_num) => {
     const { getDiarylist } = this.props;
-    const result = await getDiarylist(this.props.diary_num);
+    const result = await getDiarylist(diary_num);
 
     // 데이터 로드 성공 시 
     if (result) {
@@ -36,9 +36,9 @@ class Action extends Component {
     } 
     else {
       return false;
-    }
-    
+    }   
   };
+  
 
   // 일기장 삭제 시 
   _deleteDiary = () => {

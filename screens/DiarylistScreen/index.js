@@ -4,11 +4,11 @@ import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state, ownProps) => {
   const {
-    diary: { diaryContent },
+    diary: { diaryContent, diaryList },
   } = state;
   
   return {
-    diaryContent
+    diaryContent, diaryList
   };
 };
 
@@ -16,7 +16,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getDiaryContent:(diary_num,page_num) => {
       dispatch(diaryActions.getDiaryContent(diary_num,page_num));
-    }
+    },
+    getDiarylist: (diary_num) => {
+      return dispatch(diaryActions.getDiaryList(diary_num));
+    },
   };
 };
 

@@ -21,9 +21,14 @@ const WritingDiaryScreen = props => {
                 {props.diary_num && props.page_num ? <TouchableOpacity style={styles.button} onPressOut={
                  props.changeContent
                 }><Text>수정</Text></TouchableOpacity> :
-                <TouchableOpacity style={styles.button} onPressOut={
-                    props.insertContents
-                 }><Text>저장</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} 
+                onPressOut={ async() => {
+                    const insertResult = await props.insertContents();
+                    if(insertResult){
+                        console.log("입력에 성공한 것 가텐요 이동할게요~")
+                        this.props.navigation.navigate("DiarylistScreen");
+                    }
+                }}><Text>저장</Text></TouchableOpacity>
                 }
             </View>
 

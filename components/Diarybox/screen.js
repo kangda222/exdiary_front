@@ -14,15 +14,14 @@ const Diarybox = props => (
     <Card containerStyle={{ width: 200, height: 100 }}>
       <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity
-          onPressOut={ async() => {
-            const loadded = await props.handlePress(props.diary_num);
-            if (loadded) {
+          onPressOut={async () => {
+            const a = await props.handlePress(props.diary_num);
+            if(a){
               props.navigation.navigate("DiarylistScreen", {
                 diaryList: props.diaryList,
                 diary_title: props.diary_title, // 일기장 타이틀 
                 diary_num: props.diary_num,
                 diary_type: props.diary_type, // 교환일기인지, 기본 일기인지 확인을 위해
-                userlist: props.userlist
               });
             }
           }}
