@@ -144,7 +144,7 @@ function getDiaryContent(_diary_num, _page_num) {
       token
     } } = getState();
 
-    fetch(`${API_URL}/diaryList/getDiaryListContents`, {
+    const result = fetch(`${API_URL}/diaryList/getDiaryListContents`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -157,16 +157,22 @@ function getDiaryContent(_diary_num, _page_num) {
     }).then((response => response.json()))
       .then(contents => {
         if (contents) {
+          console.log("?????? true?")
           dispatch(setDiaryContent(contents));
+          return true;
         }
       })
+      .catch(e => e)
+      console.log("result : " + result);
+      return result
   };
 }
 
 // 일기 내용 작성하기
-function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname, _email) {
+function insertDiaryContents(_diary_num, _title, _contents ) {
   return (dispatch, getState) => {
     const { user: {
+      profile:{user_num, nickname},
       token
     } } = getState();
 
@@ -178,11 +184,10 @@ function insertDiaryContents(_diary_num, _user_num, _title, _contents, _nickname
       },
       body: JSON.stringify({
         diary_num: _diary_num,
-        user_num: _user_num,
+        user_num: user_num,
         title: _title,
         contents: JSON.stringify(_contents),
-        nickname: _nickname,
-        email: _email,
+        nickname: nickname
       }),
     }).then((response) => response.json())
       .then(result => {

@@ -10,20 +10,21 @@ class Action extends Component {
         const {
             navigation: {
                 state: {
-                    params: { diary_num, page_num, title, contents}
+                    params: { diary_num, page_num, title, contents }
                 }
             }
         } = props;
+
         this.state = {
             title,
             focused_title: '',
             image: null,
-            isModalVisible:null,
+            isModalVisible: null,
 
             //편집기 관련 
             selectedTag: 'body',
             selectedStyles: [],
-            contents: (contents) ? contents :[getInitialObject()],
+            contents: (contents) ? contents : [getInitialObject()],
             diary_num,
             page_num
         };
@@ -131,10 +132,18 @@ class Action extends Component {
     // 글쓰기 저장 
     _insertContents = async () => {
         const { insertDiaryContents, getDiaryContent } = this.props;
-        const result = await insertDiaryContents(this.state.diary_num, "1", this.state.title, this.state.contents, "담비", "qwerty@naver.com");
+        const result = await insertDiaryContents(this.state.diary_num, this.state.title, this.state.contents);
         if (result) {
-            const getContents = await getDiaryContent(this.state.diary_num,this.state.page_num);
-            console.log(getContents);
+            console.log("입력에 성공한 것 가텐요 이동할게요~")
+            this.props.navigation.navigate("DiaryContentsScreen", {
+                title: this.state.title,
+                write_date: '',
+                nickname: '',
+                page_num: '',
+                diary_num: this.state.diary_num,
+                diaryContent:this.state.contents
+            });
+
         }
     }
 
@@ -235,7 +244,7 @@ class Action extends Component {
         console.log("changeContent()");
         const { updateDiaryContents } = this.props;
         const result = updateDiaryContents(this.state.diary_num, this.state.page_num, this.state.title, this.state.contents);
-        if(result){
+        if (result) {
             this.props.navigation.navigate("DiarylistScreen");
         }
     }

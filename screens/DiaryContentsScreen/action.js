@@ -18,7 +18,8 @@ class Action extends Component {
       write_date,
       nickname,
       diary_num,
-      page_num
+      page_num,
+      
     }
   }
 
