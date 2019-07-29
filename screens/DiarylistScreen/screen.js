@@ -31,16 +31,16 @@ const DiarylistScreen = props => (
                 diary_num: item.diary_num
               });
             }}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text>{item.title} </Text>
-                <Text>{item.write_date.substring(0, 10)}</Text>
+              <View style={{ flexDirection: 'row', marginTop:5 }}>
+                <Text style={{fontSize:17, marginBottom:3}}>{item.title} </Text>
+                <Text style={{fontSize:15, marginBottom:3, paddingTop:3}}>{item.write_date.substring(0, 10)}</Text>
               </View>
 
             </TouchableOpacity>
           )}
         />
           <TouchableOpacity
-              style={{marginBottom:'20%'}}
+              style={{marginBottom:'30%'}}
               onPressOut={() => {
                 props.navigation.navigate("WritingDiaryScreen", {
                   diary_num: props.diary_num,
