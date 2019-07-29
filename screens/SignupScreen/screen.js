@@ -13,7 +13,7 @@ const SignupScreen = props => (
     <Form>
       <Input
         placeholder=" Email"
-        placeholderTextColor="#80cbc4"
+        placeholderTextColor="#ffcdd2"
         autoCapitalize={"none"}
         autoCorrect={false}
         value={props.email}
@@ -21,7 +21,7 @@ const SignupScreen = props => (
       />
       <Input
         placeholder=" Username"
-        placeholderTextColor="#80cbc4"
+        placeholderTextColor="#ffcdd2"
         autoCapitalize={"none"}
         autoCorrect={false}
         value={props.username}
@@ -29,7 +29,7 @@ const SignupScreen = props => (
       />
       <Input
         placeholder=" Password"
-        placeholderTextColor="#80cbc4"
+        placeholderTextColor="#ffcdd2"
         autoCapitalize={"none"}
         secureTextEntry={true}
         value={props.password}
@@ -60,7 +60,7 @@ const Header = styled.View`
 
 const Signup = styled.Text`
   font-size: 50;
-  color: #00897b;
+  color: #ef9a9a;
 `;
 
 const Form = styled.View`
@@ -74,7 +74,7 @@ const Input = styled.TextInput`
   margin-bottom: 10;
   border-width: 1;
   border-radius: 10;
-  border-color: #00897b;
+  border-color: #ef9a9a;
 `;
 
 const TouchableOpacity = styled.TouchableOpacity`
@@ -84,7 +84,7 @@ const TouchableOpacity = styled.TouchableOpacity`
 const BtnText = styled.Text`
   text-align: center;
   font-weight: bold;
-  color: #00897b;
+  color: #ef9a9a;
 `;
 
 export default SignupScreen;
