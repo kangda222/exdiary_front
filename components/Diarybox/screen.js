@@ -1,22 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text, View, TouchableOpacity, StyleSheet, Dimensions   } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { withNavigation } from "react-navigation";
 import OptionsMenu from "react-native-options-menu";
 import { Card } from "react-native-elements";
 const MoreIcon = require("../../assets/images/icon_receiptpay.png");
 
-const {width} = Dimensions.get("window").width;
+const { width } = Dimensions.get("window").width;
 
 // 일기장 목록 그리기 
 const Diarybox = props => (
   <View>
-    <Card containerStyle={{width:200, height:100}}>
-      <View style={{ flexDirection: 'row'}}>
+    <Card containerStyle={{ width: 200, height: 100 }}>
+      <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity
-          onPressOut={() => {
-            props.handlePress(props.diary_num);
-            if (props.loadded) {
+          onPressOut={ async() => {
+            const loadded = await props.handlePress(props.diary_num);
+            if (loadded) {
               props.navigation.navigate("DiarylistScreen", {
                 diaryList: props.diaryList,
                 diary_title: props.diary_title, // 일기장 타이틀 
@@ -48,8 +48,6 @@ Diarybox.prototypes = {
 };
 
 var style = StyleSheet.create({
-  shadow: {
-  },
   boxBorder: {
     flexDirection: 'row',
     borderRadius: 20,

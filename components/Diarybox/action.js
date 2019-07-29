@@ -4,6 +4,7 @@ import Diarybox from "./screen";
 class Action extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       loadded: false
     }
@@ -28,10 +29,15 @@ class Action extends Component {
   _handlePress = async () => {
     const { getDiarylist } = this.props;
     const result = await getDiarylist(this.props.diary_num);
+
+    // 데이터 로드 성공 시 
     if (result) {
-      this.setState({ loadded: !this.state.loadded });
+      return true;
+    } 
+    else {
+      return false;
     }
-    console.log("this.props.userlist :" + this.props.userlist);
+    
   };
 
   // 일기장 삭제 시 

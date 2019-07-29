@@ -63,6 +63,7 @@ const DiaryboxScreen = props => (
           />
           {props.exDiary.length < 5 || props.myDiary.length < 1 ? (
             <TouchableOpacity
+              style={{marginBottom:20}}
               onPressOut={props.toggleModal}
             >
               <FontAwesome name={"plus-circle"} size={40} color='grey' />
