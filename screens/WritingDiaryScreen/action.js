@@ -134,7 +134,6 @@ class Action extends Component {
         const { insertDiaryContents, getDiaryContent } = this.props;
         const result = await insertDiaryContents(this.state.diary_num, this.state.title, this.state.contents);
         if (result) {
-            console.log("입력에 성공한 것 가텐요 이동할게요~")
             this.props.navigation.navigate("DiaryContentsScreen", {
                 title: this.state.title,
                 write_date: '',
@@ -245,7 +244,7 @@ class Action extends Component {
         const { updateDiaryContents } = this.props;
         const result = updateDiaryContents(this.state.diary_num, this.state.page_num, this.state.title, this.state.contents);
         if (result) {
-            this.props.navigation.navigate("DiarylistScreen");
+            this.props.navigation.navigate("DiarylistScreen", {diary_num:this.state.diary_num, diaryContent:this.state.contents});
         }
     }
 

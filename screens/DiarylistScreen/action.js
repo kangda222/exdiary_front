@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import DiarylistScreen from "./screen";
 
 class Action extends Component {
@@ -13,26 +12,24 @@ class Action extends Component {
             diary_title,
             diary_num,
             diary_type,
+            diaryContent
           }
         }
       }
     } = props;
 
     this.state = {
-      myDiaryList: (diaryList) ? diaryList : [],
       diary_title, // 일기장 제목을 나타내주기 위해 
       diary_num, // 일기장 번호 넘겨주기 위해
       diary_type,
-      isFetching:false,
+      myDiaryList: (diaryList) ? diaryList : [],
+      diaryContent: (diaryContent) ? diaryContent : [],
+      isFetching: false,
     };
   }
-  static propTypes = {
-    // diaryContent: PropTypes.array,
-    // getDiaryContent: PropTypes.func.isRequired
-  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.diaryList.length !== prevState.myDiaryList.length) {
+    if ((nextProps.diaryList.length !== prevState.myDiaryList.length)) {
       console.log('getDerivedStateFromProps() List Update...');
       return {
         ...this.state,
@@ -40,7 +37,7 @@ class Action extends Component {
       }
     }
     else {
-      return { 
+      return {
         ...this.state
       }
     }
@@ -57,17 +54,19 @@ class Action extends Component {
     />;
   }
 
-  
   // 일기 리스트 업데이트 
   _refresh = async () => {
     const { getDiarylist } = this.props;
-   await getDiarylist(this.props.diary_num);
+    await getDiarylist(this.state.diary_num);
   };
-  
+
   // 일기에 해당하는 내용 가져오기
-  _getDiaryContents = (_diary_num, _page_num) => {
+  _getDiaryContents = async (_diary_num, _page_num) => {
     const { getDiaryContent } = this.props;
-    getDiaryContent(_diary_num, _page_num);
+    const result = await getDiaryContent(_diary_num, _page_num);
+    if (result) {
+      return true;
+    }
   }
 
 }

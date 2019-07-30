@@ -11,9 +11,9 @@ const WritingDiaryScreen = props => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', padding: 5 }}>
-                <Text style={{ padding: 5, fontSize: 15 }}>제목 : </Text>
+                <Text style={styles.titleFont}>제목 : </Text>
                 <TextInput placeholder='제목을 입력해주세요' value={props.title} name='title' maxLength={50}
-                    style={{ width: '70%', marginRight: 13, fontSize: 15 }}
+                    style={{ width: '70%', fontSize: 22 }}
                     onChangeText={props.onTitleChanged}
                     onFocus={props.focused}
                     onEndEditing={props.unfocused}
@@ -123,12 +123,14 @@ const styles = StyleSheet.create({
         width: 40,
         height: 30,
         backgroundColor: 'powderblue',
+        marginTop:10,
         borderRadius: 10,
-        alignItems: 'center', justifyContent: 'center'
+        alignItems: 'center', 
+        justifyContent: 'center'
     },
     line: {
-        backgroundColor: 'powderblue',
-        height: 2,
+        backgroundColor: 'grey',
+        height: 1,
         width: '95%',
         marginLeft: 6,
         marginBottom: 10
@@ -185,6 +187,12 @@ const styles = StyleSheet.create({
     },
     lineThroughButton: {
         textDecorationLine: 'line-through'
+    },
+    titleFont: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        paddingTop: 5,
     },
 });
 
