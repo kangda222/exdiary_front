@@ -170,10 +170,6 @@ function getDiaryContent(_diary_num, _page_num) {
       .then(response => response.json())
       .then(contents => {
         if (contents) {
-<<<<<<< HEAD
-=======
-          console.log("?????? true?");
->>>>>>> 38cb47908f3d85ee15ed9dea6ef85e33557813c1
           dispatch(setDiaryContent(contents));
           return true;
         }
