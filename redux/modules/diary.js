@@ -1,8 +1,10 @@
 import { API_URL } from "../../constants";
+import { actionCreators as userActions } from "./user";
 
 const SET_DIARY = "SET_DIARY";
 const SET_DIARYLIST = "SET_DIARYLIST";
 const SET_DIARYCONTENT = "SET_DIARYCONTENT";
+const SET_DIARYLISTCAl = "SET_DIARYLISTCAL";
 
 function setDiary(data) {
   return {
@@ -25,162 +27,175 @@ function setDiaryContent(diaryContent) {
   };
 }
 
+function setDiaryListCal(diaryList) {
+  return {
+    type: SET_DIARYLISTCAl,
+    diaryListCal: diaryList
+  };
+}
+
 //일기장 목록 가져오기
 function getDiary() {
   console.log("getDiary()");
   return (dispatch, getState) => {
-    const { user: {
-      profile:{email},
-      token
-    } } = getState();
+    const {
+      user: {
+        profile: { email },
+        token
+      }
+    } = getState();
 
     fetch(`${API_URL}/diary/getDiary`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
-        email: email,
-      }),
+        email: email
+      })
     })
-      .then((response) => response.json())
+      .then(response => response.json())
       .then(data => {
         dispatch(setDiary(data));
       })
-      .catch(e => e)
+      .catch(e => e);
   };
 }
 
-// 일기장 타이틀, 설명 변경 시 
+// 일기장 타이틀, 설명 변경 시
 function updateDiaryInfo(_diary_num, _diary_title, _explanation) {
   return (dispatch, getState) => {
-    const { user: {
-      token
-    } } = getState();
+    const {
+      user: { token }
+    } = getState();
 
     fetch(`${API_URL}/diary/updateDiaryInfo`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: _diary_num,
         diary_title: _diary_title,
         explanation: _explanation
-      }),
+      })
     })
-      .then((response) => response.json())
+      .then(response => response.json())
       .then(data => {
         dispatch(setDiary(data));
       })
-      .catch(e => e)
+      .catch(e => e);
   };
 }
 
-// 일기장 삭제 시 
+// 일기장 삭제 시
 function deleteDiary(_diary_num) {
   console.log("deleteDiary() : " + _diary_num);
   return (dispatch, getState) => {
-    const { user: {
-      token
-    } } = getState();
+    const {
+      user: { token }
+    } = getState();
 
     fetch(`${API_URL}/diary/deleteDiary`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
-        diary_num: _diary_num,
-      }),
+        diary_num: _diary_num
+      })
     })
-      .then((response) => response.json())
+      .then(response => response.json())
       .then(result => {
-        if(JSON.stringify(result)){
-          alert('일기장 삭제 완료');
+        if (JSON.stringify(result)) {
+          alert("일기장 삭제 완료");
           dispatch(getDiary());
         }
       })
-      .catch(e => e)
+      .catch(e => e);
   };
 }
 
 //일기 리스트 가져오기
 function getDiaryList(diary_num) {
-  console.log("getDiaryList ()  diary_num : " + diary_num)
+  console.log("getDiaryList ()  diary_num : " + diary_num);
   return (dispatch, getState) => {
-    const { user: {
-      token
-    } } = getState();
+    const {
+      user: { token }
+    } = getState();
 
     const result = fetch(`${API_URL}/diaryList/getDiaryList`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: diary_num
-      }),
-    }).then((response) => response.json())
+      })
+    })
+      .then(response => response.json())
       .then(diaryList => {
-        if(diaryList){
+        if (diaryList) {
           dispatch(setDiaryList(diaryList));
           return true;
         }
       })
-      .catch(e => e)
-      return result; 
+      .catch(e => e);
+    return result;
   };
 }
 
 //일기 내용 가져오기
 function getDiaryContent(_diary_num, _page_num) {
   return (dispatch, getState) => {
-    const { user: {
-      token
-    } } = getState();
+    const {
+      user: { token }
+    } = getState();
 
     const result = fetch(`${API_URL}/diaryList/getDiaryListContents`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: _diary_num,
         page_num: _page_num
       })
-    }).then((response => response.json()))
+    })
+      .then(response => response.json())
       .then(contents => {
         if (contents) {
-          console.log("?????? true?")
+          console.log("?????? true?");
           dispatch(setDiaryContent(contents));
           return true;
         }
       })
-      .catch(e => e)
-      console.log("result : " + result);
-      return result
+      .catch(e => e);
+    console.log("result : " + result);
+    return result;
   };
 }
 
 // 일기 내용 작성하기
-function insertDiaryContents(_diary_num, _title, _contents ) {
+function insertDiaryContents(_diary_num, _title, _contents) {
   return (dispatch, getState) => {
-    const { user: {
-      profile:{user_num, nickname},
-      token
-    } } = getState();
+    const {
+      user: {
+        profile: { user_num, nickname },
+        token
+      }
+    } = getState();
 
     const insertResult = fetch(`${API_URL}/diaryList/insertDiaryContents`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: _diary_num,
@@ -188,94 +203,153 @@ function insertDiaryContents(_diary_num, _title, _contents ) {
         title: _title,
         contents: JSON.stringify(_contents),
         nickname: nickname
-      }),
-    }).then((response) => response.json())
+      })
+    })
+      .then(response => response.json())
       .then(result => {
         if (JSON.stringify(result) > 0) {
-          alert('일기 작성 완료');
+          alert("일기 작성 완료");
           dispatch(getDiaryList(_diary_num));
           return true;
         } else {
-          alert('일기 작성 실패');
+          alert("일기 작성 실패");
           return false;
         }
       })
-      .catch(e => e)
+      .catch(e => e);
     return insertResult;
-  }
+  };
 }
 
-// 일기 내용 삭제 
+// 일기 내용 삭제
 function deleteDiaryContents(_diary_num, _page_num) {
-  console.log("deleteDiaryContents() _diary_num :" + _diary_num + "_page_num :" + _page_num);
+  console.log(
+    "deleteDiaryContents() _diary_num :" +
+      _diary_num +
+      "_page_num :" +
+      _page_num
+  );
   return (dispatch, getState) => {
-    const { user: {
-      token
-    } } = getState();
+    const {
+      user: { token }
+    } = getState();
 
     const deleteResult = fetch(`${API_URL}/diaryList/deleteDiaryContents`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: _diary_num,
         page_num: _page_num
-      }),
-    }).then((response) => response.json())
-        .then(result => {
-          if (JSON.stringify(result) > 0) {
-            alert('일기 삭제 완료');
-            dispatch(getDiaryList(_diary_num));
-            return true;
-          } else {
-            alert('일기 삭제 실패');
-            return false;
-          }
-        })
-        .catch(e => e)
+      })
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (JSON.stringify(result) > 0) {
+          alert("일기 삭제 완료");
+          dispatch(getDiaryList(_diary_num));
+          return true;
+        } else {
+          alert("일기 삭제 실패");
+          return false;
+        }
+      })
+      .catch(e => e);
     return deleteResult;
-  }
+  };
 }
 
 // 일기 내용 수정
 function updateDiaryContents(_diary_num, _page_num, _title, _contents) {
   console.log("updateDiaryContents()");
-  console.log("_diary_num : " + _diary_num + "_page_num : " + _page_num + "_title : "+ _title + "_contents : " + _contents)
+  console.log(
+    "_diary_num : " +
+      _diary_num +
+      "_page_num : " +
+      _page_num +
+      "_title : " +
+      _title +
+      "_contents : " +
+      _contents
+  );
   return (dispatch, getState) => {
-    const { user: { token }} = getState();
+    const {
+      user: { token }
+    } = getState();
     const updateResult = fetch(`${API_URL}/diaryList/updateDiaryContents`, {
-      method: 'post',
+      method: "post",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer " + token
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify({
         diary_num: _diary_num,
         page_num: _page_num,
         title: _title,
         contents: JSON.stringify(_contents)
-      }),
-     }).then((response) => response.json())
-        .then(result => {
-          if (JSON.stringify(result) > 0) {
-            alert('일기 수정 완료');
-            return true;
-          } else {
-            alert('일기 수정 실패');
-            return false;
-          }
-        })
-        .catch(e => e)
+      })
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (JSON.stringify(result) > 0) {
+          alert("일기 수정 완료");
+          return true;
+        } else {
+          alert("일기 수정 실패");
+          return false;
+        }
+      })
+      .catch(e => e);
     return updateResult;
-  }
+  };
+}
+
+//diaryList for Calender
+function getDiaryListForCal() {
+  console.log("getDiaryListForCal () : ");
+  return (dispatch, getState) => {
+    const {
+      user: {
+        profile: { email },
+        token
+      }
+    } = getState();
+    //console.log("getDiaryListForCal () : " + email);
+    const result = fetch(`${API_URL}/diaryList/getDiaryListForCal`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: "Bearer " + token
+      },
+      body: JSON.stringify({
+        email
+      })
+    })
+      .then(response => {
+        if (response.status === 403) {
+          dispatch(userActions.logOut());
+        } else {
+          return response.json();
+        }
+      })
+      .then(diaryList => {
+        if (diaryList) {
+          dispatch(setDiaryListCal(diaryList));
+          return true;
+        }
+      })
+      .catch(e => e);
+    return result;
+  };
 }
 
 const initialState = {
   myDiary: [],
   exDiary: [],
-  totalDiary: []
+  totalDiary: [],
+  diaryListCal: []
 };
 
 function reducer(state = initialState, action) {
@@ -286,6 +360,8 @@ function reducer(state = initialState, action) {
       return applySetDiaryList(state, action);
     case SET_DIARYCONTENT:
       return applySetDiaryContent(state, action);
+    case SET_DIARYLISTCAl:
+      return applySetDiaryListForCal(state, action);
     default:
       return state;
   }
@@ -295,17 +371,16 @@ function reducer(state = initialState, action) {
 function applySetDiary(state, action) {
   const { data } = action;
 
-  // 내일기, 교환일기 구분 
+  // 내일기, 교환일기 구분
   let ex = [];
   let my = [];
 
   if (data) {
     for (diary of data) {
       if (diary.diary_type === "exchange") {
-        ex.push(diary)
-      }
-      else {
-        my.push(diary)
+        ex.push(diary);
+      } else {
+        my.push(diary);
       }
     }
   }
@@ -319,7 +394,7 @@ function applySetDiary(state, action) {
 }
 
 function applySetDiaryList(state, action) {
-  console.log('applySetDiaryList ()');
+  console.log("applySetDiaryList ()");
   const { diaryList } = action;
   return {
     ...state,
@@ -328,7 +403,7 @@ function applySetDiaryList(state, action) {
 }
 
 function applySetDiaryContent(state, action) {
-  console.log('applySetDiaryContent ()');
+  console.log("applySetDiaryContent ()");
   const { diaryContent } = action;
   return {
     ...state,
@@ -336,16 +411,25 @@ function applySetDiaryContent(state, action) {
   };
 }
 
+function applySetDiaryListForCal(state, action) {
+  //console.log("applySetDiaryListForCal ()");
+  const { diaryListCal } = action;
+  return {
+    ...state,
+    diaryListCal
+  };
+}
 
 const actionCreators = {
   getDiary,
   getDiaryList,
   getDiaryContent,
-  updateDiaryInfo, 
+  updateDiaryInfo,
   deleteDiary,
   insertDiaryContents,
   deleteDiaryContents,
-  updateDiaryContents
+  updateDiaryContents,
+  getDiaryListForCal
 };
 
 export { actionCreators };
