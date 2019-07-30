@@ -94,7 +94,7 @@ const DiaryboxScreen = props => (
             />
           </View>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={{ color: 'grey', fontWeight: 'bold', marginBottom:10, marginTop:15 }}>교환일기 여부</Text>
+            <Text style={{ color: 'grey', fontWeight: 'bold', marginBottom:10, marginTop:15, marginLeft:5 }}>교환일기 여부</Text>
             <Switch onValueChange={props.handleToggleSwitch}
               value={props.switchValue}
             />

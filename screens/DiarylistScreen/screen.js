@@ -56,7 +56,7 @@ const DiarylistScreen = props => (
           width: '80%',
           height: '80%'
         }}>
-          <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: '45%' }}>
+          <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: '50%' }}>
             {props.diary_type == 'default' ? <Text style={styles.addFont}>당신의 일기를 추가하세요!</Text> : <Text style={styles.addFont}>친구와의 교환일기를 추가하세요!</Text>}
             <TouchableOpacity
               style={{ paddingTop: 10 }}
