@@ -1,42 +1,29 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Calendar } from "react-native-calendars";
+import { connect } from "react-redux";
+import Action from "./action";
+import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
-const vacation = { key: "vacation", color: "red" };
-const massage = { key: "massage", color: "blue" };
-const workout = { key: "workout", color: "green" };
+const mapStateToProps = state => {
+  // console.log(`calender state !!!!!!!!!!!!!!!!!!!`);
+  // console.log(state);
+  const {
+    diary: { diaryListCal, myDiary, exDiary }
+  } = state;
+  const myDNum = myDiary.length;
+  const exDNum = exDiary.length;
+  //console.log(`calender state !!!!!!!diaryListCal!!!!!!!!!!!! :: `);
+  //console.log(diaryListCal);
+  return { diaryListCal, myDNum, exDNum };
+};
 
-const CalendarScreen = () => (
-  <View style={styles.container}>
-    <Calendar
-      monthFormat={"yyyy MM"}
-      markedDates={{
-        "2019-07-16": { marked: true, dotColor: "red" },
-        "2019-07-17": {
-          dots: [vacation, massage, workout],
-          selected: true
-        }
-        //'2019-06-18': {marked: true, dotColor: 'red', activeOpacity: 0},
-        // '2012-05-19': {disabled: true, disableTouchEvent: true}
-      }}
-      markingType={"multi-dot"}
-      onDayPress={day => {
-        console.log("selected day", day);
-      }}
-      onMonthChange={month => {
-        console.log("month changed", month);
-      }}
-    />
-  </View>
-);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getDiaryListForCal: () => {
+      return dispatch(diaryActions.getDiaryListForCal());
+    }
+  };
+};
 
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center"
-  }
-});
-
-export default CalendarScreen;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Action);
