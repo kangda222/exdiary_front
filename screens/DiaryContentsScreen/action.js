@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import DiaryContentsScreen from "./screen";
 
 class Action extends Component {
@@ -8,7 +7,7 @@ class Action extends Component {
     const {
       navigation: {
         state: {
-          params: { title, write_date, nickname, diary_num, page_num }
+          params: { title, write_date, nickname, diary_num, page_num, diaryContent }
         }
       }
     } = props;
@@ -19,7 +18,7 @@ class Action extends Component {
       nickname,
       diary_num,
       page_num,
-      
+      diaryContent: (diaryContent) ? diaryContent : []
     }
   }
 

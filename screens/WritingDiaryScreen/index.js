@@ -2,7 +2,13 @@ import { connect } from 'react-redux'; // 컴포넌트를 스토어에 연결하
 import Action from './action';
 import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
-
+const mapStateToProps = (state) => {
+    const { diary: { diaryContent},
+    } = state;
+    return {
+        diaryContent 
+    };
+};
 
 // dispatch는 액션을 리듀서로 보내는 function 
 const mapDispatchToProps = (dispatch) => {
@@ -23,6 +29,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Action);

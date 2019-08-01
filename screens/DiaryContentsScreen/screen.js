@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import CNRichTextView from "react-native-cn-richtext-editor/src/CNRichTextView";
 import OptionsMenu from "react-native-options-menu";
 
-
 const MoreIcon = require("../../assets/images/icon_receiptpay.png");
 
 // 일기 내용 보여주기 
@@ -26,7 +25,7 @@ const DiaryContentsScreen = props => (
                             title: props.title,
                             contents: props.diaryContent
                         });
-                    }, () => { props.deleteContent(props.diary_num.toString(), props.page_num.toString()) }, () => { }]}
+                    }, () => { props.deleteContent(props.diary_num.toString(), props.page_num.toString()) }, () => {}]}
                 />
             </View>
             <View style={styles.lineStyle} />

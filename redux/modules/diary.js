@@ -175,13 +175,13 @@ function getDiaryContent(_diary_num, _page_num) {
         }
       })
       .catch(e => e);
-    console.log("result : " + result);
     return result;
   };
 }
 
 // 일기 내용 작성하기
 function insertDiaryContents(_diary_num, _title, _contents) {
+  console.log(" diary.js part 1 ");
   return (dispatch, getState) => {
     const {
       user: {
@@ -207,9 +207,10 @@ function insertDiaryContents(_diary_num, _title, _contents) {
       .then(response => response.json())
       .then(result => {
         if (JSON.stringify(result) > 0) {
+          console.log(" diary.js part 2 ");
           alert("일기 작성 완료");
           dispatch(getDiaryList(_diary_num));
-          return true;
+          return result;
         } else {
           alert("일기 작성 실패");
           return false;
@@ -263,16 +264,6 @@ function deleteDiaryContents(_diary_num, _page_num) {
 // 일기 내용 수정
 function updateDiaryContents(_diary_num, _page_num, _title, _contents) {
   console.log("updateDiaryContents()");
-  console.log(
-    "_diary_num : " +
-      _diary_num +
-      "_page_num : " +
-      _page_num +
-      "_title : " +
-      _title +
-      "_contents : " +
-      _contents
-  );
   return (dispatch, getState) => {
     const {
       user: { token }

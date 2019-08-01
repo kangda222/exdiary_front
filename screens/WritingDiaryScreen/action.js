@@ -116,7 +116,6 @@ class Action extends Component {
         
         형태로 쌓여나간다. 
         */
-
         this.setState({
             contents: value
         });
@@ -131,18 +130,18 @@ class Action extends Component {
 
     // 글쓰기 저장 
     _insertContents = async () => {
-        const { insertDiaryContents, getDiaryContent } = this.props;
+        const { insertDiaryContents, diaryContent} = this.props;
         const result = await insertDiaryContents(this.state.diary_num, this.state.title, this.state.contents);
+
         if (result) {
             this.props.navigation.navigate("DiaryContentsScreen", {
                 title: this.state.title,
-                write_date: '',
-                nickname: '',
-                page_num: '',
+                write_date: diaryContent[0].write_date,
+                nickname: diaryContent[0].nickname,
+                page_num: JSON.stringify(result), // 작성한 일기의 page_num 값 
                 diary_num: this.state.diary_num,
-                diaryContent:this.state.contents
+                diaryContent: diaryContent[0].contents
             });
-
         }
     }
 
@@ -241,10 +240,17 @@ class Action extends Component {
     // 컨텐츠 수정 시 
     _changeContent = () => {
         console.log("changeContent()");
-        const { updateDiaryContents } = this.props;
+        const { updateDiaryContents, diaryContent } = this.props;
         const result = updateDiaryContents(this.state.diary_num, this.state.page_num, this.state.title, this.state.contents);
         if (result) {
-            this.props.navigation.navigate("DiarylistScreen", {diary_num:this.state.diary_num, diaryContent:this.state.contents});
+            this.props.navigation.navigate("DiaryContentsScreen", {
+                title: this.state.title,
+                write_date: diaryContent[0].write_date,
+                nickname: diaryContent[0].nickname,
+                page_num: diaryContent[0].page_num,
+                diary_num: this.state.diary_num,
+                diaryContent: diaryContent[0].contents
+            });
         }
     }
 

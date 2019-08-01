@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         deleteDiaryContents: (_diary_num, _page_num) => {
             return dispatch(diaryActions.deleteDiaryContents(_diary_num, _page_num));
-        }
+        } 
     }
 };
 
