@@ -30,7 +30,7 @@ class Action extends Component {
       <Modal
         isVisible={this.props.isVisiblePassword}
         onBackdropPress={() => this._reset()}
-        style={{ width: width - 30 }}
+        style={{ width: width * 0.9 }}
       >
         {!this.state.isChange ? (
           <Container>
@@ -156,7 +156,7 @@ const IncorrectTxt = styled.Text`
 `;
 
 const TextInput = styled.TextInput`
-  width: ${((width - 30) * 2) / 3};
+  width: ${(width * 0.9 * 2) / 3};
   border-width: 1px;
   border-radius: 10;
   border-color: #ef9a9a;
@@ -168,7 +168,7 @@ const BtnCon = styled.View`
 
 const TouchableOpacity = styled.TouchableOpacity`
   margin-top: 10px;
-  width: ${(width - 30) / 2};
+  width: ${(width * 0.9) / 2};
   height: 50px;
   background-color: #ef9a9a;
   justify-content: center;
