@@ -11,7 +11,7 @@ class Action extends Component {
         }
       }
     } = props;
-
+    
     this.state = {
       title,
       write_date,

@@ -130,17 +130,16 @@ class Action extends Component {
 
     // 글쓰기 저장 
     _insertContents = async () => {
-        const { insertDiaryContents, diaryContent} = this.props;
+        const { insertDiaryContents } = this.props;
         const result = await insertDiaryContents(this.state.diary_num, this.state.title, this.state.contents);
-
         if (result) {
             this.props.navigation.navigate("DiaryContentsScreen", {
                 title: this.state.title,
-                write_date: diaryContent[0].write_date,
-                nickname: diaryContent[0].nickname,
+                write_date: this.props.diaryContent[0].write_date,
+                nickname: this.props.diaryContent[0].nickname,
                 page_num: JSON.stringify(result), // 작성한 일기의 page_num 값 
                 diary_num: this.state.diary_num,
-                diaryContent: diaryContent[0].contents
+                diaryContent: this.props.diaryContent[0].contents
             });
         }
     }

@@ -30,6 +30,7 @@ const DiarylistScreen = props => (
                   nickname: item.nickname,
                   page_num: item.page_num,
                   diary_num: item.diary_num,
+                  diaryContent: item.contents
                 });
               }
             }}>

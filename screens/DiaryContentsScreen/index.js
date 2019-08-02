@@ -5,16 +5,17 @@ import { actionCreators as diaryActions } from "../../redux/modules/diary";
 const mapStateToProps = (state, ownProps) => {
     const { diary: { diaryContent },
     } = state;
+
     return {
         diaryContent
     };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         deleteDiaryContents: (_diary_num, _page_num) => {
             return dispatch(diaryActions.deleteDiaryContents(_diary_num, _page_num));
-        } 
+        }
     }
 };
 

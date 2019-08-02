@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import CNRichTextView from "react-native-cn-richtext-editor/src/CNRichTextView";
 import OptionsMenu from "react-native-options-menu";
-
 const MoreIcon = require("../../assets/images/icon_receiptpay.png");
 
 // 일기 내용 보여주기 
@@ -19,7 +18,7 @@ const DiaryContentsScreen = props => (
                     //destructiveIndex={1}
                     options={["수정", "삭제", "취소"]}
                     actions={[() => {
-                        props.navigation.navigate("WritingDiaryScreen", {
+                          props.navigation.navigate("WritingDiaryScreen", {
                             diary_num: props.diary_num,
                             page_num: props.page_num,
                             title: props.title,

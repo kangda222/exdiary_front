@@ -3,10 +3,12 @@ import Action from './action';
 import { actionCreators as diaryActions } from "../../redux/modules/diary";
 
 const mapStateToProps = (state) => {
-    const { diary: { diaryContent},
+    const { diary: { diaryContent },
     } = state;
+
+    console.log("mapStateToProps : " + JSON.stringify(diaryContent));
     return {
-        diaryContent 
+        diaryContent
     };
 };
 

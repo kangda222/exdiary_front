@@ -168,9 +168,10 @@ function getDiaryContent(_diary_num, _page_num) {
       })
     })
       .then(response => response.json())
-      .then(contents => {
+      .then(async (contents) => {
         if (contents) {
-          dispatch(setDiaryContent(contents));
+          console.log("컨텐츠 뭔데 : " + JSON.stringify(contents));
+          await dispatch(setDiaryContent(contents));
           return true;
         }
       })
@@ -181,7 +182,6 @@ function getDiaryContent(_diary_num, _page_num) {
 
 // 일기 내용 작성하기
 function insertDiaryContents(_diary_num, _title, _contents) {
-  console.log(" diary.js part 1 ");
   return (dispatch, getState) => {
     const {
       user: {
@@ -205,11 +205,12 @@ function insertDiaryContents(_diary_num, _title, _contents) {
       })
     })
       .then(response => response.json())
-      .then(result => {
+      .then(async (result) => {
         if (JSON.stringify(result) > 0) {
-          console.log(" diary.js part 2 ");
-          alert("일기 작성 완료");
-          dispatch(getDiaryList(_diary_num));
+          alert("일기 작성 완료 result 는 " + JSON.stringify(result));
+          // dispatch(getDiaryList(_diary_num));
+          await dispatch(getDiaryContent(_diary_num, JSON.stringify(result)))
+
           return result;
         } else {
           alert("일기 작성 실패");
@@ -219,16 +220,11 @@ function insertDiaryContents(_diary_num, _title, _contents) {
       .catch(e => e);
     return insertResult;
   };
+
 }
 
 // 일기 내용 삭제
 function deleteDiaryContents(_diary_num, _page_num) {
-  console.log(
-    "deleteDiaryContents() _diary_num :" +
-      _diary_num +
-      "_page_num :" +
-      _page_num
-  );
   return (dispatch, getState) => {
     const {
       user: { token }
@@ -395,6 +391,7 @@ function applySetDiaryList(state, action) {
 function applySetDiaryContent(state, action) {
   console.log("applySetDiaryContent ()");
   const { diaryContent } = action;
+  console.log("diaryContent : " + JSON.stringify(diaryContent));
   return {
     ...state,
     diaryContent
