@@ -12,7 +12,7 @@ const mapStateToProps = state => {
   const exDNum = exDiary.length;
   //console.log(`calender state !!!!!!!diaryListCal!!!!!!!!!!!! :: `);
   //console.log(diaryListCal);
-  return { diaryListCal, myDNum, exDNum };
+  return { diaryListCal, myDNum, exDNum, exDiary };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

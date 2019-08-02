@@ -6,13 +6,13 @@ const CalenderScreen = props => (
   <Calendar
     monthFormat={"yyyy MM"}
     markedDates={props.markedDates()}
-    //markingType={"multi-dot"}
+    markingType={"multi-dot"}
     onDayPress={day => {
       console.log("selected day", day);
     }}
-    onMonthChange={month => {
-      console.log("month changed", month);
-    }}
+    // onMonthChange={month => {
+    //   console.log("month changed", month);
+    // }}
   />
 );
 
