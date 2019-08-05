@@ -53,7 +53,6 @@ class Action extends Component {
 
   // 취소 선택 시 
   _cancel = () => {
-    console.log("_cancel ()");
   }
 }
 

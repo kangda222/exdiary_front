@@ -5,8 +5,6 @@ import { actionCreators as diaryActions } from "../../redux/modules/diary";
 const mapStateToProps = (state) => {
     const { diary: { diaryContent },
     } = state;
-
-    console.log("mapStateToProps : " + JSON.stringify(diaryContent));
     return {
         diaryContent
     };
@@ -18,10 +16,6 @@ const mapDispatchToProps = (dispatch) => {
         // 일기 내용 작성
         insertDiaryContents: (_diary_num, _title, _contents) => {
             return dispatch(diaryActions.insertDiaryContents(_diary_num, _title, _contents));
-        },
-        // 일기 내용 가져오기 
-        getDiaryContent: (diary_num, page_num) => {
-            return dispatch(diaryActions.getDiaryContent(diary_num, page_num));
         },
         // 일기 내용 수정하기
         updateDiaryContents: (diary_num, page_num, title, contents) => {

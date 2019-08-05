@@ -268,13 +268,6 @@ function sendExchangeRequest(ex_title, ex_diary_num, member, inviter) {
       profile: { email, user_num },
       token,
     } } = getState();
-
-    console.log("초대자 이메일 :" + String(email) + "초대자 유저번호 :" + user_num + "초대자 닉네임:" + inviter);
-
-    console.log("교환일기 타이틀 :" + ex_title + "교환일기 번호:" + ex_diary_num);
-
-    console.log("멤버 :" + member);
-
     const result = fetch(`${API_URL}/user/insertExchangeRequest`, {
       method: 'post',
       headers: {

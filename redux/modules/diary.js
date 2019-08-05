@@ -170,7 +170,6 @@ function getDiaryContent(_diary_num, _page_num) {
       .then(response => response.json())
       .then(async (contents) => {
         if (contents) {
-          console.log("컨텐츠 뭔데 : " + JSON.stringify(contents));
           await dispatch(setDiaryContent(contents));
           return true;
         }
@@ -207,10 +206,7 @@ function insertDiaryContents(_diary_num, _title, _contents) {
       .then(response => response.json())
       .then(async (result) => {
         if (JSON.stringify(result) > 0) {
-          alert("일기 작성 완료 result 는 " + JSON.stringify(result));
-          // dispatch(getDiaryList(_diary_num));
           await dispatch(getDiaryContent(_diary_num, JSON.stringify(result)))
-
           return result;
         } else {
           alert("일기 작성 실패");
@@ -302,7 +298,6 @@ function getDiaryListForCal() {
         token
       }
     } = getState();
-    //console.log("getDiaryListForCal () : " + email);
     const result = fetch(`${API_URL}/diaryList/getDiaryListForCal`, {
       method: "post",
       headers: {
@@ -391,7 +386,6 @@ function applySetDiaryList(state, action) {
 function applySetDiaryContent(state, action) {
   console.log("applySetDiaryContent ()");
   const { diaryContent } = action;
-  console.log("diaryContent : " + JSON.stringify(diaryContent));
   return {
     ...state,
     diaryContent
@@ -399,7 +393,6 @@ function applySetDiaryContent(state, action) {
 }
 
 function applySetDiaryListForCal(state, action) {
-  //console.log("applySetDiaryListForCal ()");
   const { diaryListCal } = action;
   return {
     ...state,

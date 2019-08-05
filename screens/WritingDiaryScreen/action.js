@@ -142,7 +142,6 @@ class Action extends Component {
                 diaryContent: this.props.diaryContent[0].contents
             });
             this.setState({page_num : JSON.stringify(result)});
-            console.log("this.state.page_num :" + this.state.page_num);
         }
     }
 

@@ -8,7 +8,6 @@ import Modal from 'react-native-modal';
 const defaultStyles = getDefaultStyles();
 
 const WritingDiaryScreen = props => {
-    console.log("props :" + JSON.stringify(props));
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', padding: 5 }}>
