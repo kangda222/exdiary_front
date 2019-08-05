@@ -16,6 +16,7 @@ const ModalScreen = props => (
     onBackdropPress={() => props.toggleModal()}
     onSwipeComplete={() => props.toggleModal()}
     swipeDirection="right"
+    style={{ position: "absolute", height: height - STATUSBAR_HEIGHT * 2 }}
   >
     <Container>
       <Profile>

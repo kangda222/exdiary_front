@@ -4,6 +4,8 @@ import { Dimensions, Alert } from "react-native";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
 
+const { width } = Dimensions.get("window");
+
 class Action extends Component {
   constructor(props) {
     super(props);
@@ -23,15 +25,16 @@ class Action extends Component {
   };
 
   render() {
-    //console.log(width, height);
+    //console.log(width);
     return (
       <Modal
         isVisible={this.props.isVisiblePassword}
         onBackdropPress={() => this._reset()}
+        style={{ width: width * 0.9 }}
       >
         {!this.state.isChange ? (
           <Container>
-            <Text>비밀번호 변경!!</Text>
+            <Text>비밀번호 확인</Text>
             <TextInput
               placeholder="Password"
               autoCapitalize={"none"}
@@ -40,16 +43,22 @@ class Action extends Component {
               onChangeText={this._changePassword}
               //onSubmitEditing={props.submit}
             />
-            {!this.state.isCorrect ? <Text>불일치</Text> : null}
-            <Button
-              title="확인"
-              onPress={() => this._checkPassword(this.state.password)}
-            />
-            <Button title="취소" onPress={() => this._reset()} />
+            {!this.state.isCorrect ? <IncorrectTxt>불일치</IncorrectTxt> : null}
+            <BtnCon>
+              <TouchableOpacity
+                onPressOut={() => this._checkPassword(this.state.password)}
+              >
+                <Button>확인</Button>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPressOut={() => this._reset()}>
+                <Button>취소</Button>
+              </TouchableOpacity>
+            </BtnCon>
           </Container>
         ) : (
           <Container>
-            <Text>비밀번호</Text>
+            <Text>새로운 비밀번호</Text>
             <TextInput
               placeholder="Password"
               autoCapitalize={"none"}
@@ -65,12 +74,19 @@ class Action extends Component {
               value={this.state.password2}
               onChangeText={this._changePassword2}
             />
-            {!this.state.isCorrect ? <Text>불일치 합니다</Text> : null}
-            <Button title="취소" onPress={() => this._reset()} />
-            <Button
-              title="변경"
-              onPress={() => this._submit(this.state.password)}
-            />
+            {!this.state.isCorrect ? (
+              <IncorrectTxt>불일치 합니다</IncorrectTxt>
+            ) : null}
+            <BtnCon>
+              <TouchableOpacity onPressOut={() => this._reset()}>
+                <Button>취소</Button>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPressOut={() => this._submit(this.state.password)}
+              >
+                <Button>변경</Button>
+              </TouchableOpacity>
+            </BtnCon>
           </Container>
         )}
       </Modal>
@@ -110,7 +126,12 @@ class Action extends Component {
   };
 
   _reset = () => {
-    this.setState({ password: "", password2: "", isChange: false });
+    this.setState({
+      password: "",
+      password2: "",
+      isChange: false,
+      isCorrect: true
+    });
     this.props.toggleModal();
   };
 
@@ -122,12 +143,40 @@ class Action extends Component {
 
 const Container = styled.View`
   background-color: #fff;
+  align-items: center;
 `;
 
-const Text = styled.Text``;
+const Text = styled.Text`
+  margin: 10px;
+`;
 
-const TextInput = styled.TextInput``;
+const IncorrectTxt = styled.Text`
+  margin: 10px;
+  color: red;
+`;
 
-const Button = styled.Button``;
+const TextInput = styled.TextInput`
+  width: ${(width * 0.9 * 2) / 3};
+  border-width: 1px;
+  border-radius: 10;
+  border-color: #ef9a9a;
+`;
+
+const BtnCon = styled.View`
+  flex-direction: row;
+`;
+
+const TouchableOpacity = styled.TouchableOpacity`
+  margin-top: 10px;
+  width: ${(width * 0.9) / 2};
+  height: 50px;
+  background-color: #ef9a9a;
+  justify-content: center;
+`;
+
+const Button = styled.Text`
+  text-align: center;
+  font-weight: bold;
+`;
 
 export default Action;
