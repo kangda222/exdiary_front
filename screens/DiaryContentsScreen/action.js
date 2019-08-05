@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import DiaryContentsScreen from "./screen";
+import {convertToHtmlString} from "react-native-cn-richtext-editor/src/Convertors";
 
 class Action extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Action extends Component {
       nickname,
       diary_num,
       page_num,
-      diaryContent: (diaryContent) ? diaryContent : []
+      diaryContent: (diaryContent) ? convertToHtmlString(JSON.parse(diaryContent)) : []
     }
   }
 
