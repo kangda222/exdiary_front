@@ -260,7 +260,7 @@ function deleteDiaryContents(_diary_num, _page_num) {
 // 일기 내용 수정
 function updateDiaryContents(_diary_num, _page_num, _title, _contents) {
   console.log("updateDiaryContents()");
-  return (dispatch, getState) => {
+  return (getState) => {
     const {
       user: { token }
     } = getState();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from 'react-native-gesture-handler';
 import CNRichTextEditor, { CNToolbar, getDefaultStyles } from "react-native-cn-richtext-editor";
@@ -8,6 +8,7 @@ import Modal from 'react-native-modal';
 const defaultStyles = getDefaultStyles();
 
 const WritingDiaryScreen = props => {
+    console.log("props :" + JSON.stringify(props));
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', padding: 5 }}>
@@ -18,13 +19,14 @@ const WritingDiaryScreen = props => {
                     onFocus={props.focused}
                     onEndEditing={props.unfocused}
                 />
-                {props.diary_num && props.page_num ? <TouchableOpacity style={styles.button} onPressOut={
-                 props.changeContent
+                {(props.diary_num && props.page_num) ? <TouchableOpacity style={styles.button} onPressOut={() => {
+                    props.changeContent();
+                }
                 }><Text>수정</Text></TouchableOpacity> :
-                <TouchableOpacity style={styles.button} 
-                onPressOut={ () => {
-                   props.insertContents();
-                }}><Text>저장</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.button}
+                        onPressOut={() => {
+                            props.insertContents();
+                        }}><Text>저장</Text></TouchableOpacity>
                 }
             </View>
 
@@ -123,9 +125,9 @@ const styles = StyleSheet.create({
         width: 40,
         height: 30,
         backgroundColor: 'powderblue',
-        marginTop:10,
+        marginTop: 10,
         borderRadius: 10,
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center'
     },
     line: {

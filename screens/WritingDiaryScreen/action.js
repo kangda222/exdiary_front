@@ -20,14 +20,14 @@ class Action extends Component {
             focused_title: '',
             image: null,
             isModalVisible: null,
-
             //편집기 관련 
             selectedTag: 'body',
             selectedStyles: [],
             contents: (contents) ? contents : [getInitialObject()],
             diary_num,
-            page_num
+            page_num,
         };
+
         this.editor = null;
     }
 
@@ -141,6 +141,8 @@ class Action extends Component {
                 diary_num: this.state.diary_num,
                 diaryContent: this.props.diaryContent[0].contents
             });
+            this.setState({page_num : JSON.stringify(result)});
+            console.log("this.state.page_num :" + this.state.page_num);
         }
     }
 

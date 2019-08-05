@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import CNRichTextView from "react-native-cn-richtext-editor/src/CNRichTextView";
 import OptionsMenu from "react-native-options-menu";
+import {convertToObject} from "react-native-cn-richtext-editor/src/Convertors";
 
 const MoreIcon = require("../../assets/images/icon_receiptpay.png");
 // 일기 내용 보여주기 
@@ -22,10 +23,9 @@ const DiaryContentsScreen = props => (
                             diary_num: props.diary_num,
                             page_num: props.page_num,
                             title: props.title,
-                            contents: props.diaryContent
+                            contents: convertToObject(props.diaryContent)
                         });
                     }, () => { props.deleteContent(props.diary_num.toString(), props.page_num.toString()) }, () => {
-                        console.log("props.diaryContent :" + props.diaryContent);
                     }]}
                 />
             </View>
