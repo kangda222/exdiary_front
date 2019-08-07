@@ -141,7 +141,7 @@ class Action extends Component {
                 diary_num: this.state.diary_num,
                 diaryContent: this.props.diaryContent[0].contents
             });
-            this.setState({page_num : JSON.stringify(result)});
+            this.setState({ page_num: JSON.stringify(result) });
         }
     }
 
@@ -240,16 +240,17 @@ class Action extends Component {
     // 컨텐츠 수정 시 
     _changeContent = () => {
         console.log("changeContent()");
-        const { updateDiaryContents, diaryContent } = this.props;
+        const { updateDiaryContents } = this.props;
         const result = updateDiaryContents(this.state.diary_num, this.state.page_num, this.state.title, this.state.contents);
+
         if (result) {
             this.props.navigation.navigate("DiaryContentsScreen", {
                 title: this.state.title,
-                write_date: diaryContent[0].write_date,
-                nickname: diaryContent[0].nickname,
-                page_num: diaryContent[0].page_num,
+                write_date: this.props.diaryContent[0].write_date,
+                nickname: this.props.diaryContent[0].nickname,
+                page_num: this.props.diaryContent[0].page_num,
                 diary_num: this.state.diary_num,
-                diaryContent: diaryContent[0].contents
+                diaryContent: ''
             });
         }
     }

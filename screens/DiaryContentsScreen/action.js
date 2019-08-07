@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DiaryContentsScreen from "./screen";
-import {convertToHtmlString} from "react-native-cn-richtext-editor/src/Convertors";
+import { convertToHtmlString } from "react-native-cn-richtext-editor/src/Convertors";
 
 class Action extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Action extends Component {
         }
       }
     } = props;
-    
+
     this.state = {
       title,
       write_date,
@@ -22,7 +22,6 @@ class Action extends Component {
       diaryContent: (diaryContent) ? convertToHtmlString(JSON.parse(diaryContent)) : []
     }
   }
-
   render() {
     return <DiaryContentsScreen
       {...this.props}
@@ -33,11 +32,11 @@ class Action extends Component {
   }
 
   // 컨텐츠 삭제 시 
-  _deleteContent = async(_diary_num, _page_num) => {
+  _deleteContent = async (_diary_num, _page_num) => {
     console.log("deleteContent()");
     const { deleteDiaryContents } = this.props;
     const result = await deleteDiaryContents(_diary_num, _page_num);
-    if(result){
+    if (result) {
       this.props.navigation.navigate("DiarylistScreen");
     }
   }

@@ -256,10 +256,14 @@ function deleteDiaryContents(_diary_num, _page_num) {
 // 일기 내용 수정
 function updateDiaryContents(_diary_num, _page_num, _title, _contents) {
   console.log("updateDiaryContents()");
-  return (getState) => {
+  
+  console.log("_diary_num : "+ _diary_num + "_page_num :" + _page_num + "_title :" + _title);
+
+  return (dispatch, getState) => {
     const {
       user: { token }
     } = getState();
+
     const updateResult = fetch(`${API_URL}/diaryList/updateDiaryContents`, {
       method: "post",
       headers: {
@@ -274,9 +278,10 @@ function updateDiaryContents(_diary_num, _page_num, _title, _contents) {
       })
     })
       .then(response => response.json())
-      .then(result => {
+      .then(async (result) => {
         if (JSON.stringify(result) > 0) {
           alert("일기 수정 완료");
+          await dispatch(getDiaryContent(_diary_num, _page_num));
           return true;
         } else {
           alert("일기 수정 실패");

@@ -16,7 +16,6 @@ const DiaryContentsScreen = props => (
                 <OptionsMenu
                     button={MoreIcon}
                     buttonStyle={{ width: 20, height: 20, resizeMode: "contain" }}
-                    //destructiveIndex={1}
                     options={["수정", "삭제", "취소"]}
                     actions={[() => {
                           props.navigation.navigate("WritingDiaryScreen", {
@@ -25,8 +24,7 @@ const DiaryContentsScreen = props => (
                             title: props.title,
                             contents: convertToObject(props.diaryContent)
                         });
-                    }, () => { props.deleteContent(props.diary_num.toString(), props.page_num.toString()) }, () => {
-                    }]}
+                    }, () => { props.deleteContent(props.diary_num.toString(), props.page_num.toString()) }, () => {}]}
                 />
             </View>
             <View style={styles.lineStyle} />
