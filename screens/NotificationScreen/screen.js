@@ -5,15 +5,12 @@ import {
     View,
     FlatList,
     TouchableOpacity,
-    Keyboard
 } from "react-native";
 import Modal from 'react-native-modal';
-import { Ionicons } from "@expo/vector-icons";
 
 
 const NotificationScreen = props => (
-    <View>
-        <Text>알림!!!!!!</Text>
+    <View style={styles.container}>
         {props.notificationList.length > 0 ?
             <FlatList
                 data={props.notificationList}
@@ -36,7 +33,7 @@ const NotificationScreen = props => (
                         <View style={styles.line} />
                     </View>
                 }
-            /> : <Text>알림이 없습니다.</Text>
+            /> : <Text style={styles.nonNotificationText}>알림이 없습니다</Text>
         }
          {props.isModalVisible ?
             <Modal isVisible={props.isModalVisible}
@@ -86,6 +83,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 10
     },
+    nonNotificationText: {
+        color: "grey",
+        fontSize: 17,
+        fontWeight:"bold"
+    }
 });
 
 
