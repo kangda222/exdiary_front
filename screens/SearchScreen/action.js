@@ -25,7 +25,6 @@ class Action extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("userList?? :" + nextProps.userList.length);
         if (nextProps.userList.length !== prevState.prevUserList.length) {
             console.log('getDerivedStateFromProps() List Update...');
             return {

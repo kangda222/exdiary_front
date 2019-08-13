@@ -40,12 +40,12 @@ const UserSearchScreen = props => (
                     onRefresh={props.userSearch}
                     renderItem={({ item }) => (
                         // 프로필 이미지 추가 필요 
-                        <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row', marginTop: 5 }}>
                             <Text>{item.nickname} </Text>
-                            <Text>{item.email}</Text>
+                            <Text>{item.email} </Text>
                             <OptionsMenu
                                 button={MoreIcon}
-                                buttonStyle={{ width: 20, height: 20, margin: 7.5, resizeMode: "contain" }}
+                                buttonStyle={{ width: 25, height: 25, resizeMode: "contain" }}
                                 //destructiveIndex={1}
                                 options={["정보", "교환일기 신청", "취소"]}
                                 actions={[() => {
@@ -63,7 +63,7 @@ const UserSearchScreen = props => (
                                         item.nickname,
                                         item.user_num
                                     )
-                                }, ()=>{}]}
+                                }, () => { }]}
                             />
                         </View>
                     )} />
@@ -75,15 +75,15 @@ const UserSearchScreen = props => (
             >
                 <View style={{ backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
                     <View>
-                        {props.profile_img ? <Text>{props.profile_img}</Text> : <Text>디폴트 이미지 준비필요</Text>}
+                        {props.profile_img ? <Text style={styles.modalText}>{props.profile_img}</Text> : <Ionicons name="ios-contact" size={50} />}
 
-                        <Text>{props.email}</Text>
+                        <Text style={styles.modalText}>{props.email}</Text>
 
-                        <Text>{props.nickname}</Text>
+                        <Text style={styles.modalText}>{props.nickname}</Text>
 
-                        {props.phoneNumber ? <Text>{props.phoneNumber}</Text> : <Text>비밀이에욤</Text>}
+                        {props.phoneNumber ? <Text style={styles.modalText}>{props.phoneNumber}</Text> : <Text style={styles.modalText}>비밀이에욤</Text>}
 
-                        {props.phoneNumber ? <Text>{props.gender}</Text> : <Text>비밀이에욤</Text>}
+                        {props.phoneNumber ? <Text style={styles.modalText}>{props.gender}</Text> : <Text style={styles.modalText}>비밀이에욤</Text>}
 
                     </View>
                     <View style={{ flexDirection: 'row' }}>
@@ -108,18 +108,20 @@ const UserSearchScreen = props => (
                             <ModalDropdown options={props.exDiaryTitleList}
                                 onSelect={(index) => props.getSelectedIndeX(index)}
                                 defaultValue={"교환할 교환일기를 선택해주세요"}
+                                textStyle={styles.modalText}
+                                dropdownTextStyle={styles.modalText}
                             /> : null}
-                        <Text>초대자 : {props.inviter}</Text>
-                        <Text>교환 멤버 : {props.nickname}</Text>
+                        <Text style={styles.modalText}>초대자 : {props.inviter}</Text>
+                        <Text style={styles.modalText}>교환 멤버 : {props.nickname}</Text>
                     </View>
-                    <Text>전송하시겠습니까?</Text>
+                    <Text style={{fontSize: 18,color: '#263238',fontWeight: "bold",marginBottom: 5,marginTop: 20}}>전송하시겠습니까?</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity onPressOut={props.toggleModalVisible} style={styles.modalbutton}>
-                            <Text>취소</Text>
+                            <Text style={styles.modalText}>취소</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPressOut={() => props.exchangeRequest()}
                             style={styles.modalbutton}>
-                            <Text>확인</Text>
+                            <Text style={styles.modalText}>확인</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -136,18 +138,32 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     TextInput: {
+        marginTop: 2,
         borderRadius: 5,
         marginBottom: 2,
-        marginRight: 5,
-        borderBottomColor: 'red',
+        marginRight: 8,
+        borderBottomColor: 'grey',
         borderBottomWidth: 1,
     },
     modalbutton: {
         width: '50%',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 25,
+        marginBottom: 30
+    },
+    modalText: {
+        fontSize: 18,
+        color: '#263238',
+        fontWeight: "bold",
+        marginBottom: 5,
         marginTop: 10
     },
+    dropDownText: {
+        fontSize: 16,
+        color: "grey",
+        fontWeight: "bold"
+    }
 });
 
 export default UserSearchScreen;
