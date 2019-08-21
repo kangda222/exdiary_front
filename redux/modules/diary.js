@@ -40,10 +40,12 @@ function getDiary() {
   return (dispatch, getState) => {
     const {
       user: {
-        profile: { email },
+        profile:{user_num},
         token
       }
     } = getState();
+
+    console.log("user_num : " + user_num);
 
     fetch(`${API_URL}/diary/getDiary`, {
       method: "post",
@@ -52,7 +54,7 @@ function getDiary() {
         Authorization: "Bearer " + token
       },
       body: JSON.stringify({
-        email: email
+        user_num: user_num
       })
     })
       .then(response => response.json())
